@@ -5,4 +5,5 @@
     <string name="flag_text">Η σημαία ανήκει στη χώρα </string>
     <string name="coat_of_arms_text">Το εθνόσημο ανήκει στη χώρα </string>
     <string name="play_button">Ξεκινήστε</string>
+    <string name="question">Σε ποιά χώρα ανήκει η σημαία που βλέπετε;</string>
 </resources>

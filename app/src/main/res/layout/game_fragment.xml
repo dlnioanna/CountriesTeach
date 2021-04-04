@@ -1,132 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2018, The Android Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="gameViewModel"
             type="unipi.protal.countriesteach.screens.game.GameViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/game_layout"
+    <ScrollView
+        android:id="@+id/questions_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.game.GameFragment">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <Button
-            android:id="@+id/skip_button"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/game_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/skip"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            android:layout_margin="@dimen/vertical_margin"
+            tools:context=".screens.game.GameFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="96dp" />
+            <Button
+                android:id="@+id/skip_button"
+                style="@style/nextButtonLayout"
+                android:text="@string/skip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-        <ImageView
-            android:id="@+id/flagImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/image_margin_start_end"
-            android:layout_marginEnd="@dimen/image_margin_start_end"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/questionText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@android:drawable/ic_menu_mapmode" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="124dp" />
 
-        <TextView
-            android:id="@+id/questionText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="sans-serif"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:text="Ερώτηση"
-            android:textSize="@dimen/question_text_size"
-            android:textStyle="bold"
-            android:typeface="normal"
-            app:layout_constraintBottom_toTopOf="@+id/questionRadioGroup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flagImage"
-            tools:text="What color is the Android mascot?" />
+            <ImageView
+                android:id="@+id/flagImage"
+                android:layout_width="248dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/image_margin_start_end"
+                android:layout_marginEnd="@dimen/image_margin_start_end"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/questionText"
+                app:layout_constraintDimensionRatio="8:5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@android:drawable/ic_menu_mapmode" />
 
-        <RadioGroup
-            android:id="@+id/questionRadioGroup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questionText"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline">
-
-            <RadioButton
-                android:id="@+id/firstAnswerRadioButton"
+            <TextView
+                android:id="@+id/questionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/question_margin"
-                android:checked="true"
-                android:text="Απάντηση 1"
-                android:textSize="@dimen/answer_text_size"
-                tools:text="Blue" />
+                android:layout_marginTop="@dimen/question_margin"
+                android:layout_marginBottom="@dimen/question_margin"
+                android:fontFamily="sans-serif"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:text="@string/question"
+                android:textAlignment="center"
+                android:textSize="@dimen/question_text_size"
+                android:textStyle="bold"
+                android:typeface="normal"
+                app:layout_constraintBottom_toTopOf="@+id/answers_grid_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/flagImage"
+                tools:text="Σε ποιά χώρα ανήκει η σημαία που βλέπετε;" />
 
-            <RadioButton
-                android:id="@+id/secondAnswerRadioButton"
+
+            <GridLayout
+                android:id="@+id/answers_grid_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/question_margin"
-                android:text="Απάντηση 2"
-                android:textSize="@dimen/answer_text_size"
-                tools:text="Green" />
+                android:columnCount="2"
+                android:orientation="horizontal"
+                android:rowCount="2"
+                android:layout_marginTop="@dimen/grid_margin"
+                android:layout_marginBottom="@dimen/grid_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/questionText">
 
-            <RadioButton
-                android:id="@+id/thirdAnswerRadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/question_margin"
-                android:text="Απάντηση 3"
-                android:textSize="@dimen/answer_text_size"
-                tools:text="Yellow" />
-            <RadioButton
-                android:id="@+id/fourthAnswerRadioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/question_margin"
-                android:text="Απάντηση 3"
-                android:textSize="@dimen/answer_text_size"
-                tools:text="Yellow" />
-        </RadioGroup>
+                <Button
+                    android:id="@+id/firstAnswerRadioButton"
+                    style="@style/answerButtonLayout"
+                    android:text="Ελλάδα"
+                    tools:text="Greece" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/secondAnswerRadioButton"
+                    style="@style/answerButtonLayout"
+                    android:text="Ιταλία"
+                    tools:text="Italy" />
+
+                <Button
+                    android:id="@+id/thirdAnswerRadioButton"
+                    style="@style/answerButtonLayout"
+                    android:text="Ισπανία"
+                    tools:text="Spain" />
+
+                <Button
+                    android:id="@+id/fourthAnswerRadioButton"
+                    style="@style/answerButtonLayout"
+                    android:text="Κύπρος"
+                    tools:text="Cyprus" />
+            </GridLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
