@@ -5,5 +5,12 @@
     <string name="flag_text">Η σημαία ανήκει στη χώρα </string>
     <string name="coat_of_arms_text">Το εθνόσημο ανήκει στη χώρα </string>
     <string name="play_button">Ξεκινήστε</string>
+    <string name="europe_string">Ευρώπη</string>
+    <string name="asia_string">Ασία</string>
+    <string name="america_string">Αμερική</string>
+    <string name="africa_string">Αφρική</string>
+    <string name="oceania_string">Ωκεανία</string>
+    <string name="antarctica_string">Ανταρκτική</string>
+    <string name="worldwide_string">Όλες οι ήπειροι</string>
     <string name="question">Σε ποιά χώρα ανήκει η σημαία που βλέπετε;</string>
 </resources>
