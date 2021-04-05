@@ -13,10 +13,17 @@
     <color name="grey_button_color">#606060</color>
     <color name="white_text_color">#ffffff</color>
     <color name="color_europe">#9EDCE4</color>
+    <color name="color_europe_dark">#85B9BF</color>
     <color name="color_america">#9DC8DC</color>
+    <color name="color_america_dark">#84A6B6</color>
     <color name="color_africa">#94ABD3</color>
+    <color name="color_africa_dark">#6F7F9C</color>
     <color name="color_antarctica">#D7C8F3</color>
+    <color name="color_antarctica_dark">#998EAE</color>
     <color name="color_asia">#EFC8C6</color>
+    <color name="color_asia_dark">#B59997</color>
     <color name="color_oceania">#AEE4CA</color>
-    <color name="color_worldwide">#E0C6E4</color>
+    <color name="color_oceania_dark">#7DA391</color>
+    <color name="color_world">#E0C6E4</color>
+    <color name="color_wolrd_dark">#99889C</color>
 </resources>

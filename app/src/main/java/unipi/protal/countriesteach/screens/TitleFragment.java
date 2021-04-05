@@ -25,11 +25,53 @@ public class TitleFragment extends Fragment {
                 inflater, R.layout.title_fragment, container, false);
         View view = binding.getRoot();
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        //here data must be an instance of the class
-        binding.playGameButton.setOnClickListener(new View.OnClickListener() {
+        // ΕΥΡΩΠΗ
+        binding.europeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             navController.navigate(R.id.action_titleFragment_to_gameFragment);
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(1));
+            }
+        });
+        // ΑΜΕΡΙΚΗ
+        binding.americaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(2));
+            }
+        });
+        // ΑΣΙΑ
+        binding.asiaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(3));
+            }
+        });
+        //ΑΦΡΙΚΗ
+        binding.africaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(4));
+            }
+        });
+        //ΩΚΕΑΝΙΑ
+        binding.oceaniaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(5));
+            }
+        });
+        //ΑΝΤΑΡΚΤΙΚΗ
+        binding.antarcticaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(6));
+            }
+        });
+        // ΚΟΣΜΟΣ
+        binding.worldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(7));
             }
         });
         return binding.getRoot();

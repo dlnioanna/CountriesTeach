@@ -21,9 +21,9 @@ public class GameFragment extends Fragment {
         GameFragmentBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.game_fragment, container, false);
         View view = binding.getRoot();
-        //here data must be an instance of the class
-        //binding.setMarsdata(data);
-
+        int cointinentId=GameFragmentArgs.fromBundle(getArguments()).getContinentId();
+        String s = String.valueOf(cointinentId);
+       binding.questionText.setText(s);
         return binding.getRoot();
     }
 }

@@ -2,22 +2,23 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
     <dimen name="image_header_height">192dp</dimen>
     <dimen name="vertical_margin">16dp</dimen>
     <dimen name="horizontal_margin">8dp</dimen>
     <dimen name="button_padding">16dp</dimen>
-    <dimen name="button_margin">4dp</dimen>
+    <dimen name="button_margin">16dp</dimen>
     <dimen name="button_text_size">18sp</dimen>
     <dimen name="continent_margin_left_right">64dp</dimen>
     <dimen name="continent_margin_top_bottom">16dp</dimen>
     <dimen name="question_margin">32dp</dimen>
     <dimen name="grid_margin">16dp</dimen>
     <dimen name="radio_group_padding">16dp</dimen>
-    <dimen name="image_margin">4dp</dimen>
+    <dimen name="image_margin">8dp</dimen>
     <dimen name="image_margin_start_end">32dp</dimen>
     <dimen name="answer_text_size">18sp</dimen>
     <dimen name="question_text_size">24sp</dimen>
     <dimen name="welcome_text_size">24sp</dimen>
+    <dimen name="welcome_text_margin">16dp</dimen>
+    <dimen name="layout_top_margin">16dp</dimen>
+    <dimen name="grid_margin_top_bottom">32dp</dimen>
 </resources>

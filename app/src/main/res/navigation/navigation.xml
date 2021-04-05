@@ -15,5 +15,10 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="unipi.protal.countriesteach.screens.game.GameFragment"
-        android:label="GameFragment" />
+        android:label="GameFragment">
+        <argument
+            android:name="continent_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

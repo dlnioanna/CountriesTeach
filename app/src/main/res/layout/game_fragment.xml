@@ -38,13 +38,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_end="124dp" />
+                app:layout_constraintGuide_end="96dp" />
 
             <ImageView
                 android:id="@+id/flagImage"
                 android:layout_width="248dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/image_margin_start_end"
+                android:layout_marginTop="@dimen/image_margin_start_end"
                 android:layout_marginEnd="@dimen/image_margin_start_end"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/questionText"
@@ -80,11 +81,11 @@
                 android:id="@+id/answers_grid_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_margin_top_bottom"
+                android:layout_marginBottom="@dimen/grid_margin_top_bottom"
                 android:columnCount="2"
                 android:orientation="horizontal"
                 android:rowCount="2"
-                android:layout_marginTop="@dimen/grid_margin"
-                android:layout_marginBottom="@dimen/grid_margin"
                 app:layout_constraintBottom_toBottomOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
