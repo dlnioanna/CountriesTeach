@@ -15,8 +15,8 @@
     <color name="color_europe">#9EDCE4</color>
     <color name="color_america">#9DC8DC</color>
     <color name="color_africa">#94ABD3</color>
-    <color name="color_antarctica">#EFE0AF</color>
-    <color name="color_asia">#F3EFCB</color>
+    <color name="color_antarctica">#D7C8F3</color>
+    <color name="color_asia">#EFC8C6</color>
     <color name="color_oceania">#AEE4CA</color>
     <color name="color_worldwide">#E0C6E4</color>
 </resources>

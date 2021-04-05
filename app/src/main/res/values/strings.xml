@@ -12,5 +12,6 @@
     <string name="oceania_string">Ωκεανία</string>
     <string name="antarctica_string">Ανταρκτική</string>
     <string name="worldwide_string">Όλες οι ήπειροι</string>
+    <string name="choose_contintent_text">Επιλέξτε ήπειρο</string>
     <string name="question">Σε ποιά χώρα ανήκει η σημαία που βλέπετε;</string>
 </resources>
