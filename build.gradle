@@ -3,6 +3,7 @@ buildscript {
     ext{
         version_navigation = "2.3.4"
         room_version = "2.2.6"
+        lifecycle_version = "2.3.1"
     }
     repositories {
         google()
