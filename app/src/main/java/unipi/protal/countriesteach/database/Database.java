@@ -1,9 +1,14 @@
 package unipi.protal.countriesteach.database;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,11 +51,22 @@ public abstract  class Database extends RoomDatabase {
             synchronized (Database.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            Database.class, "word_database")
+                            Database.class, "protal_database")
+                            .addCallback(new RoomDatabase.Callback() {
+                                @Override
+                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                    super.onCreate(db);
+                                    db.insert("country", SQLiteDatabase.CONFLICT_ROLLBACK, new ContentValues());
+                                }
+                            })
                             .build();
+
+                    //todo populate database at first run
+
                 }
             }
         }
         return INSTANCE;
     }
 }
+

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+@Entity(tableName = "country")
 public class Country {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo
