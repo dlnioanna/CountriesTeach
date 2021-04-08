@@ -33,12 +33,12 @@ public class CountryRepository {
     public CountryRepository(Application application) {
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
+        countries = countryDao.getAlphabetizedCountries();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<Country>> getAllCountries() {
-        countries = countryDao.getAlphabetizedCountries();
+    public LiveData<List<Country>> getAlphabetizedCountries() {
         return countries;
     }
 
@@ -48,5 +48,10 @@ public class CountryRepository {
         Database.databaseWriteExecutor.execute(() -> {
             countryDao.insertCountry(country);
         });
+    }
+
+    public LiveData<Country> getRandomCountry() {
+        LiveData<Country> c = countryDao.findCountryById(1);;
+       return c;
     }
 }

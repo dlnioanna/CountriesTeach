@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CountriesTeach</string>
+    <string name="app_name">Countries Quiz</string>
     <string name="title_text">Βρείτε σε ποιά χώρα αντιστοιχεί η σημαία ή το εθνόσημο!</string>
     <string name="skip">Επόμενη</string>
     <string name="flag_text">Η σημαία ανήκει στη χώρα </string>

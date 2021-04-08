@@ -14,7 +14,7 @@ import unipi.protal.countriesteach.R;
 import unipi.protal.countriesteach.databinding.GameFragmentBinding;
 
 public class GameFragment extends Fragment {
-
+    private GameViewModel gameViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,8 +22,12 @@ public class GameFragment extends Fragment {
                 inflater, R.layout.game_fragment, container, false);
         View view = binding.getRoot();
         int cointinentId=GameFragmentArgs.fromBundle(getArguments()).getContinentId();
+
+        gameViewModel = new GameViewModel(getActivity().getApplication());
+
         String s = String.valueOf(cointinentId);
        binding.questionText.setText(s);
+       binding.flagImage.setImageResource(R.drawable.ic_andorra_flag);
         return binding.getRoot();
     }
 }

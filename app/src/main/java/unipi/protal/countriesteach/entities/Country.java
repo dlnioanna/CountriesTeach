@@ -14,11 +14,18 @@ public class Country {
     @ColumnInfo
     private String countryName;
     @ColumnInfo
-    private Integer flagId;
+    private String flagId;
     @ColumnInfo
-    private Integer coatOfArmsId;
+    private String coatOfArmsId;
     @ColumnInfo
     private Integer continentId;
+
+    public Country(String countryName, String flagId, String coatOfArmsId, Integer continentId) {
+        this.countryName = countryName;
+        this.flagId = flagId;
+        this.coatOfArmsId = coatOfArmsId;
+        this.continentId = continentId;
+    }
 
     public Integer getCountryId() {
         return countryId;
@@ -36,19 +43,19 @@ public class Country {
         this.countryName = countryName;
     }
 
-    public Integer getFlagId() {
+    public String getFlagId() {
         return flagId;
     }
 
-    public void setFlagId(Integer flagId) {
+    public void setFlagId(String flagId) {
         this.flagId = flagId;
     }
 
-    public Integer getCoatOfArmsId() {
+    public String getCoatOfArmsId() {
         return coatOfArmsId;
     }
 
-    public void setCoatOfArmsId(Integer coatOfArmsId) {
+    public void setCoatOfArmsId(String coatOfArmsId) {
         this.coatOfArmsId = coatOfArmsId;
     }
 

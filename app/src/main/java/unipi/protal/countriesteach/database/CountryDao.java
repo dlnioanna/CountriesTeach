@@ -23,7 +23,7 @@ public interface CountryDao {
     void updatecountry(Country country);
 
     @Query("SELECT * FROM country WHERE countryId=:id")
-    Country findCountryById(Integer id);
+    LiveData<Country> findCountryById(Integer id);
 
     @Query("SELECT * FROM country ORDER BY countryName ASC")
     LiveData<List<Country>> getAlphabetizedCountries();

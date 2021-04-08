@@ -56,7 +56,7 @@ public abstract  class Database extends RoomDatabase {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                     super.onCreate(db);
-                                    db.insert("country", SQLiteDatabase.CONFLICT_ROLLBACK, new ContentValues());
+                                    db.insert("country", SQLiteDatabase.CONFLICT_REPLACE, new CountryContentValues().getCountryContentValues());
                                 }
                             })
                             .build();

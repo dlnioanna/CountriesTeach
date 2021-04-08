@@ -7,11 +7,12 @@ import java.util.List;
 
 public class CountriesOfQuiz {
     @Embedded
-    public Quiz quiz;
+    private Quiz quiz;
     @Relation(
             parentColumn = "quizId",
             entityColumn = "countryId"
     )
-    public List<Country> countries;
+    private List<Country> countries;
 
+    private boolean answered;
 }
