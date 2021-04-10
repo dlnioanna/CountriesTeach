@@ -2,6 +2,7 @@ package unipi.protal.countriesteach.database;
 import unipi.protal.countriesteach.entities.*;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,9 +23,12 @@ public interface CountryDao {
     @Update
     void updatecountry(Country country);
 
-    @Query("SELECT * FROM country WHERE countryId=:id")
+    @Query("SELECT * FROM country WHERE countryId=:id LIMIT 1")
     LiveData<Country> findCountryById(Integer id);
 
     @Query("SELECT * FROM country ORDER BY countryName ASC")
     LiveData<List<Country>> getAlphabetizedCountries();
+
+    @Query("DELETE FROM country")
+    void deleteAll();
 }

@@ -2,6 +2,7 @@ package unipi.protal.countriesteach.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -35,7 +36,7 @@ import unipi.protal.countriesteach.entities.*;
  *
  * https://developer.android.com/codelabs/android-room-with-a-view#0
  */
-@androidx.room.Database(entities = {Country.class, Quiz.class}, version = 1)
+@androidx.room.Database(entities = {Country.class, Quiz.class}, version = 2)
 public abstract  class Database extends RoomDatabase {
     private static volatile Database INSTANCE;
 
@@ -44,29 +45,56 @@ public abstract  class Database extends RoomDatabase {
     public abstract QuizDao quizDao();
 
     private static final int NUMBER_OF_THREADS = 4;
-    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    public static Database getDatabase(Context context) {
+    public static Database getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (Database.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             Database.class, "protal_database")
-                            .addCallback(new RoomDatabase.Callback() {
-                                @Override
-                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                                    super.onCreate(db);
-                                    db.insert("country", SQLiteDatabase.CONFLICT_REPLACE, new CountryContentValues().getCountryContentValues());
-                                }
-                            })
+                            .addCallback(roomDatabaseCallback)
                             .build();
-
-                    //todo populate database at first run
-
                 }
             }
         }
         return INSTANCE;
     }
+
+
+    /**
+     * Override the onCreate method to populate the database.
+     * For this sample, we clear the database every time it is created.
+     */
+    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+
+            databaseWriteExecutor.execute(() -> {
+                // Populate the database in the background.
+                // If you want to start with more words, just add them.
+                CountryDao dao = INSTANCE.countryDao();
+                dao.deleteAll();
+                Country c1 = new Country(1,"albania", 1);
+                Country c2 = new Country(2,"andorra",1);
+                Country c3 = new Country(3,"armenia",1);
+                Country c4 = new Country(4,"austria",1);
+
+                dao.insertCountry(c1);
+                Log.e("Database ",c1.getCountryName()+" added");
+                dao.insertCountry(c2);
+                Log.e("Database ",c2.getCountryName()+" added");
+                dao.insertCountry(c3);
+                Log.e("Database ",c3.getCountryName()+" added");
+                dao.insertCountry(c4);
+                Log.e("Database ",c4.getCountryName()+" added");
+
+                //db.insert("country", SQLiteDatabase.CONFLICT_REPLACE, new CountryContentValues().getCountryContentValues());
+
+            });
+        }
+    };
 }
 

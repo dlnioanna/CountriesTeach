@@ -1,8 +1,10 @@
 package unipi.protal.countriesteach.repositories;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ import unipi.protal.countriesteach.entities.Country;
 public class CountryRepository {
     private CountryDao countryDao;
     private LiveData<List<Country>> countries;
+    private LiveData<Country> country;
 
     // Note that in order to unit test the CountryRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
@@ -34,6 +37,7 @@ public class CountryRepository {
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
         countries = countryDao.getAlphabetizedCountries();
+        country=countryDao.findCountryById(2);
     }
 
     // Room executes all queries on a separate thread.
@@ -51,7 +55,6 @@ public class CountryRepository {
     }
 
     public LiveData<Country> getRandomCountry() {
-        LiveData<Country> c = countryDao.findCountryById(1);;
-       return c;
+       return country;
     }
 }
