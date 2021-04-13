@@ -34,4 +34,7 @@ public interface CountryDao {
 
     @Query("DELETE FROM country")
     void deleteAll();
+
+    @Insert
+    void insertAll(List<Country> countries);
 }

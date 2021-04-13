@@ -42,7 +42,7 @@ public class GameFragment extends Fragment {
         });
         gameViewModel.getAllCountries().observe(getViewLifecycleOwner(), countries -> {
             binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName());
-            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName() + "_flag", "drawable",
+            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId(), "drawable",
                     this.getContext().getPackageName()));
         });
 
@@ -52,7 +52,7 @@ public class GameFragment extends Fragment {
                 gameViewModel.nextCountryIndex();
               // int index=countryIndex;
                 binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName());
-                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName() + "_flag", "drawable",
+                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId(), "drawable",
                        getContext().getPackageName()));
             }
         });

@@ -41,9 +41,9 @@ public class GameViewModel extends AndroidViewModel {
 
     public void nextCountryIndex(){
         int min = 1;
-        int max = 9;
+        int max = 49;
         Random r = new Random();
-        countryIndex.setValue(r.nextInt(max - min + 1) + min);
+        countryIndex.setValue(r.nextInt(max - min + 1));
         Log.e("country index is ",String.valueOf(countryIndex.getValue()));
     }
 }
