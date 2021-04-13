@@ -11,8 +11,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import unipi.protal.countriesteach.database.Database;
 import unipi.protal.countriesteach.entities.Country;
@@ -22,12 +25,18 @@ public class GameViewModel extends AndroidViewModel {
     private CountryRepository countryRepository;
     private LiveData<Country> country;
     private LiveData<List<Country>> allCountries;
-    public MutableLiveData<Integer> countryIndex=new MutableLiveData<>(1);
+    public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
+    public MutableLiveData<Integer> firstAnswerIndex = new MutableLiveData<>();
+    public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
+    public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
+    public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
+    private Random random = new Random();
 
     public GameViewModel(@NonNull Application application) {
         super(application);
         countryRepository = new CountryRepository(application);
         allCountries = countryRepository.getAlphabetizedCountries();
+        nextCountryIndex();
     }
 
     @Override
@@ -39,12 +48,33 @@ public class GameViewModel extends AndroidViewModel {
         return allCountries;
     }
 
-    public void nextCountryIndex(){
-        int min = 1;
-        int max = 49;
-        Random r = new Random();
-        countryIndex.setValue(r.nextInt(max - min + 1));
-        Log.e("country index is ",String.valueOf(countryIndex.getValue()));
+    public void nextCountryIndex() {
+        countryIndex.setValue(random.ints(1, 49)
+                .findFirst()
+                .getAsInt());
+        getRandomAnswersIndex();
+    }
+
+    public void getRandomAnswersIndex() {
+        List<Integer> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add(countryIndex.getValue());
+        while (possibleAnswers.size() < 4) {
+            Integer randomAnswer = random.ints(1, 49)
+                    .findFirst()
+                    .getAsInt();
+            Predicate<Integer> answers = i -> (possibleAnswers.contains(i));
+            while (answers.test(randomAnswer)) {
+                randomAnswer = random.ints(1, 49)
+                        .findFirst()
+                        .getAsInt();
+            }
+            possibleAnswers.add(randomAnswer);
+        }
+        Collections.shuffle(possibleAnswers);
+        firstAnswerIndex.setValue(possibleAnswers.get(0));
+        secondAnswerIndex.setValue(possibleAnswers.get(1));
+        thirdAnswerIndex.setValue(possibleAnswers.get(2));
+        fourthAnswerIndex.setValue(possibleAnswers.get(3));
     }
 }
 
