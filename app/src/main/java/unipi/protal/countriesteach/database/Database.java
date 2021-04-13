@@ -81,15 +81,23 @@ public abstract  class Database extends RoomDatabase {
                 Country c2 = new Country(2,"andorra",1);
                 Country c3 = new Country(3,"armenia",1);
                 Country c4 = new Country(4,"austria",1);
+                Country c5 = new Country(5,"azerbaijan",1);
+                Country c6 = new Country(6,"belgium",1);
+                Country c7 = new Country(7,"bulgaria",1);
+                Country c8 = new Country(8,"croatia",1);
+                Country c9 = new Country(9,"cyprus",1);
+                Country c10 = new Country(10,"denmark",1);
 
                 dao.insertCountry(c1);
-                Log.e("Database ",c1.getCountryName()+" added");
                 dao.insertCountry(c2);
-                Log.e("Database ",c2.getCountryName()+" added");
                 dao.insertCountry(c3);
-                Log.e("Database ",c3.getCountryName()+" added");
                 dao.insertCountry(c4);
-                Log.e("Database ",c4.getCountryName()+" added");
+                dao.insertCountry(c5);
+                dao.insertCountry(c6);
+                dao.insertCountry(c7);
+                dao.insertCountry(c8);
+                dao.insertCountry(c9);
+                dao.insertCountry(c10);
 
                 //db.insert("country", SQLiteDatabase.CONFLICT_REPLACE, new CountryContentValues().getCountryContentValues());
 

@@ -1,19 +1,21 @@
 package unipi.protal.countriesteach.repositories;
 
 import android.app.Application;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.Random;
 
 import unipi.protal.countriesteach.database.CountryDao;
 import unipi.protal.countriesteach.database.Database;
 import unipi.protal.countriesteach.entities.Country;
 
 /**
- *
  * The DAO is passed into the repository constructor as opposed to the whole database.
  * This is because you only need access to the DAO, since it contains all the read/write methods for the database.
  * There's no need to expose the entire database to the repository.
@@ -22,10 +24,9 @@ import unipi.protal.countriesteach.entities.Country;
  * on the main thread when the data has changed.
  * We need to not run the insert on the main thread, so we use the ExecutorService
  * we created in the Database to perform the insert on a background thread.
- *
  */
 public class CountryRepository {
-    private CountryDao countryDao;
+    private final CountryDao countryDao;
     private LiveData<List<Country>> countries;
     private LiveData<Country> country;
 
@@ -36,14 +37,23 @@ public class CountryRepository {
     public CountryRepository(Application application) {
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
-        countries = countryDao.getAlphabetizedCountries();
-        country=countryDao.findCountryById(2);
+        //countries = getAlphabetizedCountries();
+        //country = findCountryById(getRandomCountryId());
+        Log.e("country repository ", "instatiated");
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<Country>> getAlphabetizedCountries() {
+        countries = countryDao.getAlphabetizedCountries();
+        Log.e("country repository ", "getAlphabetizedCountries called");
         return countries;
+    }
+
+    public LiveData<Country> getRandomCoutry() {
+        country = countryDao.findCountryById(getRandomCountryId());
+        Log.e("country repository ", "getRandomCoutry called");
+        return country;
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
@@ -54,7 +64,37 @@ public class CountryRepository {
         });
     }
 
-    public LiveData<Country> getRandomCountry() {
-       return country;
+    public LiveData<Country> findCountryById(Integer num) {
+        country = countryDao.findCountryById(num);
+        Log.e("country repository ", "findCountryById called");
+        return country;
     }
+
+    //    public LiveData<Country> getRandomCoutry() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    country=countryDao.findCountryById(getRandomCountryId());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//        return country;
+//    }
+
+    private Integer getRandomCountryId() {
+//        Random random = new Random();
+//        return random.ints(1, 4)
+//                .findFirst()
+//                .getAsInt();
+        int min = 1;
+        int max = 10;
+
+        Random r = new Random();
+        int randomNum = r.nextInt(max - min + 1) + min;
+        return randomNum;
+    }
+
 }

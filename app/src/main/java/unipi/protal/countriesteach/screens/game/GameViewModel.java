@@ -1,53 +1,52 @@
 package unipi.protal.countriesteach.screens.game;
 
 import android.app.Application;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import unipi.protal.countriesteach.database.Database;
 import unipi.protal.countriesteach.entities.Country;
 import unipi.protal.countriesteach.repositories.CountryRepository;
 
 public class GameViewModel extends AndroidViewModel {
     private CountryRepository countryRepository;
-    private MutableLiveData<Country> mutableCountry;
     private LiveData<Country> country;
-    private String countryFlag;
-    private MutableLiveData<String> countryName;
     private LiveData<List<Country>> allCountries;
+    public MutableLiveData<Integer> countryIndex=new MutableLiveData<>(1);
 
     public GameViewModel(@NonNull Application application) {
         super(application);
-        Log.e("GameViewModel","created");
         countryRepository = new CountryRepository(application);
-       //allCountries = countryRepository.getAlphabetizedCountries();
-        country = countryRepository.getRandomCountry();
-
-    //   Log.e("GameViewModel","countries are "+country.getCountryName());
-
-
+        allCountries = countryRepository.getAlphabetizedCountries();
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        Log.e("GameViewModel","cleared");
     }
 
-    public LiveData<Country> getRandomCountry(){
-        return country;
-    }
-
-    LiveData<List<Country>> getAllCountries() {
+    public LiveData<List<Country>> getAllCountries() {
+        nextCountryIndex();
         return allCountries;
     }
 
-
+    public void nextCountryIndex(){
+        int min = 1;
+        int max = 9;
+        Random r = new Random();
+        countryIndex.setValue(r.nextInt(max - min + 1) + min);
+        Log.e("country index is ",String.valueOf(countryIndex.getValue()));
+    }
 }
 
 

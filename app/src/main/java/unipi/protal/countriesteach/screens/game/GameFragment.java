@@ -16,13 +16,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import unipi.protal.countriesteach.R;
+import unipi.protal.countriesteach.database.Database;
 import unipi.protal.countriesteach.databinding.GameFragmentBinding;
 import unipi.protal.countriesteach.entities.Country;
 
 public class GameFragment extends Fragment {
     private GameViewModel gameViewModel;
-    GameFragmentBinding binding;
-    Country country;
+    private GameFragmentBinding binding;
+    private Country country;
+    private int countryIndex;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,19 +32,38 @@ public class GameFragment extends Fragment {
                 inflater, R.layout.game_fragment, container, false);
         View view = binding.getRoot();
         int cointinentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
+
         Resources resources = this.getContext().getResources();
+
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-        gameViewModel.getRandomCountry().observe(getViewLifecycleOwner(), country->{binding.questionText.setText(country.getCountryName());
-        binding.flagImage.setImageResource(resources.getIdentifier("ic_"+country.getCountryName()+"_flag", "drawable",
-                this.getContext().getPackageName()));});
-        gameViewModel.getRandomCountry().observe(getViewLifecycleOwner(), country->{binding.questionText.setText(country.getCountryName());});
-//        gameViewModel.getAllCountries().observe(getViewLifecycleOwner(), country->{binding.questionText.setText(country.get(0).getCountryName());});
-        //String s = String.valueOf(cointinentId);
-        String s = String.valueOf(cointinentId);
-       // binding.questionText.setText(s);
+//        int countryIndex = gameViewModel.getNextCountryIndex();
+//        gameViewModel.allCountries.observe(getViewLifecycleOwner(), country -> {
+//            binding.questionText.setText(country.get(countryIndex).getCountryName());
+//            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + country.get(countryIndex).getCountryName() + "_flag", "drawable",
+//                    this.getContext().getPackageName()));
+//        });
 
 
+        gameViewModel.countryIndex.observe(getViewLifecycleOwner(),integer -> {
+            countryIndex=gameViewModel.countryIndex.getValue();
+        });
+        gameViewModel.getAllCountries().observe(getViewLifecycleOwner(), countries -> {
+            int index=countryIndex;
+            binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(index).getCountryName());
+            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(index).getCountryName() + "_flag", "drawable",
+                    this.getContext().getPackageName()));
+        });
 
+
+        binding.skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               int index=countryIndex;
+                binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(index).getCountryName());
+                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(index).getCountryName() + "_flag", "drawable",
+                       getContext().getPackageName()));
+            }
+        });
         return binding.getRoot();
     }
 }
