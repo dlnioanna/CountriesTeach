@@ -36,31 +36,23 @@ public class GameFragment extends Fragment {
         Resources resources = this.getContext().getResources();
 
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-//        int countryIndex = gameViewModel.getNextCountryIndex();
-//        gameViewModel.allCountries.observe(getViewLifecycleOwner(), country -> {
-//            binding.questionText.setText(country.get(countryIndex).getCountryName());
-//            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + country.get(countryIndex).getCountryName() + "_flag", "drawable",
-//                    this.getContext().getPackageName()));
-//        });
-
 
         gameViewModel.countryIndex.observe(getViewLifecycleOwner(),integer -> {
             countryIndex=gameViewModel.countryIndex.getValue();
         });
         gameViewModel.getAllCountries().observe(getViewLifecycleOwner(), countries -> {
-            int index=countryIndex;
-            binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(index).getCountryName());
-            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(index).getCountryName() + "_flag", "drawable",
+            binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName());
+            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName() + "_flag", "drawable",
                     this.getContext().getPackageName()));
         });
-
 
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               int index=countryIndex;
-                binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(index).getCountryName());
-                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(index).getCountryName() + "_flag", "drawable",
+                gameViewModel.nextCountryIndex();
+              // int index=countryIndex;
+                binding.questionText.setText(gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName());
+                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryName() + "_flag", "drawable",
                        getContext().getPackageName()));
             }
         });

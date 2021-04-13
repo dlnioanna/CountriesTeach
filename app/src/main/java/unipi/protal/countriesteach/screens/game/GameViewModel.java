@@ -36,7 +36,6 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Country>> getAllCountries() {
-        nextCountryIndex();
         return allCountries;
     }
 
