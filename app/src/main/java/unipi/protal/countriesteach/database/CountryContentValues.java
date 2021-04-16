@@ -20,7 +20,7 @@ public class CountryContentValues {
     public static final int OCEANIA = 5;
     public static final int ANTARCTICA = 6;
     public static final int WORLD = 7;
-    // todo leipei h shmaia thns georgias ic_17, germanias ic_18_1,
+    // todo leipei
     //   vatican ic_47_1
 
     public static List<Country> initializeEuropeanCountries() {
