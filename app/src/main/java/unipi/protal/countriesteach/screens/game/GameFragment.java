@@ -40,9 +40,17 @@ public class GameFragment extends Fragment {
 
         gameViewModel.countryIndex.observe(getViewLifecycleOwner(), integer -> {
             countryIndex = gameViewModel.countryIndex.getValue();
+        });
+        gameViewModel.firstAnswerIndex.observe(getViewLifecycleOwner(), integer -> {
             firstAnswerIndex = gameViewModel.firstAnswerIndex.getValue();
+        });
+        gameViewModel.secondAnswerIndex.observe(getViewLifecycleOwner(), integer -> {
             secondAnswerIndex = gameViewModel.secondAnswerIndex.getValue();
+        });
+        gameViewModel.thirdAnswerIndex.observe(getViewLifecycleOwner(), integer -> {
             thirdAnswerIndex = gameViewModel.thirdAnswerIndex.getValue();
+        });
+        gameViewModel.fourthAnswerIndex.observe(getViewLifecycleOwner(), integer -> {
             fourthAnswerIndex = gameViewModel.fourthAnswerIndex.getValue();
         });
         gameViewModel.getAllCountries().observe(getViewLifecycleOwner(), countries -> {

@@ -53,6 +53,7 @@ public class GameViewModel extends AndroidViewModel {
                 .findFirst()
                 .getAsInt());
         getRandomAnswersIndex();
+
     }
 
     public void getRandomAnswersIndex() {

@@ -13,6 +13,7 @@
         android:id="@+id/questions_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -79,13 +80,13 @@
             <GridLayout
                 android:id="@+id/answers_grid_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/grid_margin_top_bottom"
                 android:layout_marginBottom="@dimen/grid_margin_top_bottom"
                 android:columnCount="2"
                 android:orientation="horizontal"
                 android:rowCount="2"
-                app:layout_constraintBottom_toBottomOf="@+id/guideline"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/questionText">
@@ -93,25 +94,21 @@
                 <Button
                     android:id="@+id/firstAnswerRadioButton"
                     style="@style/answerButtonLayout"
-                    android:text="Ελλάδα"
                     tools:text="Greece" />
 
                 <Button
                     android:id="@+id/secondAnswerRadioButton"
                     style="@style/answerButtonLayout"
-                    android:text="Ιταλία"
                     tools:text="Italy" />
 
                 <Button
                     android:id="@+id/thirdAnswerRadioButton"
                     style="@style/answerButtonLayout"
-                    android:text="Ισπανία"
                     tools:text="Spain" />
 
                 <Button
                     android:id="@+id/fourthAnswerRadioButton"
                     style="@style/answerButtonLayout"
-                    android:text="Κύπρος"
                     tools:text="Cyprus" />
             </GridLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
