@@ -1,28 +1,28 @@
 package unipi.protal.countriesteach.screens.game;
 
 import android.app.Application;
-import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import unipi.protal.countriesteach.database.Database;
+import unipi.protal.countriesteach.entities.CountriesQuizCrossRef;
 import unipi.protal.countriesteach.entities.Country;
+import unipi.protal.countriesteach.entities.Quiz;
 import unipi.protal.countriesteach.repositories.CountryRepository;
+import unipi.protal.countriesteach.repositories.QuizRepository;
 
 public class GameViewModel extends AndroidViewModel {
     private CountryRepository countryRepository;
+    private QuizRepository quizRepository;
     private LiveData<Country> country;
     private LiveData<List<Country>> allCountries;
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
@@ -35,7 +35,11 @@ public class GameViewModel extends AndroidViewModel {
     public GameViewModel(@NonNull Application application) {
         super(application);
         countryRepository = new CountryRepository(application);
+        quizRepository = new QuizRepository(application);
         allCountries = countryRepository.getAlphabetizedCountries();
+        Quiz quiz = new Quiz();
+        quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
+        quizRepository.insertQuiz(quiz);
         nextCountryIndex();
     }
 

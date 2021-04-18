@@ -10,15 +10,15 @@ import java.util.List;
 public class Quiz {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo
-    private Integer quizId = 0;
+    private Integer quizId;
     @ColumnInfo
     private Long startDateMillis;
     @ColumnInfo
     private Long endDateMillis;
     @ColumnInfo
     private Integer score;
-//    @ColumnInfo
-//    List<Questions> questionsList;
+
+    public Quiz() { }
 
     public Integer getQuizId() {
         return quizId;
@@ -51,11 +51,5 @@ public class Quiz {
     public void setScore(Integer score) {
         this.score = score;
     }
-
-
-//    public List<Questions> getQuestionsList() {
-//        return questionsList;
-//    }
-
 
 }

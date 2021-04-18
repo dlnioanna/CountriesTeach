@@ -44,6 +44,7 @@ public abstract  class Database extends RoomDatabase {
 
     public abstract QuizDao quizDao();
 
+
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);

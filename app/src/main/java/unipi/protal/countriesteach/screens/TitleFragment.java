@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import static androidx.navigation.Navigation.findNavController;
 
 import unipi.protal.countriesteach.R;
+import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.databinding.TitleFragmentBinding;
 
 public class TitleFragment extends Fragment {
@@ -29,49 +30,49 @@ public class TitleFragment extends Fragment {
         binding.europeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(1));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.EUROPE));
             }
         });
         // ΑΜΕΡΙΚΗ
         binding.americaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(2));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.AMERICA));
             }
         });
         // ΑΣΙΑ
         binding.asiaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(3));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.ASIA));
             }
         });
         //ΑΦΡΙΚΗ
         binding.africaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(4));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.AFRICA));
             }
         });
         //ΩΚΕΑΝΙΑ
         binding.oceaniaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(5));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.OCEANIA));
             }
         });
         //ΑΝΤΑΡΚΤΙΚΗ
         binding.antarcticaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(6));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.ANTARCTICA));
             }
         });
         // ΚΟΣΜΟΣ
         binding.worldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(7));
+                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.WORLD));
             }
         });
         return binding.getRoot();
