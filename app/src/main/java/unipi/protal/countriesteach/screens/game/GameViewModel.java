@@ -14,15 +14,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-import unipi.protal.countriesteach.entities.CountriesQuizCrossRef;
 import unipi.protal.countriesteach.entities.Country;
+import unipi.protal.countriesteach.entities.Question;
+import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
 import unipi.protal.countriesteach.repositories.CountryRepository;
+import unipi.protal.countriesteach.repositories.QuestionQuizCrossRefRepository;
+import unipi.protal.countriesteach.repositories.QuestionRepository;
 import unipi.protal.countriesteach.repositories.QuizRepository;
 
 public class GameViewModel extends AndroidViewModel {
     private CountryRepository countryRepository;
     private QuizRepository quizRepository;
+    private QuestionRepository questionRepository;
+    private QuestionQuizCrossRefRepository questionQuizCrossRefRepository;
     private LiveData<Country> country;
     private LiveData<List<Country>> allCountries;
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
@@ -36,12 +41,26 @@ public class GameViewModel extends AndroidViewModel {
         super(application);
         countryRepository = new CountryRepository(application);
         quizRepository = new QuizRepository(application);
+        questionRepository = new QuestionRepository(application);
+        questionQuizCrossRefRepository = new QuestionQuizCrossRefRepository(application);
         allCountries = countryRepository.getAlphabetizedCountries();
         Quiz quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
         quizRepository.insertQuiz(quiz);
+
+        for(int i=1;i<11;i++){
+            Question question = new Question(i);
+            questionRepository.insertQuestion(question);
+            QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quiz.getQuizId(),question.getQuestionId());
+            questionQuizCrossRefRepository.insertQuizCrossRef(questionQuizCrossRef);
+        }
+
+
+
+
         nextCountryIndex();
     }
+
 
     @Override
     protected void onCleared() {

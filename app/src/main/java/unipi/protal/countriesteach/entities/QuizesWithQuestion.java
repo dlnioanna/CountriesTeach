@@ -6,13 +6,13 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class CountryOfQuiz {
+public class QuizesWithQuestion {
     @Embedded
-    public Country country;
+    public Question question;
     @Relation(
-            parentColumn = "countryId",
+            parentColumn = "questionId",
             entityColumn = "quizId",
-            associateBy = @Junction(CountriesQuizCrossRef.class)
+            associateBy = @Junction(QuestionQuizCrossRef.class)
     )
     public List<Quiz> quizList;
 }

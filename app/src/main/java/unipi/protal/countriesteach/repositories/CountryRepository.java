@@ -66,23 +66,8 @@ public class CountryRepository {
 
     public LiveData<Country> findCountryById(Integer num) {
         country = countryDao.findCountryById(num);
-        Log.e("country repository ", "findCountryById called");
         return country;
     }
-
-    //    public LiveData<Country> getRandomCoutry() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    country=countryDao.findCountryById(getRandomCountryId());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-//        return country;
-//    }
 
     private Integer getRandomCountryId() {
 //        Random random = new Random();
