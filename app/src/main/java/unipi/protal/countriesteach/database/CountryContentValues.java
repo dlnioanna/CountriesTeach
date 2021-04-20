@@ -121,8 +121,20 @@ public class CountryContentValues {
         europeanCountries.add(c48);
         Country c49 = new Country(49, "Καζακστάν", EUROPE);
         europeanCountries.add(c49);
+        Country c50 = new Country(50, "Ουκρανία", EUROPE);
+        europeanCountries.add(c50);
+        Country c51 = new Country(51, "Κόσοβο", EUROPE);
+        europeanCountries.add(c51);
         return europeanCountries;
     }
 
+    public static List<Country> initializeOceanianCountries(){
+        List<Country> oceanianCountries = new ArrayList<>();
+        Country c1 = new Country(1, "Αλβανία", OCEANIA);
+        oceanianCountries.add(c1);
+
+
+        return oceanianCountries;
+    }
 
 }
