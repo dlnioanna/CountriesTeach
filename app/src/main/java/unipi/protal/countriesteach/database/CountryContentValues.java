@@ -21,6 +21,7 @@ public class CountryContentValues {
     public static final int ANTARCTICA = 6;
     public static final int WORLD = 7;
 
+    //51 countries
     public static List<Country> initializeEuropeanCountries() {
         List<Country> europeanCountries = new ArrayList<>();
         Country c1 = new Country(1, "Αλβανία", EUROPE);
@@ -121,8 +122,175 @@ public class CountryContentValues {
         europeanCountries.add(c48);
         Country c49 = new Country(49, "Καζακστάν", EUROPE);
         europeanCountries.add(c49);
+        Country c50 = new Country(50, "Ουκρανία", EUROPE);
+        europeanCountries.add(c50);
+        Country c51 = new Country(51, "Κόσοβο", EUROPE);
+        europeanCountries.add(c51);
         return europeanCountries;
     }
 
+    //25 countries
+    public static List<Country> initializeOceanianCountries() {
+        List<Country> oceanianCountries = new ArrayList<>();
+        Country c1 = new Country(52, "Αυστραλία", OCEANIA);
+        oceanianCountries.add(c1);
+        Country c2 = new Country(53, "Παπούα Νέα Γουινέα", OCEANIA);
+        oceanianCountries.add(c2);
+        Country c3 = new Country(54, "Νέα Ζηλανδία", OCEANIA);
+        oceanianCountries.add(c3);
+        Country c4 = new Country(55, "Φίτζι", OCEANIA);
+        oceanianCountries.add(c4);
+        Country c5 = new Country(56, "Νήσοι Σολομώντα", OCEANIA);
+        oceanianCountries.add(c5);
+        Country c6 = new Country(57, "Βανουάτου", OCEANIA);
+        oceanianCountries.add(c6);
+        Country c7 = new Country(58, "Νέα Καληδονία", OCEANIA);
+        oceanianCountries.add(c7);
+        Country c8 = new Country(59, "Γαλλική Πολυνησία", OCEANIA);
+        oceanianCountries.add(c8);
+        Country c9 = new Country(60, "Σαμόα", OCEANIA);
+        oceanianCountries.add(c9);
+        Country c10 = new Country(61, "Γκουάμ", OCEANIA);
+        oceanianCountries.add(c10);
+        Country c11 = new Country(62, "Κιριμπάτι", OCEANIA);
+        oceanianCountries.add(c11);
+        Country c12 = new Country(63, "Ομόσπονδες Πολιτείες της Μικρονησίας", OCEANIA);
+        oceanianCountries.add(c12);
+        Country c13 = new Country(64, "Τόνγκα", OCEANIA);
+        oceanianCountries.add(c13);
+        Country c14 = new Country(65, "Αμερικανική Σαμόα", OCEANIA);
+        oceanianCountries.add(c14);
+        Country c15 = new Country(66, "Βόρειες Μαριάνες Νήσοι", OCEANIA);
+        oceanianCountries.add(c15);
+        Country c16 = new Country(67, "Νήσοι Μάρσαλ", OCEANIA);
+        oceanianCountries.add(c16);
+        Country c17 = new Country(68, "Παλάου", OCEANIA);
+        oceanianCountries.add(c17);
+        // todo
+        //   ειναι λαθος 54, 63, 76
+        // https://www.vectorizer.io/
+        Country c18 = new Country(69, "Νήσοι Κουκ", OCEANIA);
+        oceanianCountries.add(c18);
+        Country c19 = new Country(70, "Ουαλίς και Φουτουνά", OCEANIA);
+        oceanianCountries.add(c19);
+        Country c20 = new Country(71, "Τουβαλού", OCEANIA);
+        oceanianCountries.add(c20);
+        Country c21 = new Country(72, "Ναουρού", OCEANIA);
+        oceanianCountries.add(c21);
+        Country c22 = new Country(73, "Νησί Νόρφολκ", OCEANIA);
+        oceanianCountries.add(c22);
+        Country c23 = new Country(74, "Νιούε", OCEANIA);
+        oceanianCountries.add(c23);
+        Country c24 = new Country(75, "Τοκελάου", OCEANIA);
+        oceanianCountries.add(c24);
+        Country c25 = new Country(76, "Νήσοι Πίτκαιρν", OCEANIA);
+        oceanianCountries.add(c25);
+        return oceanianCountries;
+    }
 
+// todo Ρωσία , Καζακσταν, Τουρκία, Αζερμπαιτζαν, Γεωργία, Αρμενία, Κύπρος υπάρχουν και στην ευρωπη
+    public static List<Country> initializeAsianCountries() {
+        List<Country> asianCountries = new ArrayList<>();
+        Country c1 = new Country(77, "", ASIA);
+        asianCountries.add(c1);
+        Country c2 = new Country(78, "", ASIA);
+        asianCountries.add(c2);
+        Country c3 = new Country(79, "", ASIA);
+        asianCountries.add(c3);
+        Country c4 = new Country(80, "", ASIA);
+        asianCountries.add(c4);
+        Country c5 = new Country(81, "", ASIA);
+        asianCountries.add(c5);
+        Country c6 = new Country(82, "", ASIA);
+        asianCountries.add(c6);
+        Country c7 = new Country(83, "", ASIA);
+        asianCountries.add(c7);
+        Country c8 = new Country(84, "", ASIA);
+        asianCountries.add(c8);
+        Country c9 = new Country(85, "", ASIA);
+        asianCountries.add(c9);
+        Country c10 = new Country(86, "", ASIA);
+        asianCountries.add(c10);
+        Country c11 = new Country(87, "", ASIA);
+        asianCountries.add(c11);
+        Country c12 = new Country(88, "", ASIA);
+        asianCountries.add(c12);
+        Country c13 = new Country(89, "", ASIA);
+        asianCountries.add(c13);
+        Country c14 = new Country(90, "", ASIA);
+        asianCountries.add(c14);
+        Country c15 = new Country(91, "", ASIA);
+        asianCountries.add(c15);
+        Country c16 = new Country(92, "", ASIA);
+        asianCountries.add(c16);
+        Country c17 = new Country(93, "", ASIA);
+        asianCountries.add(c17);
+        Country c18 = new Country(94, "", ASIA);
+        asianCountries.add(c18);
+        Country c19 = new Country(95, "", ASIA);
+        asianCountries.add(c19);
+        Country c20 = new Country(96, "", ASIA);
+        asianCountries.add(c20);
+        Country c21 = new Country(97, "", ASIA);
+        asianCountries.add(c21);
+        Country c22 = new Country(98, "", ASIA);
+        asianCountries.add(c22);
+        Country c23 = new Country(99, "", ASIA);
+        asianCountries.add(c23);
+        Country c24 = new Country(100, "", ASIA);
+        asianCountries.add(c24);
+        Country c25 = new Country(101, "", ASIA);
+        asianCountries.add(c25);
+        Country c26 = new Country(102, "", ASIA);
+        asianCountries.add(c26);
+        Country c27 = new Country(103, "", ASIA);
+        asianCountries.add(c27);
+        Country c28 = new Country(104, "", ASIA);
+        asianCountries.add(c28);
+        Country c29 = new Country(105, "", ASIA);
+        asianCountries.add(c29);
+        Country c30 = new Country(106, "", ASIA);
+        asianCountries.add(c30);
+        Country c31 = new Country(107, "", ASIA);
+        asianCountries.add(c31);
+        Country c32 = new Country(108, "", ASIA);
+        asianCountries.add(c32);
+        Country c33 = new Country(109, "", ASIA);
+        asianCountries.add(c33);
+        Country c34 = new Country(110, "", ASIA);
+        asianCountries.add(c34);
+        Country c35 = new Country(111, "", ASIA);
+        asianCountries.add(c35);
+        Country c36 = new Country(112, "", ASIA);
+        asianCountries.add(c36);
+        Country c37 = new Country(113, "", ASIA);
+        asianCountries.add(c37);
+        Country c38= new Country(114, "", ASIA);
+        asianCountries.add(c38);
+        Country c39= new Country(115, "", ASIA);
+        asianCountries.add(c39);
+        Country c40= new Country(116, "", ASIA);
+        asianCountries.add(c40);
+        Country c41= new Country(117, "", ASIA);
+        asianCountries.add(c41);
+        Country c42= new Country(118, "", ASIA);
+        asianCountries.add(c42);
+        Country c43= new Country(119, "", ASIA);
+        asianCountries.add(c43);
+        Country c44= new Country(120, "", ASIA);
+        asianCountries.add(c44);
+        Country c45= new Country(121, "", ASIA);
+        asianCountries.add(c45);
+        Country c46= new Country(122, "", ASIA);
+        asianCountries.add(c46);
+        Country c47= new Country(123, "", ASIA);
+        asianCountries.add(c47);
+        Country c48= new Country(124, "", ASIA);
+        asianCountries.add(c48);
+        Country c49= new Country(125, "", ASIA);
+        asianCountries.add(c49);
+        Country c50= new Country(126, "", ASIA);
+        asianCountries.add(c50);
+        return asianCountries;
+    }
 }

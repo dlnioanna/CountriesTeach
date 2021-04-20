@@ -82,7 +82,7 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public void nextCountryIndex() {
-        countryIndex.setValue(random.ints(1, 49)
+        countryIndex.setValue(random.ints(1, 76)
                 .findFirst()
                 .getAsInt());
         getRandomAnswersIndex();
@@ -92,12 +92,12 @@ public class GameViewModel extends AndroidViewModel {
         List<Integer> possibleAnswers = new ArrayList<>();
         possibleAnswers.add(countryIndex.getValue());
         while (possibleAnswers.size() < 4) {
-            Integer randomAnswer = random.ints(1, 49)
+            Integer randomAnswer = random.ints(1, 76)
                     .findFirst()
                     .getAsInt();
             Predicate<Integer> answers = i -> (possibleAnswers.contains(i));
             while (answers.test(randomAnswer)) {
-                randomAnswer = random.ints(1, 49)
+                randomAnswer = random.ints(1, 76)
                         .findFirst()
                         .getAsInt();
             }
