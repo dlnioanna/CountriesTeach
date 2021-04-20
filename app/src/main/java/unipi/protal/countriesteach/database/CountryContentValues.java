@@ -11,6 +11,7 @@ import java.util.Map;
 import unipi.protal.countriesteach.R;
 import unipi.protal.countriesteach.entities.Country;
 //   https://androtak.wordpress.com/2016/03/01/how-to-convert-any-object-to-contentvalues-in-for-android-sqlite-insertion/
+// https://www.vectorizer.io/
 
 public class CountryContentValues {
     public static final int EUROPE = 1;
@@ -154,7 +155,7 @@ public class CountryContentValues {
         oceanianCountries.add(c10);
         Country c11 = new Country(62, "Κιριμπάτι", OCEANIA);
         oceanianCountries.add(c11);
-        Country c12 = new Country(63, "Ομόσπονδες Πολιτείες της Μικρονησίας", OCEANIA);
+        Country c12 = new Country(63, "Μικρονησία", OCEANIA);
         oceanianCountries.add(c12);
         Country c13 = new Country(64, "Τόνγκα", OCEANIA);
         oceanianCountries.add(c13);
@@ -166,9 +167,6 @@ public class CountryContentValues {
         oceanianCountries.add(c16);
         Country c17 = new Country(68, "Παλάου", OCEANIA);
         oceanianCountries.add(c17);
-        // todo
-        //   ειναι λαθος 54, 63, 76
-        // https://www.vectorizer.io/
         Country c18 = new Country(69, "Νήσοι Κουκ", OCEANIA);
         oceanianCountries.add(c18);
         Country c19 = new Country(70, "Ουαλίς και Φουτουνά", OCEANIA);
