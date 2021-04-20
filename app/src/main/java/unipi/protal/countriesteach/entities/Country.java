@@ -11,23 +11,23 @@ import java.io.Serializable;
 public class Country {
     @PrimaryKey
     @ColumnInfo
-    private Integer countryId;
+    private long countryId;
     @ColumnInfo
     private String countryName;
     @ColumnInfo
     private Integer continentId;
 
-    public Country(Integer countryId, String countryName, Integer continentId) {
+    public Country(long countryId, String countryName, Integer continentId) {
         this.countryId = countryId;
         this.countryName = countryName;
         this.continentId = continentId;
     }
 
-    public Integer getCountryId() {
+    public long getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Integer countryId) {
+    public void setCountryId(long countryId) {
         this.countryId = countryId;
     }
 

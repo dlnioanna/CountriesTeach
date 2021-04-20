@@ -37,22 +37,17 @@ public class CountryRepository {
     public CountryRepository(Application application) {
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
-        //countries = getAlphabetizedCountries();
-        //country = findCountryById(getRandomCountryId());
-        Log.e("country repository ", "instatiated");
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<Country>> getAlphabetizedCountries() {
         countries = countryDao.getAlphabetizedCountries();
-        Log.e("country repository ", "getAlphabetizedCountries called");
         return countries;
     }
 
     public LiveData<Country> getRandomCoutry() {
         country = countryDao.findCountryById(getRandomCountryId());
-        Log.e("country repository ", "getRandomCoutry called");
         return country;
     }
 

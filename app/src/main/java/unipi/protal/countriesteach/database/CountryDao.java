@@ -15,7 +15,7 @@ import java.util.List;
 public interface CountryDao {
 
     @Insert
-    void insertCountry(Country country);
+    long insertCountry(Country country);
 
     @Delete
     void deleteCountry(Country coutry);
@@ -24,10 +24,10 @@ public interface CountryDao {
     void updatecountry(Country country);
 
     @Query("SELECT * FROM country WHERE countryId=:id")
-    LiveData<Country> findCountryById(Integer id);
+    LiveData<Country> findCountryById(long id);
 
     @Query("SELECT * FROM country WHERE countryId=:id")
-    Country findCountryWithId(Integer id);
+    Country findCountryWithId(long id);
 
     @Query("SELECT * FROM country ORDER BY countryName ASC")
     LiveData<List<Country>> getAlphabetizedCountries();
@@ -36,5 +36,5 @@ public interface CountryDao {
     void deleteAll();
 
     @Insert
-    void insertAll(List<Country> countries);
+    List<Long> insertAll(List<Country> countries);
 }

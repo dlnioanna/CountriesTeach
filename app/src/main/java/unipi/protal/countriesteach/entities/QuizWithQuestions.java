@@ -6,7 +6,7 @@ import androidx.room.Junction;
 import androidx.room.Relation;
 
 import java.util.List;
-
+@Entity
 public class QuizWithQuestions {
     @Embedded
     public Quiz quiz;

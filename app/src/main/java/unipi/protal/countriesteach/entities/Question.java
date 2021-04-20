@@ -8,31 +8,31 @@ import androidx.room.PrimaryKey;
 public class Question {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo
-    private Integer questionId;
+    private long questionId;
     @ColumnInfo
-    private Integer countryId;
+    private long countryId;
     @ColumnInfo
     private Integer position;
     @ColumnInfo
     private Boolean answered;
 
-    public Question(Integer countryId) {
+    public Question(long countryId) {
         this.countryId = countryId;
     }
 
-    public Integer getQuestionId() {
+    public long getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(Integer questionId) {
+    public void setQuestionId(long questionId) {
         this.questionId = questionId;
     }
 
-    public Integer getCountryId() {
+    public long getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Integer countryId) {
+    public void setCountryId(long countryId) {
         this.countryId = countryId;
     }
 

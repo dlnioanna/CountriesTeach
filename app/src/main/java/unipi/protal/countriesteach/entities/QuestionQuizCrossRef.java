@@ -1,41 +1,45 @@
 package unipi.protal.countriesteach.entities;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
 import java.util.List;
 
-@Entity(primaryKeys = {"quizId", "questionId"})
+@Entity(tableName = "question_quiz_cross_ref", primaryKeys = {"quizId", "questionId"})
 public class QuestionQuizCrossRef {
+    @NonNull
+    @ColumnInfo
+    private long quizId;
 
     @NonNull
-    private Integer quizId;
+    @ColumnInfo
+    private long questionId;
 
-    @NonNull
-    private Integer questionId;
-
-    public QuestionQuizCrossRef(@NonNull Integer quizId, @NonNull Integer questionId) {
+    public QuestionQuizCrossRef(long quizId, long questionId) {
         this.quizId = quizId;
         this.questionId = questionId;
     }
 
     @NonNull
-    public Integer getQuizId() {
+    public long getQuizId() {
         return quizId;
     }
 
-    public void setQuizId(@NonNull Integer quizId) {
+    public void setQuizId(@NonNull long quizId) {
         this.quizId = quizId;
     }
 
     @NonNull
-    public Integer getQuestionId() {
+    public long getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(@NonNull Integer questionId) {
+    public void setQuestionId(@NonNull long questionId) {
         this.questionId = questionId;
     }
+
 }

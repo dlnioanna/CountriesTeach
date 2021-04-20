@@ -1,6 +1,9 @@
 package unipi.protal.countriesteach.screens.game;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -12,22 +15,21 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 
+import unipi.protal.countriesteach.database.CountryDao;
+import unipi.protal.countriesteach.database.Database;
+import unipi.protal.countriesteach.database.QuestionDao;
+import unipi.protal.countriesteach.database.QuestionQuizCrossRefDao;
+import unipi.protal.countriesteach.database.QuizDao;
 import unipi.protal.countriesteach.entities.Country;
 import unipi.protal.countriesteach.entities.Question;
 import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
-import unipi.protal.countriesteach.repositories.CountryRepository;
-import unipi.protal.countriesteach.repositories.QuestionQuizCrossRefRepository;
-import unipi.protal.countriesteach.repositories.QuestionRepository;
-import unipi.protal.countriesteach.repositories.QuizRepository;
 
 public class GameViewModel extends AndroidViewModel {
-    private CountryRepository countryRepository;
-    private QuizRepository quizRepository;
-    private QuestionRepository questionRepository;
-    private QuestionQuizCrossRefRepository questionQuizCrossRefRepository;
     private LiveData<Country> country;
     private LiveData<List<Country>> allCountries;
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
@@ -36,27 +38,35 @@ public class GameViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
     private Random random = new Random();
+    private CountryDao countryDao;
+    private QuizDao quizDao;
+    private QuestionDao questionDao;
+    private QuestionQuizCrossRefDao questionQuizCrossRefDao;
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     public GameViewModel(@NonNull Application application) {
         super(application);
-        countryRepository = new CountryRepository(application);
-        quizRepository = new QuizRepository(application);
-        questionRepository = new QuestionRepository(application);
-        questionQuizCrossRefRepository = new QuestionQuizCrossRefRepository(application);
-        allCountries = countryRepository.getAlphabetizedCountries();
+        Database db = Database.getDatabase(application);
+        countryDao = db.countryDao();
+        quizDao = db.quizDao();
+        questionDao = db.questionDao();
+        questionQuizCrossRefDao = db.questionQuizCrossRefDao();
+        allCountries = countryDao.getAlphabetizedCountries();
         Quiz quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
-        quizRepository.insertQuiz(quiz);
-
-        for(int i=1;i<11;i++){
-            Question question = new Question(i);
-            questionRepository.insertQuestion(question);
-            QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quiz.getQuizId(),question.getQuestionId());
-            questionQuizCrossRefRepository.insertQuizCrossRef(questionQuizCrossRef);
-        }
-
-
-
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Long quizId = quizDao.insertQuiz(quiz);
+                for (int i = 1; i < 11; i++) {
+                    Question question = new Question(i);
+                    Long questionId = questionDao.insertQuestion(question);
+                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
+                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
+                }
+            }
+        });
 
         nextCountryIndex();
     }
@@ -76,7 +86,6 @@ public class GameViewModel extends AndroidViewModel {
                 .findFirst()
                 .getAsInt());
         getRandomAnswersIndex();
-
     }
 
     public void getRandomAnswersIndex() {

@@ -68,7 +68,6 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             binding.fourthAnswerRadioButton.setOnClickListener(this::onClick);
         });
 
-        // todo τα 4 κουμπιά παίρνουν το σωστό όνομα και τα τυχαίες χώρες
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

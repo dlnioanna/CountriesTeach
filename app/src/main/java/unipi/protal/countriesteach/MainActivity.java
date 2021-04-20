@@ -8,12 +8,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import java.util.List;
-
-import unipi.protal.countriesteach.database.Database;
-import unipi.protal.countriesteach.entities.Country;
-import unipi.protal.countriesteach.repositories.CountryRepository;
-
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
 

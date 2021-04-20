@@ -10,7 +10,7 @@ import java.util.List;
 public class Quiz {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo
-    private Integer quizId;
+    private long quizId;
     @ColumnInfo
     private Long startDateMillis;
     @ColumnInfo
@@ -20,11 +20,11 @@ public class Quiz {
 
     public Quiz() { }
 
-    public Integer getQuizId() {
+    public long getQuizId() {
         return quizId;
     }
 
-    public void setQuizId(Integer quizId) {
+    public void setQuizId(long quizId) {
         this.quizId = quizId;
     }
 
