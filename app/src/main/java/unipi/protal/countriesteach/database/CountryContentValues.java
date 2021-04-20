@@ -167,7 +167,7 @@ public class CountryContentValues {
         Country c17 = new Country(68, "Παλάου", OCEANIA);
         oceanianCountries.add(c17);
         // todo
-        //   ειναι λαθος 63, 76
+        //   ειναι λαθος 54, 63, 76
         // https://www.vectorizer.io/
         Country c18 = new Country(69, "Νήσοι Κουκ", OCEANIA);
         oceanianCountries.add(c18);
