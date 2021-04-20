@@ -21,6 +21,7 @@ public class CountryContentValues {
     public static final int ANTARCTICA = 6;
     public static final int WORLD = 7;
 
+    //51 countries
     public static List<Country> initializeEuropeanCountries() {
         List<Country> europeanCountries = new ArrayList<>();
         Country c1 = new Country(1, "Αλβανία", EUROPE);
@@ -128,12 +129,62 @@ public class CountryContentValues {
         return europeanCountries;
     }
 
+    //25 countries
     public static List<Country> initializeOceanianCountries(){
         List<Country> oceanianCountries = new ArrayList<>();
-        Country c1 = new Country(1, "Αλβανία", OCEANIA);
+        Country c1 = new Country(52, "Αυστραλία", OCEANIA);
         oceanianCountries.add(c1);
-
-
+        Country c2 = new Country(53, "Παπούα Νέα Γουινέα", OCEANIA);
+        oceanianCountries.add(c2);
+        Country c3 = new Country(54, "Νέα Ζηλανδία", OCEANIA);
+        oceanianCountries.add(c3);
+        Country c4 = new Country(55, "Φίτζι", OCEANIA);
+        oceanianCountries.add(c4);
+        Country c5 = new Country(56, "Νήσοι Σολομώντα", OCEANIA);
+        oceanianCountries.add(c5);
+        Country c6 = new Country(57, "Βανουάτου", OCEANIA);
+        oceanianCountries.add(c6);
+        Country c7 = new Country(58, "Νέα Καληδονία", OCEANIA);
+        oceanianCountries.add(c7);
+        Country c8 = new Country(59, "Γαλλική Πολυνησία", OCEANIA);
+        oceanianCountries.add(c8);
+        Country c9 = new Country(60, "Σαμόα", OCEANIA);
+        oceanianCountries.add(c9);
+        Country c10 = new Country(61, "Γκουάμ", OCEANIA);
+        oceanianCountries.add(c10);
+        Country c11 = new Country(62, "Κιριμπάτι", OCEANIA);
+        oceanianCountries.add(c11);
+        Country c12 = new Country(63, "Ομόσπονδες Πολιτείες της Μικρονησίας", OCEANIA);
+        oceanianCountries.add(c12);
+        Country c13 = new Country(64, "Τόνγκα", OCEANIA);
+        oceanianCountries.add(c13);
+        Country c14 = new Country(65, "Αμερικανική Σαμόα", OCEANIA);
+        oceanianCountries.add(c14);
+        Country c15 = new Country(66, "Βόρειες Μαριάνες Νήσοι", OCEANIA);
+        oceanianCountries.add(c15);
+        Country c16 = new Country(67, "Νήσοι Μάρσαλ", OCEANIA);
+        oceanianCountries.add(c16);
+        Country c17 = new Country(68, "Παλάου", OCEANIA);
+        oceanianCountries.add(c17);
+        // todo leipei 66_1
+        //   ειναι λαθος 56,63, 69, 76
+        // https://www.vectorizer.io/
+        Country c18 = new Country(69, "Νήσοι Κουκ", OCEANIA);
+        oceanianCountries.add(c18);
+        Country c19 = new Country(70, "Ουαλίς και Φουτουνά", OCEANIA);
+        oceanianCountries.add(c19);
+        Country c20 = new Country(71, "Τουβαλού", OCEANIA);
+        oceanianCountries.add(c20);
+        Country c21 = new Country(72, "Ναουρού", OCEANIA);
+        oceanianCountries.add(c21);
+        Country c22 = new Country(73, "Νησί Νόρφολκ", OCEANIA);
+        oceanianCountries.add(c22);
+        Country c23 = new Country(74, "Νιούε", OCEANIA);
+        oceanianCountries.add(c23);
+        Country c24 = new Country(75, "Τοκελάου", OCEANIA);
+        oceanianCountries.add(c24);
+        Country c25 = new Country(76, "Νήσοι Πίτκαιρν", OCEANIA);
+        oceanianCountries.add(c25);
         return oceanianCountries;
     }
 
