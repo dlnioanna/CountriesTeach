@@ -20,7 +20,8 @@ public class CountryContentValues {
     public static final int AFRICA = 4;
     public static final int OCEANIA = 5;
     public static final int ANTARCTICA = 6;
-    public static final int WORLD = 7;
+    public static final int EUROPE_AND_ASIA = 7;
+    public static final int WORLD = 8;
 
     //51 countries
     public static List<Country> initializeEuropeanCountries() {
@@ -29,11 +30,11 @@ public class CountryContentValues {
         europeanCountries.add(c1);
         Country c2 = new Country(2, "Ανδόρρα", EUROPE);
         europeanCountries.add(c2);
-        Country c3 = new Country(3, "Αρμενία", EUROPE);
+        Country c3 = new Country(3, "Αρμενία", EUROPE_AND_ASIA);
         europeanCountries.add(c3);
         Country c4 = new Country(4, "Αυστρία", EUROPE);
         europeanCountries.add(c4);
-        Country c5 = new Country(5, "Αζερμπαϊτζάν", EUROPE);
+        Country c5 = new Country(5, "Αζερμπαϊτζάν", EUROPE_AND_ASIA);
         europeanCountries.add(c5);
         Country c6 = new Country(6, "Λευκορωσία", EUROPE);
         europeanCountries.add(c6);
@@ -57,7 +58,7 @@ public class CountryContentValues {
         europeanCountries.add(c15);
         Country c16 = new Country(16, "Γαλλία", EUROPE);
         europeanCountries.add(c16);
-        Country c17 = new Country(17, "Γεωργία", EUROPE);
+        Country c17 = new Country(17, "Γεωργία", EUROPE_AND_ASIA);
         europeanCountries.add(c17);
         Country c18 = new Country(18, "Γερμανία", EUROPE);
         europeanCountries.add(c18);
@@ -97,7 +98,7 @@ public class CountryContentValues {
         europeanCountries.add(c35);
         Country c36 = new Country(36, "Ρουμανία", EUROPE);
         europeanCountries.add(c36);
-        Country c37 = new Country(37, "Ρωσία", EUROPE);
+        Country c37 = new Country(37, "Ρωσία", EUROPE_AND_ASIA);
         europeanCountries.add(c37);
         Country c38 = new Country(38, "Άγιος Μαρίνος", EUROPE);
         europeanCountries.add(c38);
@@ -113,7 +114,7 @@ public class CountryContentValues {
         europeanCountries.add(c43);
         Country c44 = new Country(44, "Ελβετία", EUROPE);
         europeanCountries.add(c44);
-        Country c45 = new Country(45, "Τουρκία", EUROPE);
+        Country c45 = new Country(45, "Τουρκία", EUROPE_AND_ASIA);
         europeanCountries.add(c45);
         Country c46 = new Country(46, "Ηνωμένο Βασίλειο", EUROPE);
         europeanCountries.add(c46);
@@ -121,7 +122,7 @@ public class CountryContentValues {
         europeanCountries.add(c47);
         Country c48 = new Country(48, "Βόρεια Μακεδονία", EUROPE);
         europeanCountries.add(c48);
-        Country c49 = new Country(49, "Καζακστάν", EUROPE);
+        Country c49 = new Country(49, "Καζακστάν", EUROPE_AND_ASIA);
         europeanCountries.add(c49);
         Country c50 = new Country(50, "Ουκρανία", EUROPE);
         europeanCountries.add(c50);
@@ -186,7 +187,7 @@ public class CountryContentValues {
         return oceanianCountries;
     }
 
-// todo Ρωσία , Καζακσταν, Τουρκία, Αζερμπαιτζαν, Γεωργία, Αρμενία, Κύπρος υπάρχουν και στην ευρωπη
+//  Γεωργία, Αρμενία, Αζερμπαϊτζάν, Ρωσία, Τουρκία, Καζακστάν έχουν περαστεί στην Ευρώπη με attr continentId EUROPE_AND_ASIA
     public static List<Country> initializeAsianCountries() {
         List<Country> asianCountries = new ArrayList<>();
         Country c1 = new Country(77, "", ASIA);
@@ -275,20 +276,20 @@ public class CountryContentValues {
         asianCountries.add(c42);
         Country c43= new Country(119, "", ASIA);
         asianCountries.add(c43);
-        Country c44= new Country(120, "", ASIA);
-        asianCountries.add(c44);
-        Country c45= new Country(121, "", ASIA);
-        asianCountries.add(c45);
-        Country c46= new Country(122, "", ASIA);
-        asianCountries.add(c46);
-        Country c47= new Country(123, "", ASIA);
-        asianCountries.add(c47);
-        Country c48= new Country(124, "", ASIA);
-        asianCountries.add(c48);
-        Country c49= new Country(125, "", ASIA);
-        asianCountries.add(c49);
-        Country c50= new Country(126, "", ASIA);
-        asianCountries.add(c50);
+//        Country c44= new Country(120, "", ASIA);
+//        asianCountries.add(c44);
+//        Country c45= new Country(121, "", ASIA);
+//        asianCountries.add(c45);
+//        Country c46= new Country(122, "", ASIA);
+//        asianCountries.add(c46);
+//        Country c47= new Country(123, "", ASIA);
+//        asianCountries.add(c47);
+//        Country c48= new Country(124, "", ASIA);
+//        asianCountries.add(c48);
+//        Country c49= new Country(125, "", ASIA);
+//        asianCountries.add(c49);
+//        Country c50= new Country(126, "", ASIA);
+//        asianCountries.add(c50);
         return asianCountries;
     }
 }

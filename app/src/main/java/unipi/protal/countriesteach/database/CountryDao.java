@@ -26,11 +26,26 @@ public interface CountryDao {
     @Query("SELECT * FROM country WHERE countryId=:id")
     LiveData<Country> findCountryById(long id);
 
-    @Query("SELECT * FROM country WHERE countryId=:id")
-    Country findCountryWithId(long id);
+    @Query("SELECT * FROM country")
+    LiveData<List<Country>> getAllCountries();
 
-    @Query("SELECT * FROM country ORDER BY countryName ASC")
-    LiveData<List<Country>> getAlphabetizedCountries();
+    @Query("SELECT * FROM country WHERE continentId=1 OR continentId=7")
+    LiveData<List<Country>> getEuropeanCountries();
+
+    @Query("SELECT * FROM country WHERE continentId=2")
+    LiveData<List<Country>> getAmericanCountries();
+
+    @Query("SELECT * FROM country WHERE continentId=3 OR continentId=7")
+    LiveData<List<Country>> getAsianCountries();
+
+    @Query("SELECT * FROM country WHERE continentId=4")
+    LiveData<List<Country>> getAfricanCountries();
+
+    @Query("SELECT * FROM country WHERE continentId=5")
+    LiveData<List<Country>> getOceanianCountries();
+
+    @Query("SELECT * FROM country WHERE continentId=6")
+    LiveData<List<Country>> getAntarcticaCountries();
 
     @Query("DELETE FROM country")
     void deleteAll();

@@ -42,7 +42,7 @@ public class CountryRepository {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<Country>> getAlphabetizedCountries() {
-        countries = countryDao.getAlphabetizedCountries();
+        countries = countryDao.getAllCountries();
         return countries;
     }
 

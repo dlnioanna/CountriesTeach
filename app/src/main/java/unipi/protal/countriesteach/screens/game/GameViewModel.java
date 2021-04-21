@@ -19,6 +19,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 
+import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.database.CountryDao;
 import unipi.protal.countriesteach.database.Database;
 import unipi.protal.countriesteach.database.QuestionDao;
@@ -31,7 +32,8 @@ import unipi.protal.countriesteach.entities.Quiz;
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<Country> country;
-    private LiveData<List<Country>> allCountries;
+    private LiveData<List<Country>> countriesList;
+    public MutableLiveData<Integer> continentId = new MutableLiveData<>();
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> firstAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
@@ -52,7 +54,8 @@ public class GameViewModel extends AndroidViewModel {
         quizDao = db.quizDao();
         questionDao = db.questionDao();
         questionQuizCrossRefDao = db.questionQuizCrossRefDao();
-        allCountries = countryDao.getAlphabetizedCountries();
+
+
         Quiz quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
         executor.execute(new Runnable() {
@@ -68,7 +71,7 @@ public class GameViewModel extends AndroidViewModel {
             }
         });
 
-        nextCountryIndex();
+
     }
 
 
@@ -77,27 +80,61 @@ public class GameViewModel extends AndroidViewModel {
         super.onCleared();
     }
 
-    public LiveData<List<Country>> getAllCountries() {
-        return allCountries;
+    public LiveData<List<Country>> getQuizCountries(int continentId) {
+        LiveData<List<Country>> quizCountries;
+        switch (continentId) {
+            case CountryContentValues
+                    .EUROPE:
+                quizCountries = countryDao.getEuropeanCountries();
+            break;
+            case CountryContentValues
+                    .AMERICA:
+                quizCountries = countryDao.getAmericanCountries();
+            break;
+            case CountryContentValues
+                    .ASIA:
+                quizCountries = countryDao.getAsianCountries();
+            break;
+            case CountryContentValues
+                    .AFRICA:
+                quizCountries = countryDao.getAfricanCountries();
+            break;
+            case CountryContentValues
+                    .OCEANIA:
+                quizCountries = countryDao.getOceanianCountries();
+            break;
+            case CountryContentValues
+                    .ANTARCTICA:
+                quizCountries = countryDao.getAntarcticaCountries();
+            break;
+            case CountryContentValues
+                    .WORLD:
+                quizCountries = countryDao.getAllCountries();
+            break;
+            default:
+                quizCountries=countryDao.getAllCountries();
+        }
+        nextCountryIndex(quizCountries.getValue().size());
+        return quizCountries;
     }
 
-    public void nextCountryIndex() {
-        countryIndex.setValue(random.ints(1, 76)
+    public void nextCountryIndex(int size) {
+        countryIndex.setValue(random.ints(1, size)
                 .findFirst()
                 .getAsInt());
-        getRandomAnswersIndex();
+        getRandomAnswersIndex(size);
     }
 
-    public void getRandomAnswersIndex() {
+    public void getRandomAnswersIndex(int size) {
         List<Integer> possibleAnswers = new ArrayList<>();
         possibleAnswers.add(countryIndex.getValue());
         while (possibleAnswers.size() < 4) {
-            Integer randomAnswer = random.ints(1, 76)
+            Integer randomAnswer = random.ints(1, size)
                     .findFirst()
                     .getAsInt();
             Predicate<Integer> answers = i -> (possibleAnswers.contains(i));
             while (answers.test(randomAnswer)) {
-                randomAnswer = random.ints(1, 76)
+                randomAnswer = random.ints(1, size)
                         .findFirst()
                         .getAsInt();
             }
