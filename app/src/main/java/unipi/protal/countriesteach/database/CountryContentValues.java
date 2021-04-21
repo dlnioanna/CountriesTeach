@@ -196,7 +196,8 @@ public class CountryContentValues {
 
 //  Γεωργία, Αρμενία, Αζερμπαϊτζάν, Ρωσία, Τουρκία, Καζακστάν έχουν περαστεί στην Ευρώπη με attr continentId EUROPE_AND_ASIA
     // Hong Kong kai Macau den einai anagnorismena
-    // todo leiepi 77, 78_1, 86, 88, 91_1
+    // todo leipei 77, 78_1, 86, 88, 91_1, 97, 103_1
+    //     lathos 95_1, 103????
     public static List<Country> initializeAsianCountries() {
         List<Country> asianCountries = new ArrayList<>();
         Country c1 = new Country(77, "Μακάου", ASIA);
@@ -233,25 +234,25 @@ public class CountryContentValues {
         asianCountries.add(c16);
         Country c17 = new Country(93, "Κουβέιτ", ASIA);
         asianCountries.add(c17);
-        Country c18 = new Country(94, "", ASIA);
+        Country c18 = new Country(94, "Κιργιζία", ASIA);
         asianCountries.add(c18);
-        Country c19 = new Country(95, "", ASIA);
+        Country c19 = new Country(95, "Λάος", ASIA);
         asianCountries.add(c19);
-        Country c20 = new Country(96, "", ASIA);
+        Country c20 = new Country(96, "Λίβανος", ASIA);
         asianCountries.add(c20);
-        Country c21 = new Country(97, "", ASIA);
+        Country c21 = new Country(97, "Μαλαισία", ASIA);
         asianCountries.add(c21);
-        Country c22 = new Country(98, "", ASIA);
+        Country c22 = new Country(98, "Μαλδίβες", ASIA);
         asianCountries.add(c22);
-        Country c23 = new Country(99, "", ASIA);
+        Country c23 = new Country(99, "Μογγολία", ASIA);
         asianCountries.add(c23);
-        Country c24 = new Country(100, "", ASIA);
+        Country c24 = new Country(100, "Μιανμάρ", ASIA);
         asianCountries.add(c24);
-        Country c25 = new Country(101, "", ASIA);
+        Country c25 = new Country(101, "Νεπάλ", ASIA);
         asianCountries.add(c25);
-        Country c26 = new Country(102, "", ASIA);
+        Country c26 = new Country(102, "Βόρεια Κορέα", ASIA);
         asianCountries.add(c26);
-        Country c27 = new Country(103, "", ASIA);
+        Country c27 = new Country(103, "Ομάν", ASIA);
         asianCountries.add(c27);
         Country c28 = new Country(104, "", ASIA);
         asianCountries.add(c28);
