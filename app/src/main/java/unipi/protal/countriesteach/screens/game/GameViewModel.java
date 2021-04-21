@@ -32,7 +32,7 @@ import unipi.protal.countriesteach.entities.Quiz;
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<Country> country;
-    private LiveData<List<Country>> countriesList;
+    private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries ;
     public MutableLiveData<Integer> continentId = new MutableLiveData<>();
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> firstAnswerIndex = new MutableLiveData<>();
@@ -54,8 +54,13 @@ public class GameViewModel extends AndroidViewModel {
         quizDao = db.quizDao();
         questionDao = db.questionDao();
         questionQuizCrossRefDao = db.questionQuizCrossRefDao();
-
-
+        europeanCountries = countryDao.getEuropeanCountries();
+        africanCountries =countryDao.getAfricanCountries();
+        americanCountries =countryDao.getAmericanCountries();
+        asianCountries =countryDao.getAsianCountries();
+        oceanianCountries =countryDao.getOceanianCountries();
+        antarticaCountries =countryDao.getAntarcticaCountries();
+        allCountries = countryDao.getAllCountries();
         Quiz quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
         executor.execute(new Runnable() {
@@ -81,41 +86,34 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Country>> getQuizCountries(int continentId) {
-        LiveData<List<Country>> quizCountries;
-        switch (continentId) {
-            case CountryContentValues
-                    .EUROPE:
-                quizCountries = countryDao.getEuropeanCountries();
-            break;
-            case CountryContentValues
-                    .AMERICA:
-                quizCountries = countryDao.getAmericanCountries();
-            break;
-            case CountryContentValues
-                    .ASIA:
-                quizCountries = countryDao.getAsianCountries();
-            break;
-            case CountryContentValues
-                    .AFRICA:
-                quizCountries = countryDao.getAfricanCountries();
-            break;
-            case CountryContentValues
-                    .OCEANIA:
-                quizCountries = countryDao.getOceanianCountries();
-            break;
-            case CountryContentValues
-                    .ANTARCTICA:
-                quizCountries = countryDao.getAntarcticaCountries();
-            break;
-            case CountryContentValues
-                    .WORLD:
-                quizCountries = countryDao.getAllCountries();
-            break;
-            default:
-                quizCountries=countryDao.getAllCountries();
+        if(continentId==CountryContentValues.EUROPE) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES);
+            return europeanCountries;
+        } else if(continentId ==CountryContentValues.AMERICA) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES);
+            return  americanCountries;
         }
-        nextCountryIndex(quizCountries.getValue().size());
-        return quizCountries;
+         else if(continentId ==CountryContentValues.ASIA) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES);
+             return asianCountries;
+        }
+         else if(continentId ==CountryContentValues.AFRICA) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES);
+             return countryDao.getAfricanCountries();
+        }
+         else if(continentId ==CountryContentValues.OCEANIA) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES);
+             return oceanianCountries;
+        }
+         else if(continentId ==CountryContentValues.ANTARCTICA) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES);
+             return antarticaCountries;
+        }
+         else if(continentId ==CountryContentValues.WORLD) {
+            nextCountryIndex(CountryContentValues.NUMBER_OF_ALL_COUNTRIES);
+             return allCountries;
+        }
+         return allCountries;
     }
 
     public void nextCountryIndex(int size) {
