@@ -75,7 +75,7 @@ public class GameViewModel extends AndroidViewModel {
                 }
             }
         });
-
+nextCountryIndex(51);
 
     }
 
@@ -87,30 +87,31 @@ public class GameViewModel extends AndroidViewModel {
 
     public LiveData<List<Country>> getQuizCountries(int continentId) {
         if(continentId==CountryContentValues.EUROPE) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES);
+            //            nextCountryIndex(CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES);
+
             return europeanCountries;
         } else if(continentId ==CountryContentValues.AMERICA) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES);
+//            nextCountryIndex(CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES);
             return  americanCountries;
         }
          else if(continentId ==CountryContentValues.ASIA) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES);
+//            nextCountryIndex(CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES);
              return asianCountries;
         }
          else if(continentId ==CountryContentValues.AFRICA) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES);
+//            nextCountryIndex(CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES);
              return countryDao.getAfricanCountries();
         }
          else if(continentId ==CountryContentValues.OCEANIA) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES);
+//            nextCountryIndex(CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES);
              return oceanianCountries;
         }
          else if(continentId ==CountryContentValues.ANTARCTICA) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES);
+//            nextCountryIndex(CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES);
              return antarticaCountries;
         }
          else if(continentId ==CountryContentValues.WORLD) {
-            nextCountryIndex(CountryContentValues.NUMBER_OF_ALL_COUNTRIES);
+//            nextCountryIndex(CountryContentValues.NUMBER_OF_ALL_COUNTRIES);
              return allCountries;
         }
          return allCountries;
