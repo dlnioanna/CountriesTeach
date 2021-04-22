@@ -7,7 +7,8 @@
     <dimen name="horizontal_margin">8dp</dimen>
     <dimen name="button_padding">8dp</dimen>
     <dimen name="button_margin">8dp</dimen>
-    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
+    <dimen name="button_continent_text_size">18sp</dimen>
     <dimen name="continent_margin_left_right">64dp</dimen>
     <dimen name="continent_margin_top_bottom">16dp</dimen>
     <dimen name="question_margin">32dp</dimen>

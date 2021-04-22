@@ -30,6 +30,14 @@ import unipi.protal.countriesteach.entities.Question;
 import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
 
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
+
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
     //public MutableLiveData<Integer> continentId = new MutableLiveData<>();
@@ -46,13 +54,7 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
-    public static final int NUMBER_OF_EUROPEAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_AMERICAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_ASIAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_AFRICAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
-    public static final int NUMBER_OF_ANTARCTIC_COUNTRIES = 51;
-    public static final int NUMBER_OF_ALL_COUNTRIES = 51;
+
     public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
         Database db = Database.getDatabase(application);
