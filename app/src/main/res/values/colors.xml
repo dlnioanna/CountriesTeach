@@ -13,18 +13,25 @@
     <color name="grey_text_color">#99000000</color>
     <color name="grey_button_color">#606060</color>
     <color name="white_text_color">#ffffff</color>
-    <color name="color_europe">#30C0D3</color>
-    <color name="color_europe_dark">#2596A3</color>
-    <color name="color_america">#2FA0D5</color>
-    <color name="color_america_dark">#1E759E</color>
-    <color name="color_africa">#3D6CBF</color>
-    <color name="color_africa_dark">#315595</color>
-    <color name="color_antarctica">#8354D8</color>
-    <color name="color_antarctica_dark">#6E50A6</color>
-    <color name="color_asia">#D35E57</color>
-    <color name="color_asia_dark">#C53227</color>
-    <color name="color_oceania">#42BC82</color>
-    <color name="color_oceania_dark">#21AA69</color>
-    <color name="color_world">#B54DC5</color>
-    <color name="color_wolrd_dark">#964EA3</color>
+
+    <color name="color_europe">#1e88e5</color>
+    <color name="color_europe_dark">#005cb2</color>
+
+    <color name="color_america">#42a5f5</color>
+    <color name="color_america_dark">#0077c2</color>
+
+    <color name="color_asia">#29b6f6</color>
+    <color name="color_asia_dark">#0086c3</color>
+
+    <color name="color_africa">#26c6da</color>
+    <color name="color_africa_dark">#0095a8</color>
+
+    <color name="color_oceania">#4db6ac</color>
+    <color name="color_oceania_dark">#00867d</color>
+
+    <color name="color_antarctica">#26a69a</color>
+    <color name="color_antarctica_dark">#00766c</color>
+
+    <color name="color_world">#009688</color>
+    <color name="color_wolrd_dark">#00675b</color>
 </resources>
