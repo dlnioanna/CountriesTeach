@@ -23,6 +23,7 @@ import unipi.protal.countriesteach.entities.Country;
 
 public class GameFragment extends Fragment implements View.OnClickListener {
     private GameViewModel gameViewModel;
+    private GameViewModelFactory gameViewModelFactory;
     private GameFragmentBinding binding;
     private Country country;
     private int countryIndex, firstAnswerIndex, secondAnswerIndex, thirdAnswerIndex, fourthAnswerIndex;
@@ -33,13 +34,10 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.game_fragment, container, false);
         View view = binding.getRoot();
-        continentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
-
         Resources resources = this.getContext().getResources();
-
-        gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-        gameViewModel.continentId.setValue(continentId);
-
+        continentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
+        gameViewModelFactory= new GameViewModelFactory(getActivity().getApplication(),continentId);
+        gameViewModel = new ViewModelProvider(this,gameViewModelFactory).get(GameViewModel.class);
         gameViewModel.getQuizCountries(continentId).observe(getViewLifecycleOwner(), countries -> {
             binding.questionText.setText(gameViewModel.getQuizCountries(continentId).getValue().get(countryIndex).getCountryName());
             binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(countryIndex).getCountryId(), "drawable",

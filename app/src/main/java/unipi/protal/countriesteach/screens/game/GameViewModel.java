@@ -31,14 +31,14 @@ import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
 
 public class GameViewModel extends AndroidViewModel {
-    private LiveData<Country> country;
-    private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries ;
-    public MutableLiveData<Integer> continentId = new MutableLiveData<>();
+    private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
+    //public MutableLiveData<Integer> continentId = new MutableLiveData<>();
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> firstAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
+    private int numberOfCountries;
     private Random random = new Random();
     private CountryDao countryDao;
     private QuizDao quizDao;
@@ -46,8 +46,14 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
-
-    public GameViewModel(@NonNull Application application) {
+    public static final int NUMBER_OF_EUROPEAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_AMERICAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_ASIAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_AFRICAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
+    public static final int NUMBER_OF_ANTARCTIC_COUNTRIES = 51;
+    public static final int NUMBER_OF_ALL_COUNTRIES = 51;
+    public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
@@ -55,11 +61,11 @@ public class GameViewModel extends AndroidViewModel {
         questionDao = db.questionDao();
         questionQuizCrossRefDao = db.questionQuizCrossRefDao();
         europeanCountries = countryDao.getEuropeanCountries();
-        africanCountries =countryDao.getAfricanCountries();
-        americanCountries =countryDao.getAmericanCountries();
-        asianCountries =countryDao.getAsianCountries();
-        oceanianCountries =countryDao.getOceanianCountries();
-        antarticaCountries =countryDao.getAntarcticaCountries();
+        africanCountries = countryDao.getAfricanCountries();
+        americanCountries = countryDao.getAmericanCountries();
+        asianCountries = countryDao.getAsianCountries();
+        oceanianCountries = countryDao.getOceanianCountries();
+        antarticaCountries = countryDao.getAntarcticaCountries();
         allCountries = countryDao.getAllCountries();
         Quiz quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
@@ -75,8 +81,22 @@ public class GameViewModel extends AndroidViewModel {
                 }
             }
         });
-nextCountryIndex(51);
-
+        if (continentId == CountryContentValues.EUROPE) {
+            numberOfCountries = NUMBER_OF_EUROPEAN_COUNTRIES;
+        } else if (continentId == CountryContentValues.AMERICA) {
+            numberOfCountries = NUMBER_OF_AMERICAN_COUNTRIES;
+        } else if (continentId == CountryContentValues.ASIA) {
+            numberOfCountries = NUMBER_OF_ASIAN_COUNTRIES;
+        } else if (continentId == CountryContentValues.AFRICA) {
+            numberOfCountries = NUMBER_OF_AFRICAN_COUNTRIES;
+        } else if (continentId == CountryContentValues.OCEANIA) {
+            numberOfCountries = NUMBER_OF_OCEANIAN_COUNTRIES;
+        } else if (continentId == CountryContentValues.ANTARCTICA) {
+            numberOfCountries = NUMBER_OF_ANTARCTIC_COUNTRIES;
+        } else if (continentId == CountryContentValues.WORLD) {
+            numberOfCountries = NUMBER_OF_ALL_COUNTRIES;
+        }
+        nextCountryIndex(numberOfCountries);
     }
 
 
@@ -85,36 +105,23 @@ nextCountryIndex(51);
         super.onCleared();
     }
 
-    public LiveData<List<Country>> getQuizCountries(int continentId) {
-        if(continentId==CountryContentValues.EUROPE) {
-            //            nextCountryIndex(CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES);
-
+    public LiveData<List<Country>> getQuizCountries(int id) {
+        if (id == CountryContentValues.EUROPE) {
             return europeanCountries;
-        } else if(continentId ==CountryContentValues.AMERICA) {
-//            nextCountryIndex(CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES);
-            return  americanCountries;
+        } else if (id == CountryContentValues.AMERICA) {
+            return americanCountries;
+        } else if (id == CountryContentValues.ASIA) {
+            return asianCountries;
+        } else if (id == CountryContentValues.AFRICA) {
+            return africanCountries;
+        } else if (id == CountryContentValues.OCEANIA) {
+            return oceanianCountries;
+        } else if (id == CountryContentValues.ANTARCTICA) {
+            return antarticaCountries;
+        } else if (id == CountryContentValues.WORLD) {
+            return allCountries;
         }
-         else if(continentId ==CountryContentValues.ASIA) {
-//            nextCountryIndex(CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES);
-             return asianCountries;
-        }
-         else if(continentId ==CountryContentValues.AFRICA) {
-//            nextCountryIndex(CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES);
-             return countryDao.getAfricanCountries();
-        }
-         else if(continentId ==CountryContentValues.OCEANIA) {
-//            nextCountryIndex(CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES);
-             return oceanianCountries;
-        }
-         else if(continentId ==CountryContentValues.ANTARCTICA) {
-//            nextCountryIndex(CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES);
-             return antarticaCountries;
-        }
-         else if(continentId ==CountryContentValues.WORLD) {
-//            nextCountryIndex(CountryContentValues.NUMBER_OF_ALL_COUNTRIES);
-             return allCountries;
-        }
-         return allCountries;
+        return allCountries;
     }
 
     public void nextCountryIndex(int size) {
