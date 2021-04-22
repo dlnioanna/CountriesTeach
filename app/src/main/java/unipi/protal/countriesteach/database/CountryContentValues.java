@@ -348,6 +348,16 @@ public class CountryContentValues {
         Country c48 = new Country(169, "", AMERICA);
         Country c49 = new Country(170, "", AMERICA);
         Country c50 = new Country(171, "", AMERICA);
+        Country c51 = new Country(172, "", AMERICA);
+        Country c52 = new Country(173, "", AMERICA);
+        Country c53 = new Country(174, "", AMERICA);
+        Country c54 = new Country(175, "", AMERICA);
+        Country c55 = new Country(176, "", AMERICA);
+        Country c56 = new Country(177, "", AMERICA);
+        Country c57 = new Country(178, "", AMERICA);
+        Country c58 = new Country(179, "", AMERICA);
+        Country c59 = new Country(180, "", AMERICA);
+        Country c60 = new Country(181, "", AMERICA);
         americanCountries.add(c1);
         americanCountries.add(c2);
         americanCountries.add(c3);
@@ -398,6 +408,16 @@ public class CountryContentValues {
         americanCountries.add(c48);
         americanCountries.add(c49);
         americanCountries.add(c50);
+        americanCountries.add(c51);
+        americanCountries.add(c52);
+        americanCountries.add(c53);
+        americanCountries.add(c54);
+        americanCountries.add(c55);
+        americanCountries.add(c56);
+        americanCountries.add(c57);
+        americanCountries.add(c58);
+        americanCountries.add(c59);
+        americanCountries.add(c60);
         return americanCountries;
     }
 }
