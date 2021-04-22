@@ -46,13 +46,7 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
-    public static final int NUMBER_OF_EUROPEAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_AMERICAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_ASIAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_AFRICAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
-    public static final int NUMBER_OF_ANTARCTIC_COUNTRIES = 51;
-    public static final int NUMBER_OF_ALL_COUNTRIES = 51;
+
     public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
         Database db = Database.getDatabase(application);
@@ -82,19 +76,19 @@ public class GameViewModel extends AndroidViewModel {
             }
         });
         if (continentId == CountryContentValues.EUROPE) {
-            numberOfCountries = NUMBER_OF_EUROPEAN_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
         } else if (continentId == CountryContentValues.AMERICA) {
-            numberOfCountries = NUMBER_OF_AMERICAN_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES;
         } else if (continentId == CountryContentValues.ASIA) {
-            numberOfCountries = NUMBER_OF_ASIAN_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES;
         } else if (continentId == CountryContentValues.AFRICA) {
-            numberOfCountries = NUMBER_OF_AFRICAN_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
         } else if (continentId == CountryContentValues.OCEANIA) {
-            numberOfCountries = NUMBER_OF_OCEANIAN_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
         } else if (continentId == CountryContentValues.ANTARCTICA) {
-            numberOfCountries = NUMBER_OF_ANTARCTIC_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES;
         } else if (continentId == CountryContentValues.WORLD) {
-            numberOfCountries = NUMBER_OF_ALL_COUNTRIES;
+            numberOfCountries = CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
         }
         nextCountryIndex(numberOfCountries);
     }

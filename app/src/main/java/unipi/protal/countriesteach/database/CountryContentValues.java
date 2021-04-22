@@ -20,9 +20,15 @@ public class CountryContentValues {
     public static final int AFRICA = 4;
     public static final int OCEANIA = 5;
     public static final int ANTARCTICA = 6;
-    public static final int EUROPE_AND_ASIA = 7;
-    public static final int WORLD = 8;
-
+    public static final int WORLD = 7;
+    public static final int EUROPE_AND_ASIA = 8;
+    public static final int NUMBER_OF_EUROPEAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_AMERICAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_ASIAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_AFRICAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
+    public static final int NUMBER_OF_ANTARCTIC_COUNTRIES = 51;
+    public static final int NUMBER_OF_ALL_COUNTRIES = 51;
 
     //51 countries
     public static List<Country> initializeEuropeanCountries() {
