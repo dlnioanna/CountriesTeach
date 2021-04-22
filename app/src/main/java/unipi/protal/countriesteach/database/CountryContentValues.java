@@ -292,11 +292,10 @@ public class CountryContentValues {
     }
 
 
-    // todo leipei 91_1 = Ιαπωνία , 97 Μαλαισία, 103_1 Ομάν
-    //     lathos 95_1 Λάος, 103???? Ομάν , 115_1, 79 skaei(to esvisa) Αφγανιστάν, 119 Ουζμπεκιστάν
+    // todo
+    //     lathos , 119 Ουζμπεκιστάν
     //    AMERIKH
-    //    122_1  Ανγκουίλα, 123 123_1 Αντίγκουα και Μπαρμπούντα, 124 Αργεντινή, 131 BRAZILIA, 137_1 COLOMBIA
-    //     140 & 140_1 CURACAO, 141 141_1 DOMINICA, 145 145_1 Νήσοι Φώκλαντ
+    //      124 Αργεντινή, 153 ondoura, 157_1 Μοντσερράτ
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
         Country c1 = new Country(122, "Ανγκουίλα", AMERICA);
@@ -322,24 +321,24 @@ public class CountryContentValues {
         Country c21 = new Country(142, "Δομινικανή Δημοκρατία", AMERICA);
         Country c22 = new Country(143, "Ισημερινός ", AMERICA);
         Country c23 = new Country(144, "Ελ Σαλβαδόρ", AMERICA);
-        Country c24 = new Country(145, "Νήσοι Φώκλαντ", AMERICA); //FRENCH GUIANA
-        Country c25 = new Country(146, "", AMERICA);
-        Country c26 = new Country(147, "", AMERICA);
-        Country c27 = new Country(148, "", AMERICA);
-        Country c28 = new Country(149, "", AMERICA);
-        Country c29 = new Country(150, "", AMERICA);
-        Country c30 = new Country(151, "", AMERICA);
-        Country c31 = new Country(152, "", AMERICA);
-        Country c32 = new Country(153, "", AMERICA);
-        Country c33 = new Country(154, "", AMERICA);
-        Country c34 = new Country(155, "", AMERICA);
-        Country c35 = new Country(156, "", AMERICA);
-        Country c36 = new Country(157, "", AMERICA);
-        Country c37 = new Country(158, "", AMERICA);
-        Country c38 = new Country(159, "", AMERICA);
-        Country c39 = new Country(160, "", AMERICA);
-        Country c40 = new Country(161, "", AMERICA);
-        Country c41 = new Country(162, "", AMERICA);
+        Country c24 = new Country(145, "Νήσοι Φώκλαντ", AMERICA);
+        Country c25 = new Country(146, "Γαλλική Γουιάνα", AMERICA);
+        Country c26 = new Country(147, "Γροιλανδία", AMERICA);
+        Country c27 = new Country(148, "Γρενάδα", AMERICA);
+        Country c28 = new Country(149, "Γουαδελούπη", AMERICA);
+        Country c29 = new Country(150, "Γουατεμάλα", AMERICA);
+        Country c30 = new Country(151, "Γουιάνα", AMERICA);
+        Country c31 = new Country(152, "Αϊτή", AMERICA);
+        Country c32 = new Country(153, "Ονδούρα", AMERICA);
+        Country c33 = new Country(154, "Τζαμάικα", AMERICA);
+        Country c34 = new Country(155, "Μαρτινίκα", AMERICA);
+        Country c35 = new Country(156, "Μεξικό", AMERICA);
+        Country c36 = new Country(157, "Μοντσερράτ", AMERICA);
+        Country c37 = new Country(158, "Νικαράγουα", AMERICA);
+        Country c38 = new Country(159, "Παναμάς", AMERICA);
+        Country c39 = new Country(160, "Παραγουάη", AMERICA);
+        Country c40 = new Country(161, "Περού", AMERICA);
+        Country c41 = new Country(162, "Πουέρτο Ρίκο", AMERICA);
         Country c42 = new Country(163, "", AMERICA);
         Country c43 = new Country(164, "", AMERICA);
         Country c44 = new Country(165, "", AMERICA);

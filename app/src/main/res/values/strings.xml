@@ -14,4 +14,6 @@
     <string name="world_string">Κόσμος</string>
     <string name="choose_contintent_text">Επιλέξτε ήπειρο</string>
     <string name="question">Σε ποιά χώρα ανήκει η σημαία;</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
