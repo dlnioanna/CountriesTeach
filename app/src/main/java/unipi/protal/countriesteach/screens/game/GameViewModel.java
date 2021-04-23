@@ -30,6 +30,14 @@ import unipi.protal.countriesteach.entities.Question;
 import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
 
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
+
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
     //public MutableLiveData<Integer> continentId = new MutableLiveData<>();

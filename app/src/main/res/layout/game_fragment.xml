@@ -48,13 +48,13 @@
                 android:layout_marginStart="@dimen/image_margin_start_end"
                 android:layout_marginTop="@dimen/image_margin_start_end"
                 android:layout_marginEnd="@dimen/image_margin_start_end"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 app:layout_constraintBottom_toTopOf="@+id/questionText"
                 app:layout_constraintDimensionRatio="8:5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"/>
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/questionText"
@@ -81,8 +81,8 @@
                 android:id="@+id/answers_grid_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/grid_margin_top_bottom"
-                android:layout_marginBottom="@dimen/grid_margin_top_bottom"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
                 android:columnCount="2"
                 android:orientation="horizontal"
                 android:rowCount="2"
