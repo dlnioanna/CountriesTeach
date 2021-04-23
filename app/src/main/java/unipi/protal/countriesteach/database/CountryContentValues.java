@@ -12,6 +12,7 @@ import unipi.protal.countriesteach.R;
 import unipi.protal.countriesteach.entities.Country;
 //   https://androtak.wordpress.com/2016/03/01/how-to-convert-any-object-to-contentvalues-in-for-android-sqlite-insertion/
 // https://www.vectorizer.io/
+// https://www.textcompare.org/vectorize/
 
 public class CountryContentValues {
     public static final int EUROPE = 1;
@@ -296,7 +297,7 @@ public class CountryContentValues {
     //     lathos , 119 Ουζμπεκιστάν
     //    AMERIKH
     //      124 Αργεντινή, 153 ondoura, 157_1 Μοντσερράτ, 166_1 den exei emblem, 172 172_1 Τερκς και Κέικος
-    //      173 173_1 Ηνωμένες Πολιτείες Αμερικής, 147_1 mallon ekana malakia kai to esvisa, 176 176_1 Βενεζουέλα
+    //      173 173_1 Ηνωμένες Πολιτείες Αμερικής, 147_1 mallon ekana malakia kai to esvisa
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
         Country c1 = new Country(122, "Ανγκουίλα", AMERICA);
