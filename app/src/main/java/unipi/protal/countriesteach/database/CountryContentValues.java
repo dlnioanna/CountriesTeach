@@ -295,7 +295,8 @@ public class CountryContentValues {
     // todo
     //     lathos , 119 Ουζμπεκιστάν
     //    AMERIKH
-    //      124 Αργεντινή, 153 ondoura, 157_1 Μοντσερράτ
+    //      124 Αργεντινή, 153 ondoura, 157_1 Μοντσερράτ, 166_1 den exei emblem, 172 172_1 Τερκς και Κέικος
+    //      173 173_1 Ηνωμένες Πολιτείες Αμερικής, 147_1 mallon ekana malakia kai to esvisa, 176 176_1 Βενεζουέλα
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
         Country c1 = new Country(122, "Ανγκουίλα", AMERICA);
@@ -339,25 +340,20 @@ public class CountryContentValues {
         Country c39 = new Country(160, "Παραγουάη", AMERICA);
         Country c40 = new Country(161, "Περού", AMERICA);
         Country c41 = new Country(162, "Πουέρτο Ρίκο", AMERICA);
-        Country c42 = new Country(163, "", AMERICA);
-        Country c43 = new Country(164, "", AMERICA);
-        Country c44 = new Country(165, "", AMERICA);
-        Country c45 = new Country(166, "", AMERICA);
-        Country c46 = new Country(167, "", AMERICA);
-        Country c47 = new Country(168, "", AMERICA);
-        Country c48 = new Country(169, "", AMERICA);
-        Country c49 = new Country(170, "", AMERICA);
-        Country c50 = new Country(171, "", AMERICA);
-        Country c51 = new Country(172, "", AMERICA);
-        Country c52 = new Country(173, "", AMERICA);
-        Country c53 = new Country(174, "", AMERICA);
-        Country c54 = new Country(175, "", AMERICA);
-        Country c55 = new Country(176, "", AMERICA);
-        Country c56 = new Country(177, "", AMERICA);
-        Country c57 = new Country(178, "", AMERICA);
-        Country c58 = new Country(179, "", AMERICA);
-        Country c59 = new Country(180, "", AMERICA);
-        Country c60 = new Country(181, "", AMERICA);
+        Country c42 = new Country(163, "Άγιος Βαρθολομαίος", AMERICA);
+        Country c43 = new Country(164, "Άγιος Χριστόφορος και Νέβις", AMERICA);
+        Country c44 = new Country(165, "Αγία Λουκία", AMERICA);
+        Country c45 = new Country(166, "Άγιος Μαρτίνος", AMERICA);
+        Country c46 = new Country(167, "Σαιν-Πιερ και Μικελόν", AMERICA);
+        Country c47 = new Country(168, "Άγιος Βικέντιος και Γρεναδίνες", AMERICA);
+        Country c48 = new Country(169, "Άγιος Μαρτίνος", AMERICA);
+        Country c49 = new Country(170, "Σουρινάμ", AMERICA);
+        Country c50 = new Country(171, "Τρινιντάντ και Τομπάγκο", AMERICA);
+        Country c51 = new Country(172, "Τερκς και Κέικος", AMERICA);
+        Country c52 = new Country(173, "Ηνωμένες Πολιτείες Αμερικής", AMERICA);
+        Country c53 = new Country(174, "Αμερικανικές Παρθένοι Νήσοι", AMERICA);
+        Country c54 = new Country(175, "Ουρουγουάη", AMERICA);
+        Country c55 = new Country(176, "Βενεζουέλα", AMERICA);
         americanCountries.add(c1);
         americanCountries.add(c2);
         americanCountries.add(c3);
@@ -413,11 +409,6 @@ public class CountryContentValues {
         americanCountries.add(c53);
         americanCountries.add(c54);
         americanCountries.add(c55);
-        americanCountries.add(c56);
-        americanCountries.add(c57);
-        americanCountries.add(c58);
-        americanCountries.add(c59);
-        americanCountries.add(c60);
         return americanCountries;
     }
 }
