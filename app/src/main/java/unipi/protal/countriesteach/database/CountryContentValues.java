@@ -293,10 +293,9 @@ public class CountryContentValues {
 
 
     // todo
-    //     lathos , 119 Ουζμπεκιστάν
-    //    AMERIKH
-    //      124 Αργεντινή, 153 ondoura, 157_1 Μοντσερράτ, 166_1 den exei emblem, 172 172_1 Τερκς και Κέικος
-    //      173 173_1 Ηνωμένες Πολιτείες Αμερικής, 147_1 mallon ekana malakia kai to esvisa, 142 Δομινικανή Δημοκρατία skaei
+    //    AMERIKH   https://www.vectorizer.io/   https://www.textcompare.org/vectorize/
+    //       https://www.countryflags.com/
+    //
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
         Country c1 = new Country(122, "Ανγκουίλα", AMERICA);
