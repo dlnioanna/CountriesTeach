@@ -292,10 +292,6 @@ public class CountryContentValues {
     }
 
 
-    // todo
-    //    AMERIKH   https://www.vectorizer.io/   https://www.textcompare.org/vectorize/
-    //       https://www.countryflags.com/
-    //
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
         Country c1 = new Country(122, "Ανγκουίλα", AMERICA);
@@ -411,28 +407,34 @@ public class CountryContentValues {
         return americanCountries;
     }
 
+
+
+    // todo
+    //       https://www.vectorizer.io/   https://www.textcompare.org/vectorize/
+    //       https://www.countryflags.com/
+    //       181_1 south africa,
     public static List<Country> initializeAmfricanCountries() {
         List<Country> africanCountries = new ArrayList<>();
-        Country c1 = new Country(177, "", AFRICA);
-        Country c2 = new Country(178, "", AFRICA);
-        Country c3 = new Country(179, "", AFRICA);
-        Country c4 = new Country(180, "", AFRICA);
-        Country c5 = new Country(181, "", AFRICA);
-        Country c6 = new Country(182, "", AFRICA);
-        Country c7 = new Country(183, "", AFRICA);
-        Country c8 = new Country(184, "", AFRICA);
-        Country c9 = new Country(185, "", AFRICA);
-        Country c10 = new Country(186,"", AFRICA);
-        Country c11 = new Country(187,"", AFRICA);
-        Country c12 = new Country(188,"", AFRICA);
-        Country c13 = new Country(189,"", AFRICA);
-        Country c14 = new Country(190,"", AFRICA);
-        Country c15 = new Country(191,"", AFRICA);
-        Country c16 = new Country(192,"", AFRICA);
-        Country c17 = new Country(193,"", AFRICA);
-        Country c18 = new Country(194,"", AFRICA);
-        Country c19 = new Country(195,"", AFRICA);
-        Country c20 = new Country(196,"", AFRICA);
+        Country c1 = new Country(177, "Νιγηρία", AFRICA);
+        Country c2 = new Country(178, "Αιθιοπία", AFRICA);
+        Country c3 = new Country(179, "Κονγκό", AFRICA);
+        Country c4 = new Country(180, "Αίγυπτος", AFRICA);
+        Country c5 = new Country(181, "Νότια Αφρική", AFRICA);
+        Country c6 = new Country(182, "Τανζανία", AFRICA);
+        Country c7 = new Country(183, "Κένυα", AFRICA);
+        Country c8 = new Country(184, "Ουγκάντα", AFRICA);
+        Country c9 = new Country(185, "Αλγερία", AFRICA);
+        Country c10 = new Country(186,"Σουδάν", AFRICA);
+        Country c11 = new Country(187,"Μαρόκο", AFRICA);
+        Country c12 = new Country(188,"Μοζαμβίκη", AFRICA);
+        Country c13 = new Country(189,"Γκάνα", AFRICA);
+        Country c14 = new Country(190,"Ανγκόλα", AFRICA);
+        Country c15 = new Country(191,"Σομαλία", AFRICA);
+        Country c16 = new Country(192,"Ακτή Ελεφαντοστού", AFRICA);
+        Country c17 = new Country(193,"Μαδαγασκάρη", AFRICA);
+        Country c18 = new Country(194,"Καμερούν", AFRICA);
+        Country c19 = new Country(195,"Μπουρκίνα Φάσο", AFRICA);
+        Country c20 = new Country(196,"Νίγηρας", AFRICA);
         Country c21 = new Country(197,"", AFRICA);
         Country c22 = new Country(198,"", AFRICA);
         Country c23 = new Country(199,"", AFRICA);
