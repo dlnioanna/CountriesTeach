@@ -33,7 +33,6 @@ import unipi.protal.countriesteach.entities.Quiz;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
@@ -93,8 +92,6 @@ public class GameViewModel extends AndroidViewModel {
             numberOfCountries = CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
         } else if (continentId == CountryContentValues.OCEANIA) {
             numberOfCountries = CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
-        } else if (continentId == CountryContentValues.ANTARCTICA) {
-            numberOfCountries = CountryContentValues.NUMBER_OF_ANTARCTIC_COUNTRIES;
         } else if (continentId == CountryContentValues.WORLD) {
             numberOfCountries = CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
         }
@@ -118,9 +115,7 @@ public class GameViewModel extends AndroidViewModel {
             return africanCountries;
         } else if (id == CountryContentValues.OCEANIA) {
             return oceanianCountries;
-        } else if (id == CountryContentValues.ANTARCTICA) {
-            return antarticaCountries;
-        } else if (id == CountryContentValues.WORLD) {
+        }  else if (id == CountryContentValues.WORLD) {
             return allCountries;
         }
         return allCountries;

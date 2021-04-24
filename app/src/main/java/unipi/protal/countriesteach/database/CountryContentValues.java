@@ -28,7 +28,6 @@ public class CountryContentValues {
     public static final int NUMBER_OF_ASIAN_COUNTRIES = 45;
     public static final int NUMBER_OF_AFRICAN_COUNTRIES = 51;
     public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
-    public static final int NUMBER_OF_ANTARCTIC_COUNTRIES = 51;
     public static final int NUMBER_OF_ALL_COUNTRIES = 51;
 
     //51 countries

@@ -61,13 +61,6 @@ public class TitleFragment extends Fragment {
                 navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.OCEANIA));
             }
         });
-        //ΑΝΤΑΡΚΤΙΚΗ
-        binding.antarcticaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.ANTARCTICA));
-            }
-        });
         // ΚΟΣΜΟΣ
         binding.worldButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,9 +28,8 @@
     <color name="color_oceania">#4db6ac</color>
     <color name="color_oceania_dark">#00867d</color>
 
-    <color name="color_antarctica">#26a69a</color>
-    <color name="color_antarctica_dark">#00766c</color>
-
-    <color name="color_world">#009688</color>
-    <color name="color_wolrd_dark">#00675b</color>
+    <color name="color_world">#26a69a</color>
+    <color name="color_wolrd_dark">#00766c</color>
+<!--    <color name="color_world">#009688</color>-->
+<!--    <color name="color_wolrd_dark">#00675b</color>-->
 </resources>

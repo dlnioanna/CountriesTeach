@@ -75,13 +75,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             binding.fourthAnswerRadioButton.setBackgroundResource(R.drawable.button_oceania);
             DrawableCompat.setTint(wrappedDrawable, resources.getColor(R.color.color_oceania_dark));
             binding.skipButton.setBackgroundResource(R.drawable.button_next);
-        } else if (continentId == CountryContentValues.ANTARCTICA) {
-            binding.firstAnswerRadioButton.setBackgroundResource(R.drawable.button_antarctica);
-            binding.secondAnswerRadioButton.setBackgroundResource(R.drawable.button_antarctica);
-            binding.thirdAnswerRadioButton.setBackgroundResource(R.drawable.button_antarctica);
-            binding.fourthAnswerRadioButton.setBackgroundResource(R.drawable.button_antarctica);
-            DrawableCompat.setTint(wrappedDrawable, resources.getColor(R.color.color_antarctica_dark));
-        } else if (continentId == CountryContentValues.WORLD) {
+        }  else if (continentId == CountryContentValues.WORLD) {
             binding.firstAnswerRadioButton.setBackgroundResource(R.drawable.button_all_continents);
             binding.secondAnswerRadioButton.setBackgroundResource(R.drawable.button_all_continents);
             binding.thirdAnswerRadioButton.setBackgroundResource(R.drawable.button_all_continents);

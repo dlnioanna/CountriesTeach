@@ -63,13 +63,6 @@
                     tools:text="Oceania" />
 
                 <Button
-                    android:id="@+id/antarctica_button"
-                    style="@style/continentButtonLayout"
-                    android:background="@drawable/button_antarctica"
-                    android:text="@string/antarctica_string"
-                    tools:text="Antarctica" />
-
-                <Button
                     android:id="@+id/world_button"
                     style="@style/continentButtonLayout"
                     android:background="@drawable/button_all_continents"

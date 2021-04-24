@@ -19,7 +19,7 @@
     <dimen name="answer_text_size">18sp</dimen>
     <dimen name="question_text_size">24sp</dimen>
     <dimen name="welcome_text_size">24sp</dimen>
-    <dimen name="welcome_text_margin">16dp</dimen>
+    <dimen name="welcome_text_margin">32dp</dimen>
     <dimen name="layout_top_margin">16dp</dimen>
     <dimen name="grid_margin_top_bottom">32dp</dimen>
 </resources>
