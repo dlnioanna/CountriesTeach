@@ -297,7 +297,7 @@ public class CountryContentValues {
     //     lathos , 119 Ουζμπεκιστάν
     //    AMERIKH
     //      124 Αργεντινή, 153 ondoura, 157_1 Μοντσερράτ, 166_1 den exei emblem, 172 172_1 Τερκς και Κέικος
-    //      173 173_1 Ηνωμένες Πολιτείες Αμερικής, 147_1 mallon ekana malakia kai to esvisa
+    //      173 173_1 Ηνωμένες Πολιτείες Αμερικής, 147_1 mallon ekana malakia kai to esvisa, 142 Δομινικανή Δημοκρατία skaei
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
         Country c1 = new Country(122, "Ανγκουίλα", AMERICA);
@@ -412,4 +412,118 @@ public class CountryContentValues {
         americanCountries.add(c55);
         return americanCountries;
     }
+
+    public static List<Country> initializeAmfricanCountries() {
+        List<Country> africanCountries = new ArrayList<>();
+        Country c1 = new Country(177, "", AFRICA);
+        Country c2 = new Country(178, "", AFRICA);
+        Country c3 = new Country(179, "", AFRICA);
+        Country c4 = new Country(180, "", AFRICA);
+        Country c5 = new Country(181, "", AFRICA);
+        Country c6 = new Country(182, "", AFRICA);
+        Country c7 = new Country(183, "", AFRICA);
+        Country c8 = new Country(184, "", AFRICA);
+        Country c9 = new Country(185, "", AFRICA);
+        Country c10 = new Country(186,"", AFRICA);
+        Country c11 = new Country(187,"", AFRICA);
+        Country c12 = new Country(188,"", AFRICA);
+        Country c13 = new Country(189,"", AFRICA);
+        Country c14 = new Country(190,"", AFRICA);
+        Country c15 = new Country(191,"", AFRICA);
+        Country c16 = new Country(192,"", AFRICA);
+        Country c17 = new Country(193,"", AFRICA);
+        Country c18 = new Country(194,"", AFRICA);
+        Country c19 = new Country(195,"", AFRICA);
+        Country c20 = new Country(196,"", AFRICA);
+        Country c21 = new Country(197,"", AFRICA);
+        Country c22 = new Country(198,"", AFRICA);
+        Country c23 = new Country(199,"", AFRICA);
+        Country c24 = new Country(200,"", AFRICA);
+        Country c25 = new Country(201,"", AFRICA);
+        Country c26 = new Country(202,"", AFRICA);
+        Country c27 = new Country(203,"", AFRICA);
+        Country c28 = new Country(204,"", AFRICA);
+        Country c29 = new Country(205,"", AFRICA);
+        Country c30 = new Country(206,"", AFRICA);
+        Country c31 = new Country(207,"", AFRICA);
+        Country c32 = new Country(208,"", AFRICA);
+        Country c33 = new Country(209,"", AFRICA);
+        Country c34 = new Country(210,"", AFRICA);
+        Country c35 = new Country(211,"", AFRICA);
+        Country c36 = new Country(212,"", AFRICA);
+        Country c37 = new Country(213,"", AFRICA);
+        Country c38 = new Country(214,"", AFRICA);
+        Country c39 = new Country(215,"", AFRICA);
+        Country c40 = new Country(216,"", AFRICA);
+        Country c41 = new Country(217,"", AFRICA);
+        Country c42 = new Country(218,"", AFRICA);
+        Country c43 = new Country(219,"", AFRICA);
+        Country c44 = new Country(220,"", AFRICA);
+        Country c45 = new Country(221,"", AFRICA);
+        Country c46 = new Country(222,"", AFRICA);
+        Country c47 = new Country(223,"", AFRICA);
+        Country c48 = new Country(224,"", AFRICA);
+        Country c49 = new Country(225,"", AFRICA);
+        Country c50 = new Country(226,"", AFRICA);
+        Country c51 = new Country(227,"", AFRICA);
+        Country c52 = new Country(228,"", AFRICA);
+        Country c53 = new Country(229,"", AFRICA);
+        Country c54 = new Country(230,"", AFRICA);
+        africanCountries.add(c1);
+        africanCountries.add(c2);
+        africanCountries.add(c3);
+        africanCountries.add(c4);
+        africanCountries.add(c5);
+        africanCountries.add(c6);
+        africanCountries.add(c7);
+        africanCountries.add(c8);
+        africanCountries.add(c9);
+        africanCountries.add(c10);
+        africanCountries.add(c11);
+        africanCountries.add(c12);
+        africanCountries.add(c13);
+        africanCountries.add(c14);
+        africanCountries.add(c15);
+        africanCountries.add(c16);
+        africanCountries.add(c17);
+        africanCountries.add(c18);
+        africanCountries.add(c19);
+        africanCountries.add(c20);
+        africanCountries.add(c21);
+        africanCountries.add(c22);
+        africanCountries.add(c23);
+        africanCountries.add(c24);
+        africanCountries.add(c25);
+        africanCountries.add(c26);
+        africanCountries.add(c27);
+        africanCountries.add(c28);
+        africanCountries.add(c29);
+        africanCountries.add(c30);
+        africanCountries.add(c31);
+        africanCountries.add(c32);
+        africanCountries.add(c33);
+        africanCountries.add(c34);
+        africanCountries.add(c35);
+        africanCountries.add(c36);
+        africanCountries.add(c37);
+        africanCountries.add(c38);
+        africanCountries.add(c39);
+        africanCountries.add(c40);
+        africanCountries.add(c41);
+        africanCountries.add(c42);
+        africanCountries.add(c43);
+        africanCountries.add(c44);
+        africanCountries.add(c45);
+        africanCountries.add(c46);
+        africanCountries.add(c47);
+        africanCountries.add(c48);
+        africanCountries.add(c49);
+        africanCountries.add(c50);
+        africanCountries.add(c51);
+        africanCountries.add(c52);
+        africanCountries.add(c53);
+        africanCountries.add(c54);
+        return africanCountries;
+    }
+
 }

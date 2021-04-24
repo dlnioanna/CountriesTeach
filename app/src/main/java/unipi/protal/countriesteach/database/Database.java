@@ -84,6 +84,8 @@ public abstract class Database extends RoomDatabase {
                 dao.insertAll(oceanianCountries);
                 List<Country> asianCountries = CountryContentValues.initializeAsianCountries();
                 dao.insertAll(asianCountries);
+                List<Country> americanCountries = CountryContentValues.initializeAmericanCountries();
+                dao.insertAll(americanCountries);
             });
         }
     };
