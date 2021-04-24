@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         // Genetic algorithm example with dummy random data.
-        /*
+
         List<Integer[]> rows = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             Integer[] row = {i + 1, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (GeneticAlgorithmException e) {
             System.err.println(e.getMessage());
         }
-        */
+
     }
 
     @Override
