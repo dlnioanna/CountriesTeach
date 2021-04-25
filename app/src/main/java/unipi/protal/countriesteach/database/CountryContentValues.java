@@ -13,7 +13,7 @@ import unipi.protal.countriesteach.entities.Country;
 //   https://androtak.wordpress.com/2016/03/01/how-to-convert-any-object-to-contentvalues-in-for-android-sqlite-insertion/
 // https://www.vectorizer.io/
 // https://www.textcompare.org/vectorize/
-
+// https://www.countryflags.com/
 public class CountryContentValues {
     public static final int EUROPE = 1;
     public static final int AMERICA = 2;
@@ -24,11 +24,11 @@ public class CountryContentValues {
     public static final int EUROPE_AND_ASIA = 7;
     public static final int WORLD = 8;
     public static final int NUMBER_OF_EUROPEAN_COUNTRIES = 51;
-    public static final int NUMBER_OF_AMERICAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_AMERICAN_COUNTRIES = 55;
     public static final int NUMBER_OF_ASIAN_COUNTRIES = 45;
-    public static final int NUMBER_OF_AFRICAN_COUNTRIES = 51;
+    public static final int NUMBER_OF_AFRICAN_COUNTRIES = 54;
     public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
-    public static final int NUMBER_OF_ALL_COUNTRIES = 51;
+    public static final int NUMBER_OF_ALL_COUNTRIES = 230;
 
     //51 countries
     public static List<Country> initializeEuropeanCountries() {
@@ -407,12 +407,6 @@ public class CountryContentValues {
         return americanCountries;
     }
 
-
-
-    // todo
-    //       https://www.vectorizer.io/   https://www.textcompare.org/vectorize/
-    //       https://www.countryflags.com/
-    //       181_1 south africa,
     public static List<Country> initializeAmfricanCountries() {
         List<Country> africanCountries = new ArrayList<>();
         Country c1 = new Country(177, "Νιγηρία", AFRICA);
@@ -435,40 +429,40 @@ public class CountryContentValues {
         Country c18 = new Country(194,"Καμερούν", AFRICA);
         Country c19 = new Country(195,"Μπουρκίνα Φάσο", AFRICA);
         Country c20 = new Country(196,"Νίγηρας", AFRICA);
-        Country c21 = new Country(197,"", AFRICA);
-        Country c22 = new Country(198,"", AFRICA);
-        Country c23 = new Country(199,"", AFRICA);
-        Country c24 = new Country(200,"", AFRICA);
-        Country c25 = new Country(201,"", AFRICA);
-        Country c26 = new Country(202,"", AFRICA);
-        Country c27 = new Country(203,"", AFRICA);
-        Country c28 = new Country(204,"", AFRICA);
-        Country c29 = new Country(205,"", AFRICA);
-        Country c30 = new Country(206,"", AFRICA);
-        Country c31 = new Country(207,"", AFRICA);
-        Country c32 = new Country(208,"", AFRICA);
-        Country c33 = new Country(209,"", AFRICA);
-        Country c34 = new Country(210,"", AFRICA);
-        Country c35 = new Country(211,"", AFRICA);
-        Country c36 = new Country(212,"", AFRICA);
-        Country c37 = new Country(213,"", AFRICA);
-        Country c38 = new Country(214,"", AFRICA);
-        Country c39 = new Country(215,"", AFRICA);
-        Country c40 = new Country(216,"", AFRICA);
-        Country c41 = new Country(217,"", AFRICA);
-        Country c42 = new Country(218,"", AFRICA);
-        Country c43 = new Country(219,"", AFRICA);
-        Country c44 = new Country(220,"", AFRICA);
-        Country c45 = new Country(221,"", AFRICA);
-        Country c46 = new Country(222,"", AFRICA);
-        Country c47 = new Country(223,"", AFRICA);
-        Country c48 = new Country(224,"", AFRICA);
-        Country c49 = new Country(225,"", AFRICA);
-        Country c50 = new Country(226,"", AFRICA);
-        Country c51 = new Country(227,"", AFRICA);
-        Country c52 = new Country(228,"", AFRICA);
-        Country c53 = new Country(229,"", AFRICA);
-        Country c54 = new Country(230,"", AFRICA);
+        Country c21 = new Country(197,"Μαλάουι", AFRICA);
+        Country c22 = new Country(198,"Ζάμπια", AFRICA);
+        Country c23 = new Country(199,"Σενεγάλη", AFRICA);
+        Country c24 = new Country(200,"Μάλι ", AFRICA);
+        Country c25 = new Country(201,"Ζιμπάμπουε", AFRICA);
+        Country c26 = new Country(202,"Τσαντ", AFRICA);
+        Country c27 = new Country(203,"Τυνησία", AFRICA);
+        Country c28 = new Country(204,"Γουινέα", AFRICA);
+        Country c29 = new Country(205,"Ρουάντα", AFRICA);
+        Country c30 = new Country(206,"Μπενίν", AFRICA);
+        Country c31 = new Country(207,"Μπουρούντι", AFRICA);
+        Country c32 = new Country(208,"Νότιο Σουδάν", AFRICA);
+        Country c33 = new Country(209,"Ερυθραία", AFRICA);
+        Country c34 = new Country(210,"Σιέρα Λεόνε", AFRICA);
+        Country c35 = new Country(211,"Τόγκο", AFRICA);
+        Country c36 = new Country(212,"Λιβύη", AFRICA);
+        Country c37 = new Country(213,"Μαυριτανία", AFRICA);
+        Country c38 = new Country(214,"Κονγκό", AFRICA);
+        Country c39 = new Country(215,"Λιβερία", AFRICA);
+        Country c40 = new Country(216,"Κεντροαφρικανική Δημοκρατία", AFRICA);
+        Country c41 = new Country(217,"Ναμίμπια", AFRICA);
+        Country c42 = new Country(218,"Λεσότο", AFRICA);
+        Country c43 = new Country(219,"Μποτσουάνα", AFRICA);
+        Country c44 = new Country(220,"Γκάμπια", AFRICA);
+        Country c45 = new Country(221,"Γκαμπόν", AFRICA);
+        Country c46 = new Country(222,"Γουινέα Μπισσάου", AFRICA);
+        Country c47 = new Country(223,"Μαυρίκιος", AFRICA);
+        Country c48 = new Country(224,"Ισημερινή Γουινέα", AFRICA);
+        Country c49 = new Country(225,"Εσουατίνι", AFRICA);
+        Country c50 = new Country(226,"Τζιμπουτί", AFRICA);
+        Country c51 = new Country(227,"Κομόρες", AFRICA);
+        Country c52 = new Country(228,"Πράσινο Ακρωτήριο", AFRICA);
+        Country c53 = new Country(229,"Σάο Τομέ και Πρίνσιπε", AFRICA);
+        Country c54 = new Country(230,"Σεϋχέλλες", AFRICA);
         africanCountries.add(c1);
         africanCountries.add(c2);
         africanCountries.add(c3);
