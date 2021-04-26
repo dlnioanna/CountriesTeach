@@ -68,11 +68,11 @@ public class GameViewModel extends AndroidViewModel {
         oceanianCountries = countryDao.getOceanianCountries();
         antarticaCountries = countryDao.getAntarcticaCountries();
         allCountries = countryDao.getAllCountries();
-        Quiz quiz = new Quiz();
-        quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                Quiz quiz = new Quiz();
+                quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
                 Long quizId = quizDao.insertQuiz(quiz);
                 for (int i = 1; i < 11; i++) {
                     Question question = new Question(i);
@@ -82,6 +82,7 @@ public class GameViewModel extends AndroidViewModel {
                 }
             }
         });
+
         if (continentId == CountryContentValues.EUROPE) {
             numberOfCountries = CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
         } else if (continentId == CountryContentValues.AMERICA) {
