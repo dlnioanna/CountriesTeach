@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/titleFragment">
 
@@ -20,5 +21,17 @@
             android:name="continent_id"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_gameFragment_to_gameEnd"
+            app:destination="@id/gameEnd" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameEnd"
+        android:name="unipi.protal.countriesteach.screens.GameEndFragment"
+        android:label="fragment_game_end"
+        tools:layout="@layout/game_end_fragment" >
+        <action
+            android:id="@+id/action_gameEnd_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
 </navigation>

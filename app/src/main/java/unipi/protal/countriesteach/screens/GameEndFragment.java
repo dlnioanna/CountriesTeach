@@ -10,16 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
-import unipi.protal.countriesteach.R;
-import unipi.protal.countriesteach.databinding.TitleFragmentBinding;
+import unipi.protal.countriesteach.databinding.*;
 
-public class GameEnd extends Fragment {
+import unipi.protal.countriesteach.R;
+import unipi.protal.countriesteach.databinding.GameFragmentBinding;
+
+public class GameEndFragment extends Fragment {
+    private  NavController navController;
+    private GameFragmentBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TitleFragmentBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_game_end, container, false);
+        binding = DataBindingUtil.inflate(
+                inflater, R.layout.game_end_fragment, container, false);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         View view = binding.getRoot();
-        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
 
         return binding.getRoot();
     }
