@@ -140,7 +140,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextQuestion();
+                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
             }
         });
         return binding.getRoot();
@@ -177,18 +177,15 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     }
 
     private void nextQuestion() {
-
-    navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
-
-//        Resources resources = this.getContext().getResources();
-//        gameViewModel.nextCountryIndex(gameViewModel.getQuizCountries(continentId).getValue().size());
-//        binding.questionText.setText(gameViewModel.getQuizCountries(continentId).getValue().get(countryIndex).getCountryName());
-//        binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(countryIndex).getCountryId(), "drawable",
-//                getContext().getPackageName()));
-//        binding.firstAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(firstAnswerIndex).getCountryName());
-//        binding.secondAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(secondAnswerIndex).getCountryName());
-//        binding.thirdAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(thirdAnswerIndex).getCountryName());
-//        binding.fourthAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(fourthAnswerIndex).getCountryName());
+        Resources resources = this.getContext().getResources();
+        gameViewModel.nextCountryIndex(gameViewModel.getQuizCountries(continentId).getValue().size());
+        binding.questionText.setText(gameViewModel.getQuizCountries(continentId).getValue().get(countryIndex).getCountryName());
+        binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(countryIndex).getCountryId(), "drawable",
+                getContext().getPackageName()));
+        binding.firstAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(firstAnswerIndex).getCountryName());
+        binding.secondAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(secondAnswerIndex).getCountryName());
+        binding.thirdAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(thirdAnswerIndex).getCountryName());
+        binding.fourthAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(fourthAnswerIndex).getCountryName());
     }
 
     private int getnumberOfCountires(int id) {

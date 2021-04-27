@@ -17,7 +17,7 @@ import unipi.protal.countriesteach.databinding.GameFragmentBinding;
 
 public class GameEndFragment extends Fragment {
     private  NavController navController;
-    private GameFragmentBinding binding;
+    private GameEndFragmentBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
