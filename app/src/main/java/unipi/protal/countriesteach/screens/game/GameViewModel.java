@@ -29,6 +29,9 @@ import unipi.protal.countriesteach.entities.Country;
 import unipi.protal.countriesteach.entities.Question;
 import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
+import unipi.protal.countriesteach.genetic.exceptions.GeneticAlgorithmException;
+import unipi.protal.countriesteach.genetic.service.GeneticAlgorithmService;
+import unipi.protal.countriesteach.utils.NumberUtils;
 
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
@@ -39,12 +42,13 @@ import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_O
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
-    //public MutableLiveData<Integer> continentId = new MutableLiveData<>();
+    public MutableLiveData<Integer> numberOfQuestion = new MutableLiveData<>();
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> firstAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
+    public MutableLiveData<List<Country>> quizCountries = new MutableLiveData<>();
     private int numberOfCountries;
     private Random random = new Random();
     private CountryDao countryDao;
@@ -56,6 +60,7 @@ public class GameViewModel extends AndroidViewModel {
 
     public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
+        numberOfQuestion.setValue(1);
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
         quizDao = db.quizDao();
@@ -149,6 +154,33 @@ public class GameViewModel extends AndroidViewModel {
         secondAnswerIndex.setValue(possibleAnswers.get(1));
         thirdAnswerIndex.setValue(possibleAnswers.get(2));
         fourthAnswerIndex.setValue(possibleAnswers.get(3));
+    }
+
+    private void selectQuestions(int numberOfContinentCountries){
+        // Genetic algorithm example with dummy random data.
+        List<Integer[]> rows = new ArrayList<>();
+        for (int i = 0; i < numberOfContinentCountries; i++) {
+            Integer[] row = {i + 1, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
+            rows.add(row);
+        }
+
+        List<Integer> solution = null;
+        int fitness = 0;
+        GeneticAlgorithmService service = new GeneticAlgorithmService();
+        try {
+            // service.populateTest();
+            service.populate(rows);
+
+            for (int i = 1; i <= 100; i++) {
+                service.run();
+                solution = service.getBestSolution();
+                fitness = service.getBestSolutionFitness();
+
+                System.out.println("Generation " + i + ": " + solution + ", Fitness: " + fitness);
+            }
+        } catch (GeneticAlgorithmException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
 
