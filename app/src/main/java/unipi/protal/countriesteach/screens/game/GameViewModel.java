@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -49,6 +50,7 @@ public class GameViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<List<Country>> quizCountries = new MutableLiveData<>();
+    private static final int NUMBER_OF_QUESTIONS = 10;
     private int numberOfCountries;
     private Random random = new Random();
     private CountryDao countryDao;
@@ -57,6 +59,8 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private Quiz quiz;
+    private Long quizId;
 
     public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
@@ -73,12 +77,13 @@ public class GameViewModel extends AndroidViewModel {
         oceanianCountries = countryDao.getOceanianCountries();
         antarticaCountries = countryDao.getAntarcticaCountries();
         allCountries = countryDao.getAllCountries();
+
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Quiz quiz = new Quiz();
+                quiz = new Quiz();
                 quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
-                Long quizId = quizDao.insertQuiz(quiz);
+                quizId = quizDao.insertQuiz(quiz);
                 for (int i = 1; i < 11; i++) {
                     Question question = new Question(i);
                     Long questionId = questionDao.insertQuestion(question);
@@ -134,6 +139,10 @@ public class GameViewModel extends AndroidViewModel {
         getRandomAnswersIndex(size);
     }
 
+    public int getNumberOfQuestions() {
+        return NUMBER_OF_QUESTIONS;
+    }
+
     public void getRandomAnswersIndex(int size) {
         List<Integer> possibleAnswers = new ArrayList<>();
         possibleAnswers.add(countryIndex.getValue());
@@ -156,10 +165,10 @@ public class GameViewModel extends AndroidViewModel {
         fourthAnswerIndex.setValue(possibleAnswers.get(3));
     }
 
-    private void selectQuestions(int numberOfContinentCountries){
+    public void selectQuestions(int id) {
         // Genetic algorithm example with dummy random data.
         List<Integer[]> rows = new ArrayList<>();
-        for (int i = 0; i < numberOfContinentCountries; i++) {
+        for (int i = 0; i < getQuizCountries(id).getValue().size(); i++) {
             // id xoras, pososto emfanishs , pososto lathon , pososto hints
             Integer[] row = {i + 1, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
             rows.add(row);
@@ -182,6 +191,31 @@ public class GameViewModel extends AndroidViewModel {
         } catch (GeneticAlgorithmException e) {
             System.err.println(e.getMessage());
         }
+
+        // filtro na fero to mikrotero pososto emfanishs kai megalytero pososto lathon
+
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                quiz = new Quiz();
+                quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
+                quizId = quizDao.insertQuiz(quiz);
+                for (int i = 1; i < 11; i++) {
+                    Question question = new Question(i);
+                    Long questionId = questionDao.insertQuestion(question);
+                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
+                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
+                }
+            }
+        });
+
+
+
+    }
+
+    public void saveAnswer() {
+
     }
 }
 
