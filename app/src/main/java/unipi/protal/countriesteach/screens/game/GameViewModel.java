@@ -160,6 +160,7 @@ public class GameViewModel extends AndroidViewModel {
         // Genetic algorithm example with dummy random data.
         List<Integer[]> rows = new ArrayList<>();
         for (int i = 0; i < numberOfContinentCountries; i++) {
+            // id xoras, pososto emfanishs , pososto lathon , pososto hints
             Integer[] row = {i + 1, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
             rows.add(row);
         }

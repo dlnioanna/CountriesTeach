@@ -117,7 +117,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel = new ViewModelProvider(this, gameViewModelFactory).get(GameViewModel.class);
         gameViewModel.getQuizCountries(continentId).observe(getViewLifecycleOwner(), countries -> {
             quizCountires = new ArrayList<>(gameViewModel.getQuizCountries(continentId).getValue());
-            if (!(quizCountires.size() < getnumberOfCountires(continentId))) {
+            if ((!(quizCountires.size() < getnumberOfCountires(continentId)))&&(gameViewModel.numberOfQuestion.getValue()<=NUMBER_OF_QUESTIONS)) {
                 binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
                 binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.countryIndex.getValue()).getCountryId(), "drawable",
                         this.getContext().getPackageName()));
@@ -134,6 +134,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
+            if(numberOfQuestion>NUMBER_OF_QUESTIONS){
+                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
+            }
         });
 
         gameViewModel.countryIndex.observe(getViewLifecycleOwner(), integer -> {

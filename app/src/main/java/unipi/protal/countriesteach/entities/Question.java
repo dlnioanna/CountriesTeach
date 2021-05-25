@@ -15,6 +15,8 @@ public class Question {
     private Integer position;
     @ColumnInfo
     private Boolean answered;
+    @ColumnInfo
+    private Boolean hint;
 
     public Question(long countryId) {
         this.countryId = countryId;
@@ -50,5 +52,13 @@ public class Question {
 
     public void setAnswered(Boolean answered) {
         this.answered = answered;
+    }
+
+    public Boolean getHint() {
+        return hint;
+    }
+
+    public void setHint(Boolean hint) {
+        this.hint = hint;
     }
 }

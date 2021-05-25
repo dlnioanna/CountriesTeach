@@ -31,7 +31,7 @@
         android:label="fragment_game_end"
         tools:layout="@layout/game_end_fragment" >
         <action
-            android:id="@+id/action_gameEnd_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            android:id="@+id/action_gameEnd_to_titleFragment"
+            app:destination="@id/titleFragment" />
     </fragment>
 </navigation>
