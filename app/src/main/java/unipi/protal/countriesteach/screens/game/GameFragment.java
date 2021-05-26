@@ -33,6 +33,7 @@ import unipi.protal.countriesteach.R;
 import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.databinding.GameFragmentBinding;
 import unipi.protal.countriesteach.entities.Country;
+import unipi.protal.countriesteach.entities.Question;
 import unipi.protal.countriesteach.genetic.exceptions.GeneticAlgorithmException;
 import unipi.protal.countriesteach.genetic.service.GeneticAlgorithmService;
 import unipi.protal.countriesteach.utils.NumberUtils;
@@ -60,6 +61,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private int continentId, numberOfQuestion;
     private NavController navController;
     private List<Country> quizCountires;
+    private List<Question> quizQuestions;
     public static final int NUMBER_OF_QUESTIONS = 10;
 
     @Nullable
@@ -71,7 +73,6 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         // the binding can observe LiveData updates
         binding.setLifecycleOwner(this);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-//        View view = binding.getRoot();
         Resources resources = this.getContext().getResources();
         continentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.button_next);
@@ -115,26 +116,33 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding.skipButton.setBackground(unwrappedDrawable);
         gameViewModelFactory = new GameViewModelFactory(getActivity().getApplication(), continentId);
         gameViewModel = new ViewModelProvider(this, gameViewModelFactory).get(GameViewModel.class);
-        gameViewModel.getQuizCountries(continentId).observe(getViewLifecycleOwner(), countries -> {
-            quizCountires = new ArrayList<>(gameViewModel.getQuizCountries(continentId).getValue());
-            if ((!(quizCountires.size() < getnumberOfCountires(continentId)))&&(gameViewModel.numberOfQuestion.getValue()<=NUMBER_OF_QUESTIONS)) {
+//        gameViewModel.getQuizCountries(continentId).observe(getViewLifecycleOwner(), countries -> {
+//            quizCountires = new ArrayList<>(gameViewModel.getQuizCountries(continentId).getValue());
+//            if ((!(quizCountires.size() < getnumberOfCountires(continentId)))&&(gameViewModel.numberOfQuestion.getValue()<=NUMBER_OF_QUESTIONS)) {
+//                binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
+//                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.countryIndex.getValue()).getCountryId(), "drawable",
+//                        this.getContext().getPackageName()));
+//                binding.firstAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.firstAnswerIndex.getValue()).getCountryName());
+//                binding.firstAnswerRadioButton.setOnClickListener(this::onClick);
+//                binding.secondAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.secondAnswerIndex.getValue()).getCountryName());
+//                binding.secondAnswerRadioButton.setOnClickListener(this::onClick);
+//                binding.thirdAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.thirdAnswerIndex.getValue()).getCountryName());
+//                binding.thirdAnswerRadioButton.setOnClickListener(this::onClick);
+//                binding.fourthAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.fourthAnswerIndex.getValue()).getCountryName());
+//                binding.fourthAnswerRadioButton.setOnClickListener(this::onClick);
+//            }
+//        });
+        gameViewModel.quizQuestions.observe(getViewLifecycleOwner(), questions -> {
+            quizQuestions = new ArrayList(gameViewModel.getQuizQuestions().getValue());
+            if (quizQuestions != null) {
                 binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
-                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.countryIndex.getValue()).getCountryId(), "drawable",
+                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizQuestions().getValue().get(numberOfQuestion).getCountryId(), "drawable",
                         this.getContext().getPackageName()));
-                binding.firstAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.firstAnswerIndex.getValue()).getCountryName());
-                binding.firstAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.secondAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.secondAnswerIndex.getValue()).getCountryName());
-                binding.secondAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.thirdAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.thirdAnswerIndex.getValue()).getCountryName());
-                binding.thirdAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.fourthAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.fourthAnswerIndex.getValue()).getCountryName());
-                binding.fourthAnswerRadioButton.setOnClickListener(this::onClick);
             }
         });
-
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
-            if(numberOfQuestion>NUMBER_OF_QUESTIONS){
+            if (numberOfQuestion > NUMBER_OF_QUESTIONS) {
                 navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
             }
         });
@@ -197,7 +205,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     }
 
     private void nextQuestion() {
-        gameViewModel.numberOfQuestion.setValue(numberOfQuestion+1);
+        gameViewModel.numberOfQuestion.setValue(numberOfQuestion + 1);
         Resources resources = this.getContext().getResources();
         gameViewModel.nextCountryIndex(gameViewModel.getQuizCountries(continentId).getValue().size());
         binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));

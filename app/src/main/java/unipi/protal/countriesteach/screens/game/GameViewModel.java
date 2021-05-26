@@ -43,6 +43,7 @@ import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_O
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
+    public MutableLiveData<List<Question>> quizQuestions;
     public MutableLiveData<Integer> numberOfQuestion = new MutableLiveData<>();
     public MutableLiveData<Integer> countryIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> firstAnswerIndex = new MutableLiveData<>();
@@ -77,22 +78,6 @@ public class GameViewModel extends AndroidViewModel {
         oceanianCountries = countryDao.getOceanianCountries();
         antarticaCountries = countryDao.getAntarcticaCountries();
         allCountries = countryDao.getAllCountries();
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                quiz = new Quiz();
-                quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
-                quizId = quizDao.insertQuiz(quiz);
-                for (int i = 1; i < 11; i++) {
-                    Question question = new Question(i);
-                    Long questionId = questionDao.insertQuestion(question);
-                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
-                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
-                }
-            }
-        });
-
         if (continentId == CountryContentValues.EUROPE) {
             numberOfCountries = CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
         } else if (continentId == CountryContentValues.AMERICA) {
@@ -106,6 +91,29 @@ public class GameViewModel extends AndroidViewModel {
         } else if (continentId == CountryContentValues.WORLD) {
             numberOfCountries = CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
         }
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                quiz = new Quiz();
+                quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
+                quizId = quizDao.insertQuiz(quiz);
+/* todo εδώ καλώ τον αλγόριθμο που διαλεγει χωρες και κανω το for για τις 10 χωρες που θα εχω βρει
+                 και με το i θα διατρεχω τη λίστα αυτή
+
+ */
+                List<Question> questions = new ArrayList<>();
+                for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+                    Question question = new Question(i + 1);
+                    Long questionId = questionDao.insertQuestion(question);
+                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
+                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
+                    questions.add(question);
+                }
+                quizQuestions.setValue(questions);
+            }
+        });
+
+
         nextCountryIndex(numberOfCountries);
     }
 
@@ -117,19 +125,25 @@ public class GameViewModel extends AndroidViewModel {
 
     public LiveData<List<Country>> getQuizCountries(int id) {
         if (id == CountryContentValues.EUROPE) {
-            return europeanCountries;
+            if (europeanCountries != null)
+                return europeanCountries;
         } else if (id == CountryContentValues.AMERICA) {
-            return americanCountries;
+            if (americanCountries != null)
+                return americanCountries;
         } else if (id == CountryContentValues.ASIA) {
             return asianCountries;
         } else if (id == CountryContentValues.AFRICA) {
             return africanCountries;
         } else if (id == CountryContentValues.OCEANIA) {
             return oceanianCountries;
-        }  else if (id == CountryContentValues.WORLD) {
+        } else if (id == CountryContentValues.WORLD) {
             return allCountries;
         }
         return allCountries;
+    }
+
+    public LiveData<List<Question>> getQuizQuestions() {
+        return quizQuestions;
     }
 
     public void nextCountryIndex(int size) {
@@ -168,7 +182,7 @@ public class GameViewModel extends AndroidViewModel {
     public void selectQuestions(int id) {
         // Genetic algorithm example with dummy random data.
         List<Integer[]> rows = new ArrayList<>();
-        for (int i = 0; i < getQuizCountries(id).getValue().size(); i++) {
+        for (int i = 0; i < numberOfCountries; i++) {
             // id xoras, pososto emfanishs , pososto lathon , pososto hints
             Integer[] row = {i + 1, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
             rows.add(row);
@@ -181,7 +195,7 @@ public class GameViewModel extends AndroidViewModel {
             // service.populateTest();
             service.populate(rows);
 
-            for (int i = 1; i <= 100; i++) {
+            for (int i = 1; i <= NUMBER_OF_QUESTIONS; i++) {
                 service.run();
                 solution = service.getBestSolution();
                 fitness = service.getBestSolutionFitness();
@@ -193,23 +207,6 @@ public class GameViewModel extends AndroidViewModel {
         }
 
         // filtro na fero to mikrotero pososto emfanishs kai megalytero pososto lathon
-
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                quiz = new Quiz();
-                quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
-                quizId = quizDao.insertQuiz(quiz);
-                for (int i = 1; i < 11; i++) {
-                    Question question = new Question(i);
-                    Long questionId = questionDao.insertQuestion(question);
-                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
-                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
-                }
-            }
-        });
-
 
 
     }
