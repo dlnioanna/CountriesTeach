@@ -34,12 +34,25 @@ import unipi.protal.countriesteach.genetic.exceptions.GeneticAlgorithmException;
 import unipi.protal.countriesteach.genetic.service.GeneticAlgorithmService;
 import unipi.protal.countriesteach.utils.NumberUtils;
 
+import static unipi.protal.countriesteach.database.CountryContentValues.AFRICA_END_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.AFRICA_START_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.AMERICA_END_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.AMERICA_START_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.ASIA_END_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.ASIA_START_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE;
+import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE_END_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE_START_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
+import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA_END_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA_START_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.WORLD_END_INDEX;
+import static unipi.protal.countriesteach.database.CountryContentValues.WORLD_START_INDEX;
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
@@ -91,25 +104,23 @@ public class GameViewModel extends AndroidViewModel {
         } else if (continentId == CountryContentValues.WORLD) {
             numberOfCountries = CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
         }
+        List<Integer> countryIds = selectQuestions(continentId);
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 quiz = new Quiz();
                 quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
                 quizId = quizDao.insertQuiz(quiz);
-/* todo εδώ καλώ τον αλγόριθμο που διαλεγει χωρες και κανω το for για τις 10 χωρες που θα εχω βρει
-                 και με το i θα διατρεχω τη λίστα αυτή
 
- */
                 List<Question> questions = new ArrayList<>();
                 for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-                    Question question = new Question(i + 1);
+                    Question question = new Question(countryIds.get(i));
                     Long questionId = questionDao.insertQuestion(question);
                     QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
                     questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
                     questions.add(question);
                 }
-                quizQuestions.setValue(questions);
+//                quizQuestions.setValue(questions);
             }
         });
 
@@ -125,10 +136,8 @@ public class GameViewModel extends AndroidViewModel {
 
     public LiveData<List<Country>> getQuizCountries(int id) {
         if (id == CountryContentValues.EUROPE) {
-            if (europeanCountries != null)
                 return europeanCountries;
         } else if (id == CountryContentValues.AMERICA) {
-            if (americanCountries != null)
                 return americanCountries;
         } else if (id == CountryContentValues.ASIA) {
             return asianCountries;
@@ -143,6 +152,9 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Question>> getQuizQuestions() {
+
+
+
         return quizQuestions;
     }
 
@@ -179,13 +191,35 @@ public class GameViewModel extends AndroidViewModel {
         fourthAnswerIndex.setValue(possibleAnswers.get(3));
     }
 
-    public void selectQuestions(int id) {
+    public List<Integer> selectQuestions(int id) {
+        int startIndex = 1, endIndex = 230;
+        if (id == EUROPE) {
+            startIndex = EUROPE_START_INDEX;
+            endIndex = EUROPE_END_INDEX;
+        } else if (id == CountryContentValues.AMERICA) {
+            startIndex = AMERICA_START_INDEX;
+            endIndex = AMERICA_END_INDEX;
+        } else if (id == CountryContentValues.ASIA) {
+            startIndex = ASIA_START_INDEX;
+            endIndex = ASIA_END_INDEX;
+        } else if (id == CountryContentValues.AFRICA) {
+            startIndex = AFRICA_START_INDEX;
+            endIndex = AFRICA_END_INDEX;
+        } else if (id == CountryContentValues.OCEANIA) {
+            startIndex = OCEANIA_START_INDEX;
+            endIndex = OCEANIA_END_INDEX;
+        } else if (id == CountryContentValues.WORLD) {
+            startIndex = WORLD_START_INDEX;
+            endIndex = WORLD_END_INDEX;
+        }
+        Log.e("index ","start "+startIndex+" end "+endIndex);
         // Genetic algorithm example with dummy random data.
         List<Integer[]> rows = new ArrayList<>();
-        for (int i = 0; i < numberOfCountries; i++) {
+        for (int i=startIndex; i <= endIndex; i++) {
             // id xoras, pososto emfanishs , pososto lathon , pososto hints
-            Integer[] row = {i + 1, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
+            Integer[] row = {i , NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
             rows.add(row);
+            Log.e("row and rows ","row is "+row[0]+" rows are "+rows.size());
         }
 
         List<Integer> solution = null;
@@ -195,7 +229,7 @@ public class GameViewModel extends AndroidViewModel {
             // service.populateTest();
             service.populate(rows);
 
-            for (int i = 1; i <= NUMBER_OF_QUESTIONS; i++) {
+            for (int i = 1; i <= 100; i++) {
                 service.run();
                 solution = service.getBestSolution();
                 fitness = service.getBestSolutionFitness();
@@ -208,7 +242,8 @@ public class GameViewModel extends AndroidViewModel {
 
         // filtro na fero to mikrotero pososto emfanishs kai megalytero pososto lathon
 
-
+        System.out.println("Generation " + solution + ", Fitness: " + fitness);
+        return solution;
     }
 
     public void saveAnswer() {

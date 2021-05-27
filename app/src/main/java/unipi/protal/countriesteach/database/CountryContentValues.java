@@ -29,6 +29,18 @@ public class CountryContentValues {
     public static final int NUMBER_OF_AFRICAN_COUNTRIES = 54;
     public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
     public static final int NUMBER_OF_ALL_COUNTRIES = 230;
+    public static final int EUROPE_START_INDEX=1;
+    public static final int EUROPE_END_INDEX=51;
+    public static final int OCEANIA_START_INDEX=52;
+    public static final int OCEANIA_END_INDEX=76;
+   public static final int ASIA_START_INDEX=77;
+    public static final int ASIA_END_INDEX=121;
+    public static final int AMERICA_START_INDEX=122;
+    public static final int AMERICA_END_INDEX=176;
+    public static final int AFRICA_START_INDEX=177;
+    public static final int AFRICA_END_INDEX=230;
+    public static final int WORLD_START_INDEX=1;
+    public static final int WORLD_END_INDEX=230;
 
     //51 countries
     public static List<Country> initializeEuropeanCountries() {
