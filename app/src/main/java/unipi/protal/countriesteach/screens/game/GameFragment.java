@@ -116,30 +116,31 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding.skipButton.setBackground(unwrappedDrawable);
         gameViewModelFactory = new GameViewModelFactory(getActivity().getApplication(), continentId);
         gameViewModel = new ViewModelProvider(this, gameViewModelFactory).get(GameViewModel.class);
-        gameViewModel.getQuizCountries(continentId).observe(getViewLifecycleOwner(), countries -> {
-            quizCountires = new ArrayList<>(gameViewModel.getQuizCountries(continentId).getValue());
-            if ((!(quizCountires.size() < getnumberOfCountires(continentId)))&&(gameViewModel.numberOfQuestion.getValue()<=NUMBER_OF_QUESTIONS)) {
-                binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
-                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.countryIndex.getValue()).getCountryId(), "drawable",
-                        this.getContext().getPackageName()));
-                binding.firstAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.firstAnswerIndex.getValue()).getCountryName());
-                binding.firstAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.secondAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.secondAnswerIndex.getValue()).getCountryName());
-                binding.secondAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.thirdAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.thirdAnswerIndex.getValue()).getCountryName());
-                binding.thirdAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.fourthAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.fourthAnswerIndex.getValue()).getCountryName());
-                binding.fourthAnswerRadioButton.setOnClickListener(this::onClick);
-            }
-        });
-//        gameViewModel.quizQuestions.observe(getViewLifecycleOwner(), questions -> {
-//            quizQuestions = new ArrayList(gameViewModel.getQuizQuestions().getValue());
-//            if (quizQuestions != null) {
+//        gameViewModel.getQuizCountries(continentId).observe(getViewLifecycleOwner(), countries -> {
+//            quizCountires = new ArrayList<>(gameViewModel.getQuizCountries(continentId).getValue());
+//            if ((!(quizCountires.size() < getnumberOfCountires(continentId)))&&(gameViewModel.numberOfQuestion.getValue()<=NUMBER_OF_QUESTIONS)) {
 //                binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
-//                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizQuestions().getValue().get(numberOfQuestion).getCountryId(), "drawable",
+//                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.countryIndex.getValue()).getCountryId(), "drawable",
 //                        this.getContext().getPackageName()));
+//                binding.firstAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.firstAnswerIndex.getValue()).getCountryName());
+//                binding.firstAnswerRadioButton.setOnClickListener(this::onClick);
+//                binding.secondAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.secondAnswerIndex.getValue()).getCountryName());
+//                binding.secondAnswerRadioButton.setOnClickListener(this::onClick);
+//                binding.thirdAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.thirdAnswerIndex.getValue()).getCountryName());
+//                binding.thirdAnswerRadioButton.setOnClickListener(this::onClick);
+//                binding.fourthAnswerRadioButton.setText(gameViewModel.getQuizCountries(continentId).getValue().get(gameViewModel.fourthAnswerIndex.getValue()).getCountryName());
+//                binding.fourthAnswerRadioButton.setOnClickListener(this::onClick);
 //            }
 //        });
+        gameViewModel.getQuizQuestions().observe(getViewLifecycleOwner(), questions -> {
+            quizQuestions = new ArrayList(gameViewModel.getQuizQuestions().getValue());
+            if(quizQuestions!=null){
+                binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
+                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getQuizQuestions().getValue().get(numberOfQuestion).getCountryId(), "drawable",
+                        this.getContext().getPackageName()));
+            }
+
+        });
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
             if (numberOfQuestion > NUMBER_OF_QUESTIONS) {

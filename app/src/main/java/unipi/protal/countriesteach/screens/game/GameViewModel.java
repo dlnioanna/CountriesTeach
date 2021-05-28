@@ -105,24 +105,45 @@ public class GameViewModel extends AndroidViewModel {
             numberOfCountries = CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
         }
         List<Integer> countryIds = selectQuestions(continentId);
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                quiz = new Quiz();
-                quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
-                quizId = quizDao.insertQuiz(quiz);
 
-                List<Question> questions = new ArrayList<>();
-                for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-                    Question question = new Question(countryIds.get(i));
-                    Long questionId = questionDao.insertQuestion(question);
-                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
-                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
-                    questions.add(question);
+        quiz = new Quiz();
+        quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
+        List<Question> questions = new ArrayList<>();
+        for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+            Question question = new Question(countryIds.get(i));
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    quizId = quizDao.insertQuiz(quiz);
+                    for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+                        Long questionId = questionDao.insertQuestion(question);
+                        QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
+                        questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
+
+                    }
+                    //quizQuestions = new MutableLiveData<List<Question>>(questions);
+                    Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
                 }
-//                quizQuestions.setValue(questions);
-            }
-        });
+            });questions.add(question);
+        }
+        quizQuestions = new MutableLiveData<List<Question>>(questions);
+        Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
+//        executor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                quizId = quizDao.insertQuiz(quiz);
+//                List<Question> questions = new ArrayList<>();
+//                for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+//                    Question question = new Question(countryIds.get(i));
+//                    Long questionId = questionDao.insertQuestion(question);
+//                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
+//                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
+//                    questions.add(question);
+//                }
+//                    quizQuestions = new MutableLiveData<List<Question>>(questions);
+//                Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
+//            }
+//        });
 
 
         nextCountryIndex(numberOfCountries);
@@ -151,9 +172,7 @@ public class GameViewModel extends AndroidViewModel {
         return allCountries;
     }
 
-    public LiveData<List<Question>> getQuizQuestions() {
-
-
+    public MutableLiveData<List<Question>> getQuizQuestions() {
 
         return quizQuestions;
     }
