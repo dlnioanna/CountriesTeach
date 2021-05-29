@@ -65,7 +65,7 @@ public class GameViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<List<Country>> quizCountries = new MutableLiveData<>();
     private static final int NUMBER_OF_QUESTIONS = 10;
-    private int numberOfCountries;
+    private int numberOfCountries, questionIndex, startIndex, endIndex;
     private Random random = new Random();
     private CountryDao countryDao;
     private QuizDao quizDao;
@@ -75,10 +75,13 @@ public class GameViewModel extends AndroidViewModel {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Quiz quiz;
     private Long quizId;
+    private  List<Question> questions;
 
     public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
         numberOfQuestion.setValue(1);
+        questionIndex=0;
+        setIndex(continentId);
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
         quizDao = db.quizDao();
@@ -108,7 +111,7 @@ public class GameViewModel extends AndroidViewModel {
 
         quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
-        List<Question> questions = new ArrayList<>();
+        questions = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
             Question question = new Question(countryIds.get(i));
             executor.execute(new Runnable() {
@@ -128,6 +131,7 @@ public class GameViewModel extends AndroidViewModel {
         }
         quizQuestions = new MutableLiveData<List<Question>>(questions);
         Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
+
 //        executor.execute(new Runnable() {
 //            @Override
 //            public void run() {
@@ -145,8 +149,7 @@ public class GameViewModel extends AndroidViewModel {
 //            }
 //        });
 
-
-        nextCountryIndex(numberOfCountries);
+        nextCountryIndex();
     }
 
 
@@ -177,27 +180,29 @@ public class GameViewModel extends AndroidViewModel {
         return quizQuestions;
     }
 
-    public void nextCountryIndex(int size) {
-        countryIndex.setValue(random.ints(1, size)
-                .findFirst()
-                .getAsInt());
-        getRandomAnswersIndex(size);
+    public void nextCountryIndex() {
+//        countryIndex.setValue(random.ints(startIndex, endIndex)
+//                .findFirst()
+//                .getAsInt());
+        countryIndex.setValue((int) questions.get(questionIndex).getCountryId());
+        questionIndex++;
+        getRandomAnswersIndex();
     }
 
     public int getNumberOfQuestions() {
         return NUMBER_OF_QUESTIONS;
     }
 
-    public void getRandomAnswersIndex(int size) {
+    public void getRandomAnswersIndex() {
         List<Integer> possibleAnswers = new ArrayList<>();
         possibleAnswers.add(countryIndex.getValue());
         while (possibleAnswers.size() < 4) {
-            Integer randomAnswer = random.ints(1, size)
+            Integer randomAnswer = random.ints(startIndex, endIndex)
                     .findFirst()
                     .getAsInt();
             Predicate<Integer> answers = i -> (possibleAnswers.contains(i));
             while (answers.test(randomAnswer)) {
-                randomAnswer = random.ints(1, size)
+                randomAnswer = random.ints(startIndex, endIndex)
                         .findFirst()
                         .getAsInt();
             }
@@ -210,8 +215,7 @@ public class GameViewModel extends AndroidViewModel {
         fourthAnswerIndex.setValue(possibleAnswers.get(3));
     }
 
-    public List<Integer> selectQuestions(int id) {
-        int startIndex = 1, endIndex = 230;
+    private void setIndex(int id){
         if (id == EUROPE) {
             startIndex = EUROPE_START_INDEX;
             endIndex = EUROPE_END_INDEX;
@@ -231,8 +235,11 @@ public class GameViewModel extends AndroidViewModel {
             startIndex = WORLD_START_INDEX;
             endIndex = WORLD_END_INDEX;
         }
-        Log.e("index ","start "+startIndex+" end "+endIndex);
+    }
+
+    public List<Integer> selectQuestions(int id) {
         // Genetic algorithm example with dummy random data.
+        setIndex(id);
         List<Integer[]> rows = new ArrayList<>();
         for (int i=startIndex; i <= endIndex; i++) {
             // id xoras, pososto emfanishs , pososto lathon , pososto hints
