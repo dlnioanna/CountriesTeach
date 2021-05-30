@@ -122,33 +122,12 @@ public class GameViewModel extends AndroidViewModel {
                         Long questionId = questionDao.insertQuestion(question);
                         QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
                         questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
-
                     }
-                    //quizQuestions = new MutableLiveData<List<Question>>(questions);
-                    Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
                 }
-            });questions.add(question);
+            });
+            questions.add(question);
         }
         quizQuestions = new MutableLiveData<List<Question>>(questions);
-        Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
-
-//        executor.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                quizId = quizDao.insertQuiz(quiz);
-//                List<Question> questions = new ArrayList<>();
-//                for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-//                    Question question = new Question(countryIds.get(i));
-//                    Long questionId = questionDao.insertQuestion(question);
-//                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
-//                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
-//                    questions.add(question);
-//                }
-//                    quizQuestions = new MutableLiveData<List<Question>>(questions);
-//                Log.e("live data questions", String.valueOf(quizQuestions.getValue().size()));
-//            }
-//        });
-
         nextCountryIndex();
     }
 
@@ -156,6 +135,9 @@ public class GameViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+    }
+    public LiveData<List<Country>> getAllCountries() {
+        return allCountries;
     }
 
     public LiveData<List<Country>> getQuizCountries(int id) {
@@ -184,9 +166,17 @@ public class GameViewModel extends AndroidViewModel {
 //        countryIndex.setValue(random.ints(startIndex, endIndex)
 //                .findFirst()
 //                .getAsInt());
-        countryIndex.setValue((int) questions.get(questionIndex).getCountryId());
-        questionIndex++;
-        getRandomAnswersIndex();
+        Log.e("index 0 ", String.valueOf(questions.get(0).getCountryId()));
+        Log.e("index 1 ", String.valueOf(questions.get(questionIndex).getCountryId()));
+        try{
+            countryIndex.setValue((int) questions.get(questionIndex).getCountryId());
+            Log.e("index 2 ", String.valueOf(countryIndex.getValue()));
+            questionIndex++;
+            getRandomAnswersIndex();
+        } catch (IndexOutOfBoundsException ie){
+            ie.printStackTrace();
+        }
+
     }
 
     public int getNumberOfQuestions() {
@@ -196,15 +186,12 @@ public class GameViewModel extends AndroidViewModel {
     public void getRandomAnswersIndex() {
         List<Integer> possibleAnswers = new ArrayList<>();
         possibleAnswers.add(countryIndex.getValue());
+        Log.e("index 3 ", String.valueOf(countryIndex.getValue()));
         while (possibleAnswers.size() < 4) {
-            Integer randomAnswer = random.ints(startIndex, endIndex)
-                    .findFirst()
-                    .getAsInt();
+            Integer randomAnswer = random.nextInt(endIndex - startIndex) + startIndex;
             Predicate<Integer> answers = i -> (possibleAnswers.contains(i));
             while (answers.test(randomAnswer)) {
-                randomAnswer = random.ints(startIndex, endIndex)
-                        .findFirst()
-                        .getAsInt();
+                randomAnswer = random.nextInt(endIndex - startIndex) + startIndex;
             }
             possibleAnswers.add(randomAnswer);
         }
@@ -213,6 +200,7 @@ public class GameViewModel extends AndroidViewModel {
         secondAnswerIndex.setValue(possibleAnswers.get(1));
         thirdAnswerIndex.setValue(possibleAnswers.get(2));
         fourthAnswerIndex.setValue(possibleAnswers.get(3));
+        Log.e("index 4 ", firstAnswerIndex.getValue()+" "+secondAnswerIndex.getValue()+" "+thirdAnswerIndex.getValue()+" "+fourthAnswerIndex.getValue());
     }
 
     private void setIndex(int id){
@@ -266,9 +254,7 @@ public class GameViewModel extends AndroidViewModel {
             System.err.println(e.getMessage());
         }
 
-        // filtro na fero to mikrotero pososto emfanishs kai megalytero pososto lathon
-
-        System.out.println("Generation " + solution + ", Fitness: " + fitness);
+        Log.e("questions indexes ","Generation " + solution + ", Fitness: " + fitness);
         return solution;
     }
 
