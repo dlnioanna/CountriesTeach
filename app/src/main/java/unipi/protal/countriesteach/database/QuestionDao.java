@@ -20,4 +20,18 @@ public interface QuestionDao {
     @Query("SELECT * FROM question WHERE questionId=:id")
     LiveData<Question> findQuestionById(long id);
 
+    @Query("UPDATE question SET answered=:answer WHERE questionId = :id")
+    void updateQuizEndDate(long id, boolean answer);
+
+    @Query("UPDATE question SET answered=:answer WHERE questionId IN (:listOfQuestions) AND countryId=:countryId")
+    void updateQuizAnswer(List<Long> listOfQuestions, long countryId, boolean answer);
+
+    @Query("SELECT COUNT(*) FROM question WHERE countryId=:countryId")
+    Integer countInstancesOfCountry(long countryId);
+
+    @Query("SELECT COUNT(*) FROM question WHERE countryId=:countryId AND answered=0 OR answered=NULL")
+    Integer countErrorsOfCountry(long countryId);
+
+    @Query("SELECT COUNT(*) FROM question")
+    Integer countTotalNumberOfQuestions();
 }

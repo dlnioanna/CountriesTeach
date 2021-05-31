@@ -16,10 +16,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+import unipi.protal.countriesteach.callables.ErrorsCallable;
+import unipi.protal.countriesteach.callables.InstanceCallable;
+import unipi.protal.countriesteach.callables.NumberOfQuestionsCallable;
 import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.database.CountryDao;
 import unipi.protal.countriesteach.database.Database;
@@ -72,15 +80,16 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionDao questionDao;
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService service = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Quiz quiz;
     private Long quizId;
-    private  List<Question> questions;
+    private List<Question> questions;
 
     public GameViewModel(@NonNull Application application, int continentId) {
         super(application);
         numberOfQuestion.setValue(1);
-        questionIndex=0;
+        questionIndex = 0;
         setIndex(continentId);
         Database db = Database.getDatabase(application);
         countryDao = db.countryDao();
@@ -111,18 +120,21 @@ public class GameViewModel extends AndroidViewModel {
 
         quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                quizId = quizDao.insertQuiz(quiz);
+            }
+        });
         questions = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
             Question question = new Question(countryIds.get(i));
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    quizId = quizDao.insertQuiz(quiz);
-                    for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-                        Long questionId = questionDao.insertQuestion(question);
-                        QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
-                        questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
-                    }
+                    Long questionId = questionDao.insertQuestion(question);
+                    QuestionQuizCrossRef questionQuizCrossRef = new QuestionQuizCrossRef(quizId, questionId);
+                    questionQuizCrossRefDao.insertQuestionQuizRef(questionQuizCrossRef);
                 }
             });
             questions.add(question);
@@ -136,15 +148,16 @@ public class GameViewModel extends AndroidViewModel {
     protected void onCleared() {
         super.onCleared();
     }
+
     public LiveData<List<Country>> getAllCountries() {
         return allCountries;
     }
 
     public LiveData<List<Country>> getQuizCountries(int id) {
         if (id == CountryContentValues.EUROPE) {
-                return europeanCountries;
+            return europeanCountries;
         } else if (id == CountryContentValues.AMERICA) {
-                return americanCountries;
+            return americanCountries;
         } else if (id == CountryContentValues.ASIA) {
             return asianCountries;
         } else if (id == CountryContentValues.AFRICA) {
@@ -166,14 +179,11 @@ public class GameViewModel extends AndroidViewModel {
 //        countryIndex.setValue(random.ints(startIndex, endIndex)
 //                .findFirst()
 //                .getAsInt());
-        Log.e("index 0 ", String.valueOf(questions.get(0).getCountryId()));
-        Log.e("index 1 ", String.valueOf(questions.get(questionIndex).getCountryId()));
-        try{
+        try {
             countryIndex.setValue((int) questions.get(questionIndex).getCountryId());
-            Log.e("index 2 ", String.valueOf(countryIndex.getValue()));
             questionIndex++;
             getRandomAnswersIndex();
-        } catch (IndexOutOfBoundsException ie){
+        } catch (IndexOutOfBoundsException ie) {
             ie.printStackTrace();
         }
 
@@ -200,10 +210,9 @@ public class GameViewModel extends AndroidViewModel {
         secondAnswerIndex.setValue(possibleAnswers.get(1));
         thirdAnswerIndex.setValue(possibleAnswers.get(2));
         fourthAnswerIndex.setValue(possibleAnswers.get(3));
-        Log.e("index 4 ", firstAnswerIndex.getValue()+" "+secondAnswerIndex.getValue()+" "+thirdAnswerIndex.getValue()+" "+fourthAnswerIndex.getValue());
     }
 
-    private void setIndex(int id){
+    private void setIndex(int id) {
         if (id == EUROPE) {
             startIndex = EUROPE_START_INDEX;
             endIndex = EUROPE_END_INDEX;
@@ -228,12 +237,38 @@ public class GameViewModel extends AndroidViewModel {
     public List<Integer> selectQuestions(int id) {
         // Genetic algorithm example with dummy random data.
         setIndex(id);
+        int totalNumberOfQuestions=0;
+        Future<Integer> totalNumberOfQuestionsFuture = service.submit(new NumberOfQuestionsCallable(questionDao));
+        try {
+            totalNumberOfQuestions = totalNumberOfQuestionsFuture.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Integer[]> rows = new ArrayList<>();
-        for (int i=startIndex; i <= endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
+            Integer numberOfInstances=0, numberOfErrors=0;
+            Future<Integer> instanceFuture = service.submit(new InstanceCallable(i, questionDao));
+            try {
+                numberOfInstances = instanceFuture.get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            Future<Integer> errorsFuture = service.submit(new ErrorsCallable(i, questionDao));
+            try {
+                numberOfErrors = errorsFuture.get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            Double num = new Double(totalNumberOfQuestions);
+            int numberOfInstancesPercentage = (int) ((numberOfInstances/num)*100);
+            int numberOfErrorsPercentage = (int) ((numberOfErrors/num)*100);
+            Log.e("gameview model number of errors for country", i + " " + numberOfInstancesPercentage+" numberOfInstances "+numberOfErrorsPercentage
+            +" totalNumberOfQuestions "+totalNumberOfQuestions);
+
             // id xoras, pososto emfanishs , pososto lathon , pososto hints
-            Integer[] row = {i , NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100)};
+            Integer[] row = {i, numberOfInstancesPercentage, numberOfErrorsPercentage, 0};
             rows.add(row);
-            Log.e("row and rows ","row is "+row[0]+" rows are "+rows.size());
+            Log.e("row and rows ", "row is " + row[0] + " rows are " + rows.size());
         }
 
         List<Integer> solution = null;
@@ -254,12 +289,28 @@ public class GameViewModel extends AndroidViewModel {
             System.err.println(e.getMessage());
         }
 
-        Log.e("questions indexes ","Generation " + solution + ", Fitness: " + fitness);
+        Log.e("questions indexes ", "Generation " + solution + ", Fitness: " + fitness);
         return solution;
     }
 
-    public void saveAnswer() {
+    public void saveAnswer(long countryId, boolean answer) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Long> qq = questionQuizCrossRefDao.selectQQ(quizId);
+                questionDao.updateQuizAnswer(qq, countryId, answer);
+            }
+        });
+    }
 
+    public void endQuiz() {
+        Long endDate = Calendar.getInstance().getTimeInMillis();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                quizDao.updateQuizEndDate(quizId, endDate);
+            }
+        });
     }
 }
 

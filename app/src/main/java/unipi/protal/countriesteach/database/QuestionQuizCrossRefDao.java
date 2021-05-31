@@ -25,4 +25,8 @@ public interface QuestionQuizCrossRefDao {
     @Transaction
     @Query("SELECT * FROM quiz")
     List<Quiz> getQuizesWithQuestion();
+
+
+    @Query("SELECT questionId FROM question_quiz_cross_ref WHERE quizId=:quizId")
+    List<Long> selectQQ(long quizId);
 }

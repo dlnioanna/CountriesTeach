@@ -140,6 +140,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
             if (numberOfQuestion > NUMBER_OF_QUESTIONS) {
+                gameViewModel.endQuiz();
                 navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
             }
         });
@@ -164,7 +165,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
+//                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),false);
+                nextQuestion();
             }
         });
 
@@ -176,42 +179,50 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         if (v == binding.firstAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),false);
             }
         } else if (v == binding.secondAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(secondAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),false);
             }
         } else if (v == binding.thirdAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),false);
             }
         } else if (v == binding.fourthAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),false);
             }
         }
         nextQuestion();
     }
 
     private void nextQuestion() {
-        gameViewModel.numberOfQuestion.setValue(numberOfQuestion + 1);
-        Resources resources = this.getContext().getResources();
-        gameViewModel.nextCountryIndex();
-        binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
-        binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryId(), "drawable",
-                getContext().getPackageName()));
-        binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(firstAnswerIndex - 1).getCountryName());
-        binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(secondAnswerIndex - 1).getCountryName());
-        binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex - 1).getCountryName());
-        binding.fourthAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex - 1).getCountryName());
+            gameViewModel.numberOfQuestion.setValue(numberOfQuestion + 1);
+            Resources resources = this.getContext().getResources();
+            gameViewModel.nextCountryIndex();
+            binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
+            binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryId(), "drawable",
+                    getContext().getPackageName()));
+            binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(firstAnswerIndex - 1).getCountryName());
+            binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(secondAnswerIndex - 1).getCountryName());
+            binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex - 1).getCountryName());
+            binding.fourthAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex - 1).getCountryName());
     }
 
     private int getnumberOfCountires(int id) {
