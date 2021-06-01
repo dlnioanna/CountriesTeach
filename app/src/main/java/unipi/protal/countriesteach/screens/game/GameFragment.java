@@ -64,6 +64,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private List<Country> allCountries;
     private List<Question> quizQuestions;
     public static final int NUMBER_OF_QUESTIONS = 10;
+    private Long quizId;
 
     @Nullable
     @Override
@@ -136,15 +137,17 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             quizQuestions = new ArrayList(gameViewModel.getQuizQuestions().getValue());
             binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
         });
-
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
             if (numberOfQuestion > NUMBER_OF_QUESTIONS) {
                 gameViewModel.endQuiz();
-                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
+                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd().setQuizId(gameViewModel.getQuizId().getValue()));
+//                navController.navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment().setContinentId(CountryContentValues.EUROPE));
             }
         });
-
+        gameViewModel._quizId.observe(getViewLifecycleOwner(),lng->{
+            quizId=gameViewModel._quizId.getValue();
+        });
         gameViewModel.countryIndex.observe(getViewLifecycleOwner(), integer -> {
             countryIndex = gameViewModel.countryIndex.getValue();
         });
@@ -165,7 +168,6 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd());
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(),false);
                 nextQuestion();
             }
@@ -242,6 +244,5 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         }
         return num;
     }
-
 
 }

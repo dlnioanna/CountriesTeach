@@ -22,12 +22,14 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import unipi.protal.countriesteach.callables.ErrorsCallable;
 import unipi.protal.countriesteach.callables.InstanceCallable;
 import unipi.protal.countriesteach.callables.NumberOfQuestionsCallable;
+import unipi.protal.countriesteach.callables.SolutionCallable;
 import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.database.CountryDao;
 import unipi.protal.countriesteach.database.Database;
@@ -71,6 +73,7 @@ public class GameViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
+    public MutableLiveData<Long> _quizId = new MutableLiveData<>() ;
     public MutableLiveData<List<Country>> quizCountries = new MutableLiveData<>();
     private static final int NUMBER_OF_QUESTIONS = 10;
     private int numberOfCountries, questionIndex, startIndex, endIndex;
@@ -139,6 +142,7 @@ public class GameViewModel extends AndroidViewModel {
             });
             questions.add(question);
         }
+        _quizId.setValue(quizId);
         quizQuestions = new MutableLiveData<List<Question>>(questions);
         nextCountryIndex();
     }
@@ -171,17 +175,22 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<Question>> getQuizQuestions() {
-
         return quizQuestions;
     }
 
+    public MutableLiveData<Long> getQuizId() {
+        if(quizId!=null){
+            _quizId.setValue(quizId);
+        }
+        return _quizId;
+    }
+
     public void nextCountryIndex() {
-//        countryIndex.setValue(random.ints(startIndex, endIndex)
-//                .findFirst()
-//                .getAsInt());
         try {
             countryIndex.setValue((int) questions.get(questionIndex).getCountryId());
-            questionIndex++;
+            if (questionIndex<10){
+                questionIndex++;
+            }
             getRandomAnswersIndex();
         } catch (IndexOutOfBoundsException ie) {
             ie.printStackTrace();
@@ -236,60 +245,69 @@ public class GameViewModel extends AndroidViewModel {
 
     public List<Integer> selectQuestions(int id) {
         // Genetic algorithm example with dummy random data.
+        List<Integer> solution = null;
         setIndex(id);
-        int totalNumberOfQuestions=0;
-        Future<Integer> totalNumberOfQuestionsFuture = service.submit(new NumberOfQuestionsCallable(questionDao));
-        try {
-            totalNumberOfQuestions = totalNumberOfQuestionsFuture.get();
-        } catch (ExecutionException | InterruptedException e) {
+        Future<List<Integer>> solutionFuture = service.submit(new SolutionCallable(id,startIndex,endIndex,questionDao));
+        try{
+            solution = solutionFuture.get();
+        }catch (ExecutionException | InterruptedException e){
             e.printStackTrace();
         }
-        List<Integer[]> rows = new ArrayList<>();
-        for (int i = startIndex; i <= endIndex; i++) {
-            Integer numberOfInstances=0, numberOfErrors=0;
-            Future<Integer> instanceFuture = service.submit(new InstanceCallable(i, questionDao));
-            try {
-                numberOfInstances = instanceFuture.get();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            Future<Integer> errorsFuture = service.submit(new ErrorsCallable(i, questionDao));
-            try {
-                numberOfErrors = errorsFuture.get();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            Double num = new Double(totalNumberOfQuestions);
-            int numberOfInstancesPercentage = (int) ((numberOfInstances/num)*100);
-            int numberOfErrorsPercentage = (int) ((numberOfErrors/num)*100);
-            Log.e("gameview model number of errors for country", i + " " + numberOfInstancesPercentage+" numberOfInstances "+numberOfErrorsPercentage
-            +" totalNumberOfQuestions "+totalNumberOfQuestions);
-
-            // id xoras, pososto emfanishs , pososto lathon , pososto hints
-            Integer[] row = {i, numberOfInstancesPercentage, numberOfErrorsPercentage, 0};
-            rows.add(row);
-            Log.e("row and rows ", "row is " + row[0] + " rows are " + rows.size());
-        }
-
-        List<Integer> solution = null;
-        int fitness = 0;
-        GeneticAlgorithmService service = new GeneticAlgorithmService();
-        try {
-            // service.populateTest();
-            service.populate(rows);
-
-            for (int i = 1; i <= 100; i++) {
-                service.run();
-                solution = service.getBestSolution();
-                fitness = service.getBestSolutionFitness();
-
-                System.out.println("Generation " + i + ": " + solution + ", Fitness: " + fitness);
-            }
-        } catch (GeneticAlgorithmException e) {
-            System.err.println(e.getMessage());
-        }
-
-        Log.e("questions indexes ", "Generation " + solution + ", Fitness: " + fitness);
+ //       int totalNumberOfQuestions=0;
+//        Future<Integer> totalNumberOfQuestionsFuture = service.submit(new NumberOfQuestionsCallable(questionDao));
+//        try {
+//            totalNumberOfQuestions = totalNumberOfQuestionsFuture.get();
+//        } catch (ExecutionException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        List<Integer[]> rows = new ArrayList<>();
+//        for (int i = startIndex; i <= endIndex; i++) {
+//            Integer numberOfInstances=0, numberOfErrors=0;
+//            Future<Integer> instanceFuture = service.submit(new InstanceCallable(i, questionDao));
+//            try {
+//                numberOfInstances = instanceFuture.get();
+//            } catch (ExecutionException | InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            Future<Integer> errorsFuture = service.submit(new ErrorsCallable(i, questionDao));
+//            try {
+//                numberOfErrors = errorsFuture.get();
+//            } catch (ExecutionException | InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            service.shutdown();
+//
+//            Double num = new Double(totalNumberOfQuestions);
+//            int numberOfInstancesPercentage = (int) ((numberOfInstances/num)*100);
+//            int numberOfErrorsPercentage = (int) ((numberOfErrors/num)*100);
+//            Log.i("gameview model number of errors for country", i + " " + numberOfInstancesPercentage+" numberOfInstances "+numberOfErrorsPercentage
+//            +" totalNumberOfQuestions "+totalNumberOfQuestions);
+//
+//            // id xoras, pososto emfanishs , pososto lathon , pososto hints
+//            Integer[] row = {i, numberOfInstancesPercentage, numberOfErrorsPercentage, 0};
+//            rows.add(row);
+//            Log.i("row and rows ", "row is " + row[0] + " rows are " + rows.size());
+//        }
+//
+//        List<Integer> solution = null;
+//        int fitness = 0;
+//        GeneticAlgorithmService service = new GeneticAlgorithmService();
+//        try {
+//            // service.populateTest();
+//            service.populate(rows);
+//
+//            for (int i = 1; i <= 100; i++) {
+//                service.run();
+//                solution = service.getBestSolution();
+//                fitness = service.getBestSolutionFitness();
+//
+//                System.out.println("Generation " + i + ": " + solution + ", Fitness: " + fitness);
+//            }
+//        } catch (GeneticAlgorithmException e) {
+//            System.err.println(e.getMessage());
+//        }
+//
+//        Log.e("questions indexes ", "Generation " + solution + ", Fitness: " + fitness);
         return solution;
     }
 
