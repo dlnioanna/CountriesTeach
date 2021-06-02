@@ -45,13 +45,10 @@ public class GeneticAlgorithmService {
     }
 
     public void populate(List<Integer[]> data) throws GeneticAlgorithmException {
-        Log.i("service populate rows start ", "5");
         for (Integer[] row : data) {
             if (row.length != 4)
                 throw new GeneticAlgorithmException("Every row should have length equal to 4, compliant with the format: {question_id, percent_appearances, percent_mistakes, percent_hints}");
-
             Gene gene = new Gene();
-
             gene.setId(row[0]);
             gene.setPercentAppearances(row[1]);
             gene.setPercentMistakes(row[2]);
@@ -59,7 +56,6 @@ public class GeneticAlgorithmService {
 
             availableGenes.add(gene);
         }
-        Log.i("service populate rows end ", "6");
         createCandidateSolutions();
     }
 
@@ -75,7 +71,6 @@ public class GeneticAlgorithmService {
     }
 
     public List<Integer> getBestSolution() throws GeneticAlgorithmException {
-        Log.i("service getBestSolution ", "7");
         checkIfPopulationsExists();
 
         List<Integer> solution = new ArrayList<>();
@@ -84,7 +79,6 @@ public class GeneticAlgorithmService {
         for (int i = 0; i < bestChromosome.getSize(); i++) {
             solution.add(bestChromosome.getGeneByPosition(i).getId());
         }
-        Log.i("service getBestSolution ", "8");
         return solution;
     }
 
@@ -103,11 +97,9 @@ public class GeneticAlgorithmService {
     private void createCandidateSolutions() {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             Chromosome chromosome = new Chromosome();
-
             for (int j = 0; j < Chromosome.GENES_SIZE; j++) {
                 int number = NumberUtils.getRandom(0, availableGenes.size() - 1);
                 Gene gene = availableGenes.get(number);
-
 
                 if (chromosome.containsGene(gene)) {
                     j--;
@@ -115,7 +107,6 @@ public class GeneticAlgorithmService {
                     chromosome.addGene(gene);
                 }
             }
-
             population.addChromosome(chromosome);
         }
 

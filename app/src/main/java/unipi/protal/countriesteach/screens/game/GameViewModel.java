@@ -11,25 +11,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import unipi.protal.countriesteach.callables.ErrorsCallable;
-import unipi.protal.countriesteach.callables.InstanceCallable;
-import unipi.protal.countriesteach.callables.NumberOfQuestionsCallable;
 import unipi.protal.countriesteach.callables.SolutionCallable;
 import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.database.CountryDao;
@@ -41,9 +33,6 @@ import unipi.protal.countriesteach.entities.Country;
 import unipi.protal.countriesteach.entities.Question;
 import unipi.protal.countriesteach.entities.QuestionQuizCrossRef;
 import unipi.protal.countriesteach.entities.Quiz;
-import unipi.protal.countriesteach.genetic.exceptions.GeneticAlgorithmException;
-import unipi.protal.countriesteach.genetic.service.GeneticAlgorithmService;
-import unipi.protal.countriesteach.utils.NumberUtils;
 
 import static unipi.protal.countriesteach.database.CountryContentValues.AFRICA_END_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.AFRICA_START_INDEX;
@@ -54,17 +43,10 @@ import static unipi.protal.countriesteach.database.CountryContentValues.ASIA_STA
 import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE;
 import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE_END_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE_START_INDEX;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AFRICAN_COUNTRIES;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_AMERICAN_COUNTRIES;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_ASIAN_COUNTRIES;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
-import static unipi.protal.countriesteach.database.CountryContentValues.NUMBER_OF_OCEANIAN_COUNTRIES;
 import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA_END_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA_START_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.WORLD_END_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.WORLD_START_INDEX;
-import static unipi.protal.countriesteach.database.Database.databaseWriteExecutor;
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
@@ -249,7 +231,7 @@ public class GameViewModel extends AndroidViewModel {
            setIndex(id);
            ExecutorService executorService = Executors.newSingleThreadExecutor();
         List<Integer> solution = null;
-        Future<List<Integer>> solutionFuture = databaseWriteExecutor.submit(new SolutionCallable(id,startIndex,endIndex,questionDao));
+        Future<List<Integer>> solutionFuture = executorService.submit(new SolutionCallable(id,startIndex,endIndex,questionDao,countryDao));
         try{
             solution = solutionFuture.get();
         }catch (ExecutionException | InterruptedException e){

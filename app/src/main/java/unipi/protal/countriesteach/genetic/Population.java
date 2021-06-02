@@ -18,7 +18,7 @@ public class Population {
             fitness += chromosome.calculateFitness();
 
         if (fitness <= 0)
-            fitness = -1
+            fitness = -1;
 
         return fitness;
     }

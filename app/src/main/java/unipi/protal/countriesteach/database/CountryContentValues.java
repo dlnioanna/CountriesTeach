@@ -2,14 +2,18 @@ package unipi.protal.countriesteach.database;
 
 import android.content.ContentValues;
 
+import androidx.lifecycle.LiveData;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import unipi.protal.countriesteach.R;
 import unipi.protal.countriesteach.entities.Country;
+
 //   https://androtak.wordpress.com/2016/03/01/how-to-convert-any-object-to-contentvalues-in-for-android-sqlite-insertion/
 // https://www.vectorizer.io/
 // https://www.textcompare.org/vectorize/
@@ -29,18 +33,57 @@ public class CountryContentValues {
     public static final int NUMBER_OF_AFRICAN_COUNTRIES = 54;
     public static final int NUMBER_OF_OCEANIAN_COUNTRIES = 25;
     public static final int NUMBER_OF_ALL_COUNTRIES = 230;
-    public static final int EUROPE_START_INDEX=1;
-    public static final int EUROPE_END_INDEX=51;
-    public static final int OCEANIA_START_INDEX=52;
-    public static final int OCEANIA_END_INDEX=76;
-   public static final int ASIA_START_INDEX=77;
-    public static final int ASIA_END_INDEX=121;
-    public static final int AMERICA_START_INDEX=122;
-    public static final int AMERICA_END_INDEX=176;
-    public static final int AFRICA_START_INDEX=177;
-    public static final int AFRICA_END_INDEX=230;
-    public static final int WORLD_START_INDEX=1;
-    public static final int WORLD_END_INDEX=230;
+    public static final int EUROPE_START_INDEX = 1;
+    public static final int EUROPE_END_INDEX = 51;
+    public static final int OCEANIA_START_INDEX = 52;
+    public static final int OCEANIA_END_INDEX = 76;
+    public static final int ASIA_START_INDEX = 77;
+    public static final int ASIA_END_INDEX = 121;
+    public static final int AMERICA_START_INDEX = 122;
+    public static final int AMERICA_END_INDEX = 176;
+    public static final int AFRICA_START_INDEX = 177;
+    public static final int AFRICA_END_INDEX = 230;
+    public static final int WORLD_START_INDEX = 1;
+    public static final int WORLD_END_INDEX = 230;
+    public static final List<Long> EUROPEAN_COUNTRY_IDS =  new ArrayList<Long>(Arrays.asList(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L,
+            11L, 12L, 13L, 14L, 15L, 16L, 17L, 18L, 19L, 20L,
+            21L, 22L, 23L, 24L, 25L, 26L, 27L, 28L, 29L, 30L,
+            31L, 32L, 33L, 34L, 35L, 36L, 37L, 38L, 39L, 40L,
+            41L, 42L, 43L, 44L, 45L, 46L, 47L, 48L, 49L, 50L, 51L));
+    public static final List<Long> OCEANIAN_COUNTRY_IDS =  new ArrayList<Long>(Arrays.asList(52L, 53L, 54L, 55L, 56L, 57L, 58L, 59L, 60L,
+            61L, 62L, 63L, 64L, 65L, 66L, 67L, 68L, 69L, 70L,
+            71L, 72L, 73L, 74L, 75L, 76L));
+    public static final List<Long> ASIAN_COUNTRY_IDS =  new ArrayList<Long>(Arrays.asList(77L, 78L, 79L, 80L,
+            81L, 82L, 83L, 84L, 85L, 86L, 87L, 88L, 89L, 90L,
+            91L, 92L, 93L, 94L, 95L, 96L, 97L, 98L, 99L, 100L,
+            101L, 102L, 103L, 104L, 105L, 106L, 107L, 108L, 109L, 110L,
+            111L, 112L, 113L, 114L, 115L, 116L, 117L, 118L, 119L, 120L, 121L, 3L, 5L, 37L, 45L, 49L));
+    public static final List<Long> AMERICAN_COUNTRY_IDS =  new ArrayList<Long>(Arrays.asList(
+            122L, 123L, 124L, 125L, 126L, 127L, 128L, 129L, 130L,
+            131L, 132L, 133L, 134L, 135L, 136L, 137L, 138L, 139L, 140L,
+            141L, 142L, 143L, 144L, 145L, 146L, 147L, 148L, 149L, 150L,
+            151L, 152L, 153L, 154L, 155L, 156L, 157L, 158L, 159L, 160L,
+            161L, 162L, 163L, 164L, 165L, 166L, 167L, 168L, 169L, 170L,
+            171L, 172L, 173L, 174L, 175L, 176L));
+    public static final List<Long> AFRICAN_COUNTRY_IDS =  new ArrayList<Long>(Arrays.asList(
+            177L, 178L, 179L, 180L, 181L, 182L, 183L, 184L, 185L, 186L, 187L, 188L, 189L, 190L,
+            191L, 192L, 193L, 194L, 195L, 196L, 197L, 198L, 199L, 200L,
+            201L, 202L, 203L, 204L, 205L, 206L, 207L, 208L, 209L, 210L,
+            211L, 212L, 213L, 214L, 215L, 216L, 217L, 218L, 219L, 220L,
+            221L, 222L, 223L, 224L, 225L, 226L, 227L, 228L, 229L, 230L));
+    public static final List<Long> WORLD_COUNTRY_IDS = new ArrayList<>(Arrays.asList(
+            1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L,
+            11L, 12L, 13L, 14L, 15L, 16L, 17L, 18L, 19L, 20L, 21L, 22L, 23L, 24L, 25L, 26L, 27L, 28L, 29L, 30L,
+            31L, 32L, 33L, 34L, 35L, 36L, 37L, 38L, 39L, 40L, 41L, 42L, 43L, 44L, 45L, 46L, 47L, 48L, 49L, 50L,
+            51L, 52L, 53L, 54L, 55L, 56L, 57L, 58L, 59L, 60L, 61L, 62L, 63L, 64L, 65L, 66L, 67L, 68L, 69L, 70L,
+            71L, 72L, 73L, 74L, 75L, 76L, 77L, 78L, 79L, 80L, 81L, 82L, 83L, 84L, 85L, 86L, 87L, 88L, 89L, 90L,
+            91L, 92L, 93L, 94L, 95L, 96L, 97L, 98L, 99L, 100L, 101L, 102L, 103L, 104L, 105L, 106L, 107L, 108L, 109L, 110L,
+            111L, 112L, 113L, 114L, 115L, 116L, 117L, 118L, 119L, 120L, 121L, 122L, 123L, 124L, 125L, 126L, 127L, 128L, 129L, 130L,
+            131L, 132L, 133L, 134L, 135L, 136L, 137L, 138L, 139L, 140L, 141L, 142L, 143L, 144L, 145L, 146L, 147L, 148L, 149L, 150L,
+            151L, 152L, 153L, 154L, 155L, 156L, 157L, 158L, 159L, 160L, 161L, 162L, 163L, 164L, 165L, 166L, 167L, 168L, 169L, 170L,
+            171L, 172L, 173L, 174L, 175L, 176L,177L, 178L, 179L, 180L, 181L, 182L, 183L, 184L, 185L, 186L, 187L, 188L, 189L, 190L,
+            191L, 192L, 193L, 194L, 195L, 196L, 197L, 198L, 199L, 200L, 201L, 202L, 203L, 204L, 205L, 206L, 207L, 208L, 209L, 210L,
+            211L, 212L, 213L, 214L, 215L, 216L, 217L, 218L, 219L, 220L, 221L, 222L, 223L, 224L, 225L, 226L, 227L, 228L, 229L, 230L ));
 
     //51 countries
     public static List<Country> initializeEuropeanCountries() {
@@ -206,7 +249,7 @@ public class CountryContentValues {
         return oceanianCountries;
     }
 
-//  Γεωργία, Αρμενία, Αζερμπαϊτζάν, Ρωσία, Τουρκία, Καζακστάν έχουν περαστεί στην Ευρώπη με attr continentId EUROPE_AND_ASIA
+    //  Γεωργία, Αρμενία, Αζερμπαϊτζάν, Ρωσία, Τουρκία, Καζακστάν έχουν περαστεί στην Ευρώπη με attr continentId EUROPE_AND_ASIA
     // Hong Kong kai Macau den einai anagnorismena
     public static List<Country> initializeAsianCountries() {
         List<Country> asianCountries = new ArrayList<>();
@@ -284,25 +327,24 @@ public class CountryContentValues {
         asianCountries.add(c36);
         Country c37 = new Country(113, "Ταϊβάν", ASIA);
         asianCountries.add(c37);
-        Country c38= new Country(114, "Τατζικιστάν", ASIA);
+        Country c38 = new Country(114, "Τατζικιστάν", ASIA);
         asianCountries.add(c38);
-        Country c39= new Country(115, "Ταϊλάνδη", ASIA);
+        Country c39 = new Country(115, "Ταϊλάνδη", ASIA);
         asianCountries.add(c39);
-        Country c40= new Country(116, "Ανατολικό Τιμόρ", ASIA);
+        Country c40 = new Country(116, "Ανατολικό Τιμόρ", ASIA);
         asianCountries.add(c40);
-        Country c41= new Country(117, "Τουρκμενιστάν", ASIA);
+        Country c41 = new Country(117, "Τουρκμενιστάν", ASIA);
         asianCountries.add(c41);
-        Country c42= new Country(118, "Ηνωμένα Αραβικά Εμιράτα", ASIA);
+        Country c42 = new Country(118, "Ηνωμένα Αραβικά Εμιράτα", ASIA);
         asianCountries.add(c42);
-        Country c43= new Country(119, "Ουζμπεκιστάν", ASIA);
+        Country c43 = new Country(119, "Ουζμπεκιστάν", ASIA);
         asianCountries.add(c43);
-        Country c44= new Country(120, "Βιετνάμ", ASIA);
+        Country c44 = new Country(120, "Βιετνάμ", ASIA);
         asianCountries.add(c44);
-        Country c45= new Country(121, "Υεμένη", ASIA);
+        Country c45 = new Country(121, "Υεμένη", ASIA);
         asianCountries.add(c45);
         return asianCountries;
     }
-
 
     public static List<Country> initializeAmericanCountries() {
         List<Country> americanCountries = new ArrayList<>();
@@ -419,7 +461,7 @@ public class CountryContentValues {
         return americanCountries;
     }
 
-    public static List<Country> initializeAmfricanCountries() {
+    public static List<Country> initializeAfricanCountries() {
         List<Country> africanCountries = new ArrayList<>();
         Country c1 = new Country(177, "Νιγηρία", AFRICA);
         Country c2 = new Country(178, "Αιθιοπία", AFRICA);
@@ -430,51 +472,51 @@ public class CountryContentValues {
         Country c7 = new Country(183, "Κένυα", AFRICA);
         Country c8 = new Country(184, "Ουγκάντα", AFRICA);
         Country c9 = new Country(185, "Αλγερία", AFRICA);
-        Country c10 = new Country(186,"Σουδάν", AFRICA);
-        Country c11 = new Country(187,"Μαρόκο", AFRICA);
-        Country c12 = new Country(188,"Μοζαμβίκη", AFRICA);
-        Country c13 = new Country(189,"Γκάνα", AFRICA);
-        Country c14 = new Country(190,"Ανγκόλα", AFRICA);
-        Country c15 = new Country(191,"Σομαλία", AFRICA);
-        Country c16 = new Country(192,"Ακτή Ελεφαντοστού", AFRICA);
-        Country c17 = new Country(193,"Μαδαγασκάρη", AFRICA);
-        Country c18 = new Country(194,"Καμερούν", AFRICA);
-        Country c19 = new Country(195,"Μπουρκίνα Φάσο", AFRICA);
-        Country c20 = new Country(196,"Νίγηρας", AFRICA);
-        Country c21 = new Country(197,"Μαλάουι", AFRICA);
-        Country c22 = new Country(198,"Ζάμπια", AFRICA);
-        Country c23 = new Country(199,"Σενεγάλη", AFRICA);
-        Country c24 = new Country(200,"Μάλι ", AFRICA);
-        Country c25 = new Country(201,"Ζιμπάμπουε", AFRICA);
-        Country c26 = new Country(202,"Τσαντ", AFRICA);
-        Country c27 = new Country(203,"Τυνησία", AFRICA);
-        Country c28 = new Country(204,"Γουινέα", AFRICA);
-        Country c29 = new Country(205,"Ρουάντα", AFRICA);
-        Country c30 = new Country(206,"Μπενίν", AFRICA);
-        Country c31 = new Country(207,"Μπουρούντι", AFRICA);
-        Country c32 = new Country(208,"Νότιο Σουδάν", AFRICA);
-        Country c33 = new Country(209,"Ερυθραία", AFRICA);
-        Country c34 = new Country(210,"Σιέρα Λεόνε", AFRICA);
-        Country c35 = new Country(211,"Τόγκο", AFRICA);
-        Country c36 = new Country(212,"Λιβύη", AFRICA);
-        Country c37 = new Country(213,"Μαυριτανία", AFRICA);
-        Country c38 = new Country(214,"Κονγκό", AFRICA);
-        Country c39 = new Country(215,"Λιβερία", AFRICA);
-        Country c40 = new Country(216,"Κεντροαφρικανική Δημοκρατία", AFRICA);
-        Country c41 = new Country(217,"Ναμίμπια", AFRICA);
-        Country c42 = new Country(218,"Λεσότο", AFRICA);
-        Country c43 = new Country(219,"Μποτσουάνα", AFRICA);
-        Country c44 = new Country(220,"Γκάμπια", AFRICA);
-        Country c45 = new Country(221,"Γκαμπόν", AFRICA);
-        Country c46 = new Country(222,"Γουινέα Μπισσάου", AFRICA);
-        Country c47 = new Country(223,"Μαυρίκιος", AFRICA);
-        Country c48 = new Country(224,"Ισημερινή Γουινέα", AFRICA);
-        Country c49 = new Country(225,"Εσουατίνι", AFRICA);
-        Country c50 = new Country(226,"Τζιμπουτί", AFRICA);
-        Country c51 = new Country(227,"Κομόρες", AFRICA);
-        Country c52 = new Country(228,"Πράσινο Ακρωτήριο", AFRICA);
-        Country c53 = new Country(229,"Σάο Τομέ και Πρίνσιπε", AFRICA);
-        Country c54 = new Country(230,"Σεϋχέλλες", AFRICA);
+        Country c10 = new Country(186, "Σουδάν", AFRICA);
+        Country c11 = new Country(187, "Μαρόκο", AFRICA);
+        Country c12 = new Country(188, "Μοζαμβίκη", AFRICA);
+        Country c13 = new Country(189, "Γκάνα", AFRICA);
+        Country c14 = new Country(190, "Ανγκόλα", AFRICA);
+        Country c15 = new Country(191, "Σομαλία", AFRICA);
+        Country c16 = new Country(192, "Ακτή Ελεφαντοστού", AFRICA);
+        Country c17 = new Country(193, "Μαδαγασκάρη", AFRICA);
+        Country c18 = new Country(194, "Καμερούν", AFRICA);
+        Country c19 = new Country(195, "Μπουρκίνα Φάσο", AFRICA);
+        Country c20 = new Country(196, "Νίγηρας", AFRICA);
+        Country c21 = new Country(197, "Μαλάουι", AFRICA);
+        Country c22 = new Country(198, "Ζάμπια", AFRICA);
+        Country c23 = new Country(199, "Σενεγάλη", AFRICA);
+        Country c24 = new Country(200, "Μάλι ", AFRICA);
+        Country c25 = new Country(201, "Ζιμπάμπουε", AFRICA);
+        Country c26 = new Country(202, "Τσαντ", AFRICA);
+        Country c27 = new Country(203, "Τυνησία", AFRICA);
+        Country c28 = new Country(204, "Γουινέα", AFRICA);
+        Country c29 = new Country(205, "Ρουάντα", AFRICA);
+        Country c30 = new Country(206, "Μπενίν", AFRICA);
+        Country c31 = new Country(207, "Μπουρούντι", AFRICA);
+        Country c32 = new Country(208, "Νότιο Σουδάν", AFRICA);
+        Country c33 = new Country(209, "Ερυθραία", AFRICA);
+        Country c34 = new Country(210, "Σιέρα Λεόνε", AFRICA);
+        Country c35 = new Country(211, "Τόγκο", AFRICA);
+        Country c36 = new Country(212, "Λιβύη", AFRICA);
+        Country c37 = new Country(213, "Μαυριτανία", AFRICA);
+        Country c38 = new Country(214, "Κονγκό", AFRICA);
+        Country c39 = new Country(215, "Λιβερία", AFRICA);
+        Country c40 = new Country(216, "Κεντροαφρικανική Δημοκρατία", AFRICA);
+        Country c41 = new Country(217, "Ναμίμπια", AFRICA);
+        Country c42 = new Country(218, "Λεσότο", AFRICA);
+        Country c43 = new Country(219, "Μποτσουάνα", AFRICA);
+        Country c44 = new Country(220, "Γκάμπια", AFRICA);
+        Country c45 = new Country(221, "Γκαμπόν", AFRICA);
+        Country c46 = new Country(222, "Γουινέα Μπισσάου", AFRICA);
+        Country c47 = new Country(223, "Μαυρίκιος", AFRICA);
+        Country c48 = new Country(224, "Ισημερινή Γουινέα", AFRICA);
+        Country c49 = new Country(225, "Εσουατίνι", AFRICA);
+        Country c50 = new Country(226, "Τζιμπουτί", AFRICA);
+        Country c51 = new Country(227, "Κομόρες", AFRICA);
+        Country c52 = new Country(228, "Πράσινο Ακρωτήριο", AFRICA);
+        Country c53 = new Country(229, "Σάο Τομέ και Πρίνσιπε", AFRICA);
+        Country c54 = new Country(230, "Σεϋχέλλες", AFRICA);
         africanCountries.add(c1);
         africanCountries.add(c2);
         africanCountries.add(c3);

@@ -32,6 +32,6 @@ public interface QuestionDao {
     @Query("SELECT COUNT(*) FROM question WHERE countryId=:countryId AND answered=0 OR answered=NULL")
     Integer countErrorsOfCountry(long countryId);
 
-    @Query("SELECT COUNT(*) FROM question")
-    Integer countTotalNumberOfQuestions();
+    @Query("SELECT COUNT(*) FROM question WHERE countryId IN (:countriesId)")
+    Integer countTotalNumberOfQuestions(List<Long> countriesId);
 }
