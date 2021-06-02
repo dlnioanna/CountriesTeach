@@ -57,7 +57,7 @@ public class GameViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
-    public MutableLiveData<Long> _quizId = new MutableLiveData<>() ;
+    public MutableLiveData<Long> _quizId = new MutableLiveData<>();
     public MutableLiveData<List<Country>> quizCountries = new MutableLiveData<>();
     private static final int NUMBER_OF_QUESTIONS = 10;
     private int numberOfCountries, questionIndex, startIndex, endIndex;
@@ -67,7 +67,7 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionDao questionDao;
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
-//    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    //    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Quiz quiz;
     private Long quizId;
@@ -162,7 +162,7 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<Long> getQuizId() {
-        if(quizId!=null){
+        if (quizId != null) {
             _quizId.setValue(quizId);
         }
         return _quizId;
@@ -171,7 +171,7 @@ public class GameViewModel extends AndroidViewModel {
     public void nextCountryIndex() {
         try {
             countryIndex.setValue((int) questions.get(questionIndex).getCountryId());
-            if (questionIndex<10){
+            if (questionIndex < 10) {
                 questionIndex++;
             }
             getRandomAnswersIndex();
@@ -227,20 +227,17 @@ public class GameViewModel extends AndroidViewModel {
     }
 
     public List<Integer> selectQuestions(int id) {
-        // Genetic algorithm example with dummy random data.
-           setIndex(id);
-           ExecutorService executorService = Executors.newSingleThreadExecutor();
+        setIndex(id);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         List<Integer> solution = null;
-        Future<List<Integer>> solutionFuture = executorService.submit(new SolutionCallable(id,startIndex,endIndex,questionDao,countryDao));
-        try{
+        Future<List<Integer>> solutionFuture = executorService.submit(new SolutionCallable(id, startIndex, endIndex, questionDao, countryDao));
+        try {
             solution = solutionFuture.get();
-        }catch (ExecutionException | InterruptedException e){
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         executorService.shutdown();
-//        List<Integer>integerList=new ArrayList(Arrays.asList(4, 8, 35, 7, 45, 3, 33, 24, 27, 10));
-//        return integerList;
-       return solution;
+        return solution;
     }
 
     public void saveAnswer(long countryId, boolean answer) {
@@ -253,12 +250,12 @@ public class GameViewModel extends AndroidViewModel {
         });
     }
 
-    public void endQuiz() {
+    public void endQuiz(int score) {
         Long endDate = Calendar.getInstance().getTimeInMillis();
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                quizDao.updateQuizEndDate(quizId, endDate);
+                quizDao.updateQuizEndDateAndScore(quizId, endDate, score);
             }
         });
     }

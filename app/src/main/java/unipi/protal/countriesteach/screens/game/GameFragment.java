@@ -59,7 +59,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private GameFragmentBinding binding;
     private Country country;
     private int countryIndex, firstAnswerIndex, secondAnswerIndex, thirdAnswerIndex, fourthAnswerIndex;
-    private int continentId, numberOfQuestion;
+    private int continentId, numberOfQuestion, quizScore;
     private NavController navController;
     private List<Country> allCountries;
     private List<Question> quizQuestions;
@@ -78,6 +78,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         Resources resources = this.getContext().getResources();
         continentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.button_next);
+        quizScore=0;
         if (continentId == EUROPE) {
             binding.firstAnswerRadioButton.setBackgroundResource(R.drawable.button_europe);
             binding.secondAnswerRadioButton.setBackgroundResource(R.drawable.button_europe);
@@ -140,7 +141,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
             if (numberOfQuestion > NUMBER_OF_QUESTIONS) {
-                gameViewModel.endQuiz();
+                gameViewModel.endQuiz(quizScore);
                 navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd().setQuizId(gameViewModel.getQuizId().getValue()));
             }
         });
@@ -180,6 +181,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         if (v == binding.firstAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
@@ -188,6 +190,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         } else if (v == binding.secondAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(secondAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
@@ -196,6 +199,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         } else if (v == binding.thirdAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
@@ -204,6 +208,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         } else if (v == binding.fourthAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
                 Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();

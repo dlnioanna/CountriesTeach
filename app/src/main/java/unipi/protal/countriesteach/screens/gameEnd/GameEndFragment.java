@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
+import java.util.ArrayList;
+
 import unipi.protal.countriesteach.databinding.*;
 import unipi.protal.countriesteach.R;
 import unipi.protal.countriesteach.screens.game.GameViewModel;
@@ -26,6 +28,7 @@ public class GameEndFragment extends Fragment {
     private GameEndViewModelFactory gameEndViewModelFactory;
     private GameEndViewModel gameEndViewModel;
     private Long quizId;
+    private Integer quizScore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +42,10 @@ public class GameEndFragment extends Fragment {
         gameEndViewModelFactory = new GameEndViewModelFactory(getActivity().getApplication(), quizId);
         gameEndViewModel = new ViewModelProvider(this, gameEndViewModelFactory).get(GameEndViewModel.class);
 
-
+        gameEndViewModel.getQuizScore().observe(getViewLifecycleOwner(), score -> {
+            quizScore = gameEndViewModel.getQuizScore().getValue();
+            binding.gameScore.setText(getString(R.string.user_score)+" "+quizScore);
+        });
         binding.startNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
