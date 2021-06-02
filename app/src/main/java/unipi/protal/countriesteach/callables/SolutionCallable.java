@@ -34,7 +34,7 @@ public class SolutionCallable implements Callable<List<Integer>> {
             Integer numberOfInstances = 0, numberOfErrors = 0;
             numberOfInstances = questionDao.countInstancesOfCountry(i);
             numberOfErrors = questionDao.countErrorsOfCountry(i);
-            Double num = new Double(totalNumberOfQuestions);
+            Double num = Double.valueOf(totalNumberOfQuestions);
             int numberOfInstancesPercentage = (int) ((numberOfInstances / num) * 100);
             int numberOfErrorsPercentage = (int) ((numberOfErrors / num) * 100);
             Log.i("gameview model number of errors for country", i + " " + numberOfInstancesPercentage + " numberOfInstances " + numberOfErrorsPercentage
@@ -44,9 +44,13 @@ public class SolutionCallable implements Callable<List<Integer>> {
             rows.add(row);
             Log.i("row and rows ", "row is " + row[0] + " rows are " + rows.size());
         }
+        Log.i("exit row loop ", "1");
         List<Integer> solution = null;
+        Log.i("exit row loop ", "2");
         int fitness = 0;
+        Log.i("exit row loop ", "3");
         GeneticAlgorithmService service = new GeneticAlgorithmService();
+        Log.i("exit row loop ", "4");
         try {
             // service.populateTest();
             service.populate(rows);

@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -63,6 +64,7 @@ import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA_
 import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA_START_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.WORLD_END_INDEX;
 import static unipi.protal.countriesteach.database.CountryContentValues.WORLD_START_INDEX;
+import static unipi.protal.countriesteach.database.Database.databaseWriteExecutor;
 
 public class GameViewModel extends AndroidViewModel {
     private LiveData<List<Country>> europeanCountries, asianCountries, americanCountries, oceanianCountries, africanCountries, antarticaCountries, allCountries;
@@ -83,7 +85,7 @@ public class GameViewModel extends AndroidViewModel {
     private QuestionDao questionDao;
     private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final ExecutorService service = Executors.newSingleThreadExecutor();
+//    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Quiz quiz;
     private Long quizId;
@@ -120,7 +122,6 @@ public class GameViewModel extends AndroidViewModel {
             numberOfCountries = CountryContentValues.NUMBER_OF_ALL_COUNTRIES;
         }
         List<Integer> countryIds = selectQuestions(continentId);
-
         quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
         executor.execute(new Runnable() {
@@ -245,70 +246,19 @@ public class GameViewModel extends AndroidViewModel {
 
     public List<Integer> selectQuestions(int id) {
         // Genetic algorithm example with dummy random data.
+           setIndex(id);
+           ExecutorService executorService = Executors.newSingleThreadExecutor();
         List<Integer> solution = null;
-        setIndex(id);
-        Future<List<Integer>> solutionFuture = service.submit(new SolutionCallable(id,startIndex,endIndex,questionDao));
+        Future<List<Integer>> solutionFuture = databaseWriteExecutor.submit(new SolutionCallable(id,startIndex,endIndex,questionDao));
         try{
             solution = solutionFuture.get();
         }catch (ExecutionException | InterruptedException e){
             e.printStackTrace();
         }
- //       int totalNumberOfQuestions=0;
-//        Future<Integer> totalNumberOfQuestionsFuture = service.submit(new NumberOfQuestionsCallable(questionDao));
-//        try {
-//            totalNumberOfQuestions = totalNumberOfQuestionsFuture.get();
-//        } catch (ExecutionException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        List<Integer[]> rows = new ArrayList<>();
-//        for (int i = startIndex; i <= endIndex; i++) {
-//            Integer numberOfInstances=0, numberOfErrors=0;
-//            Future<Integer> instanceFuture = service.submit(new InstanceCallable(i, questionDao));
-//            try {
-//                numberOfInstances = instanceFuture.get();
-//            } catch (ExecutionException | InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            Future<Integer> errorsFuture = service.submit(new ErrorsCallable(i, questionDao));
-//            try {
-//                numberOfErrors = errorsFuture.get();
-//            } catch (ExecutionException | InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            service.shutdown();
-//
-//            Double num = new Double(totalNumberOfQuestions);
-//            int numberOfInstancesPercentage = (int) ((numberOfInstances/num)*100);
-//            int numberOfErrorsPercentage = (int) ((numberOfErrors/num)*100);
-//            Log.i("gameview model number of errors for country", i + " " + numberOfInstancesPercentage+" numberOfInstances "+numberOfErrorsPercentage
-//            +" totalNumberOfQuestions "+totalNumberOfQuestions);
-//
-//            // id xoras, pososto emfanishs , pososto lathon , pososto hints
-//            Integer[] row = {i, numberOfInstancesPercentage, numberOfErrorsPercentage, 0};
-//            rows.add(row);
-//            Log.i("row and rows ", "row is " + row[0] + " rows are " + rows.size());
-//        }
-//
-//        List<Integer> solution = null;
-//        int fitness = 0;
-//        GeneticAlgorithmService service = new GeneticAlgorithmService();
-//        try {
-//            // service.populateTest();
-//            service.populate(rows);
-//
-//            for (int i = 1; i <= 100; i++) {
-//                service.run();
-//                solution = service.getBestSolution();
-//                fitness = service.getBestSolutionFitness();
-//
-//                System.out.println("Generation " + i + ": " + solution + ", Fitness: " + fitness);
-//            }
-//        } catch (GeneticAlgorithmException e) {
-//            System.err.println(e.getMessage());
-//        }
-//
-//        Log.e("questions indexes ", "Generation " + solution + ", Fitness: " + fitness);
-        return solution;
+        executorService.shutdown();
+//        List<Integer>integerList=new ArrayList(Arrays.asList(4, 8, 35, 7, 45, 3, 33, 24, 27, 10));
+//        return integerList;
+       return solution;
     }
 
     public void saveAnswer(long countryId, boolean answer) {

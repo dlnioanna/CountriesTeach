@@ -19,7 +19,7 @@ public class ErrorsCallable implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         Integer result = questionDao.countErrorsOfCountry(countryId);
-        Log.e("number of instances for country ",countryId+" "+ result);
+        Log.e("number of errors for country ",countryId+" "+ result);
         return result;
     }
 }

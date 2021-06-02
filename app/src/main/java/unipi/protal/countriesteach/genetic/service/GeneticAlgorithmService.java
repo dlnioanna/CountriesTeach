@@ -1,5 +1,7 @@
 package unipi.protal.countriesteach.genetic.service;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -43,6 +45,7 @@ public class GeneticAlgorithmService {
     }
 
     public void populate(List<Integer[]> data) throws GeneticAlgorithmException {
+        Log.i("service populate rows start ", "5");
         for (Integer[] row : data) {
             if (row.length != 4)
                 throw new GeneticAlgorithmException("Every row should have length equal to 4, compliant with the format: {question_id, percent_appearances, percent_mistakes, percent_hints}");
@@ -56,7 +59,7 @@ public class GeneticAlgorithmService {
 
             availableGenes.add(gene);
         }
-
+        Log.i("service populate rows end ", "6");
         createCandidateSolutions();
     }
 
@@ -72,6 +75,7 @@ public class GeneticAlgorithmService {
     }
 
     public List<Integer> getBestSolution() throws GeneticAlgorithmException {
+        Log.i("service getBestSolution ", "7");
         checkIfPopulationsExists();
 
         List<Integer> solution = new ArrayList<>();
@@ -80,7 +84,7 @@ public class GeneticAlgorithmService {
         for (int i = 0; i < bestChromosome.getSize(); i++) {
             solution.add(bestChromosome.getGeneByPosition(i).getId());
         }
-
+        Log.i("service getBestSolution ", "8");
         return solution;
     }
 
