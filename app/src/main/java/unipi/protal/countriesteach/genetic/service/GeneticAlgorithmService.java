@@ -128,39 +128,47 @@ public class GeneticAlgorithmService {
         Map<Chromosome, Float> rouletteMap = new HashMap<>();
         int totalFitness = population.getFitness();
 
-        float currentPortion = 0;
+        if (totalFitness < 0) {
+            int num1 = NumberUtils.getRandom(1, population.getChromosomes().size());
+            int num2 = NumberUtils.getRandom(1, population.getChromosomes().size());
 
-        for (Chromosome chromosome : population.getChromosomes()) {
-            currentPortion += (float) (100 * chromosome.calculateFitness()) / totalFitness;
-            rouletteMap.put(chromosome, currentPortion);
-        }
+            firstParent = population.getChromosomes().get(num1);
+            secondParent = population.getChromosomes().get(num2);
+        } else {
+            float currentPortion = 0;
 
-
-        Map<Chromosome, Float> sortedRouletteMap = rouletteMap.entrySet()
-                .stream()
-                .sorted((Map.Entry.comparingByValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-
-        int number1 = NumberUtils.getRandom(0, 99);
-        for (Map.Entry<Chromosome, Float> entry : sortedRouletteMap.entrySet()) {
-            if (number1 <= entry.getValue()) {
-                firstParent = entry.getKey();
-                break;
+            for (Chromosome chromosome : population.getChromosomes()) {
+                currentPortion += (float) (100 * chromosome.calculateFitness()) / totalFitness;
+                rouletteMap.put(chromosome, currentPortion);
             }
-        }
 
-        int number2;
-        do {
-            number2 = NumberUtils.getRandom(0, 99);
 
+            Map<Chromosome, Float> sortedRouletteMap = rouletteMap.entrySet()
+                    .stream()
+                    .sorted((Map.Entry.comparingByValue()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+            int number1 = NumberUtils.getRandom(0, 99);
             for (Map.Entry<Chromosome, Float> entry : sortedRouletteMap.entrySet()) {
-                if (number2 <= entry.getValue()) {
-                    secondParent = entry.getKey();
+                if (number1 <= entry.getValue()) {
+                    firstParent = entry.getKey();
                     break;
                 }
             }
 
-        } while (secondParent == null || secondParent == firstParent);
+            int number2;
+            do {
+                number2 = NumberUtils.getRandom(0, 99);
+
+                for (Map.Entry<Chromosome, Float> entry : sortedRouletteMap.entrySet()) {
+                    if (number2 <= entry.getValue()) {
+                        secondParent = entry.getKey();
+                        break;
+                    }
+                }
+
+            } while (secondParent == null || secondParent == firstParent);
+        }
     }
 
     // Single-point crossover
