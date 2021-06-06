@@ -38,7 +38,6 @@ public class GameEndFragment extends Fragment {
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         binding.setLifecycleOwner(this);
         quizId = GameEndFragmentArgs.fromBundle(getArguments()).getQuizId();
-        Toast.makeText(this.getContext(), "quiz id " + quizId, Toast.LENGTH_SHORT).show();
         gameEndViewModelFactory = new GameEndViewModelFactory(getActivity().getApplication(), quizId);
         gameEndViewModel = new ViewModelProvider(this, gameEndViewModelFactory).get(GameEndViewModel.class);
 
