@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chromosome {
-    public static final int GENES_SIZE = 30;
+    public static final int GENES_SIZE = 10;
     private final List<Gene> genes = new ArrayList<>();
 
     public void addGene(Gene gene) {
