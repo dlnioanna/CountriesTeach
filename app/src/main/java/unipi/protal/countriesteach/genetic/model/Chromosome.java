@@ -48,8 +48,7 @@ public class Chromosome {
         float weightHints = 1;
 
         for (Gene gene : genes) {
-
-            fitness += weightAppearances * gene.getPercentAppearances() + weightMistakes * gene.getPercentMistakes() + weightHints * gene.getPercentHints();
+            fitness += weightAppearances * (100 - gene.getPercentAppearances()) + weightMistakes * gene.getPercentMistakes() + weightHints * gene.getPercentHints();
         }
 
         return fitness;

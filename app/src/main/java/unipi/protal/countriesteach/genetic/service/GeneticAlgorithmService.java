@@ -1,7 +1,5 @@
 package unipi.protal.countriesteach.genetic.service;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -107,6 +105,7 @@ public class GeneticAlgorithmService {
                     chromosome.addGene(gene);
                 }
             }
+
             population.addChromosome(chromosome);
         }
 

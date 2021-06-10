@@ -13,6 +13,9 @@ public class Gene {
     public String toString() {
         return "Gene{" +
                 "id=" + id +
+                ", percentAppearances=" + percentAppearances +
+                ", percentMistakes=" + percentMistakes +
+                ", percentHints=" + percentHints +
                 '}';
     }
 

@@ -47,6 +47,7 @@ public class SolutionCallable implements Callable<List<Integer>> {
     private CountryDao countryDao;
 
     public SolutionCallable(int continentId, int startIndex, int endIndex, QuestionDao questionDao, CountryDao countryDao) {
+
         this.continentId = continentId;
         this.startIndex = startIndex;
         this.endIndex = endIndex;
@@ -73,10 +74,12 @@ public class SolutionCallable implements Callable<List<Integer>> {
         } else if (continentId == CountryContentValues.WORLD) {
             totalNumberOfQuestions = questionDao.countTotalNumberOfQuestions(WORLD_COUNTRY_IDS);
         }
+
         Double num = Double.valueOf(totalNumberOfQuestions);
         if (num == 0) {
             num = new Double(1);
         }
+
         for (int i = startIndex; i <= endIndex; i++) {
             Integer numberOfInstances = 0, numberOfErrors = 0;
             numberOfInstances = questionDao.countInstancesOfCountry(i);
@@ -84,6 +87,7 @@ public class SolutionCallable implements Callable<List<Integer>> {
             int numberOfInstancesPercentage = (int) ((numberOfInstances / num) * 100);
             int numberOfErrorsPercentage = (int) ((numberOfErrors / num) * 100);
             // id xoras, pososto emfanishs , pososto lathon , pososto hints
+
             Integer[] row = null;
             if (totalNumberOfQuestions != 0) {
                 row = new Integer[]{i, numberOfInstancesPercentage, numberOfErrorsPercentage, 0};
@@ -91,7 +95,7 @@ public class SolutionCallable implements Callable<List<Integer>> {
                 row = new Integer[]{i, NumberUtils.getRandom(0, 100), NumberUtils.getRandom(0, 100), 0};
             }
             rows.add(row);
-            Log.i("row and rows ", "row is " + row[0] + " rows are " + rows.size());
+            // Log.i("row and rows ", "row is " + row[0] + " rows are " + rows.size());
         }
         List<Integer> solution = null;
         int fitness = 0;
@@ -103,7 +107,7 @@ public class SolutionCallable implements Callable<List<Integer>> {
                 service.run();
                 solution = service.getBestSolution();
                 fitness = service.getBestSolutionFitness();
-                System.out.println("Generation " + i + ": " + solution + ", Fitness: " + fitness);
+                // System.out.println("Generation " + i + ": " + solution + ", Fitness: " + fitness);
             }
         } catch (GeneticAlgorithmException e) {
             System.err.println(e.getMessage());
