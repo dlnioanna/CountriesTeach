@@ -6,6 +6,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
@@ -65,6 +67,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private List<Question> quizQuestions;
     public static final int NUMBER_OF_QUESTIONS = 10;
     private Long quizId;
+    private MediaPlayer mp;
 
     @Nullable
     @Override
@@ -78,7 +81,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         Resources resources = this.getContext().getResources();
         continentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.button_next);
-        quizScore=0;
+        quizScore = 0;
         if (continentId == EUROPE) {
             binding.firstAnswerRadioButton.setBackgroundResource(R.drawable.button_europe);
             binding.secondAnswerRadioButton.setBackgroundResource(R.drawable.button_europe);
@@ -124,6 +127,20 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             if (!(allCountries.size() < NUMBER_OF_ALL_COUNTRIES) && gameViewModel.countryIndex.getValue() != null) {
                 binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.countryIndex.getValue(), "drawable",
                         this.getContext().getPackageName()));
+                String url = "anthem_" + gameViewModel.countryIndex.getValue();
+                Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
+                mp = MediaPlayer.create(this.getContext(), resIdSound);
+                try {
+                    if (mp.isPlaying()) {
+                        mp.stop();
+                        mp.release();
+                        mp = MediaPlayer.create(this.getContext(), resIdSound);
+                    }
+                    mp.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.firstAnswerIndex.getValue() - 1).getCountryName());
                 binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.secondAnswerIndex.getValue() - 1).getCountryName());
                 binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.thirdAnswerIndex.getValue() - 1).getCountryName());
@@ -222,11 +239,23 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.numberOfQuestion.setValue(numberOfQuestion + 1);
         Resources resources = this.getContext().getResources();
         gameViewModel.nextCountryIndex();
-        if(gameViewModel.numberOfQuestion.getValue()<=NUMBER_OF_QUESTIONS){
+        if (gameViewModel.numberOfQuestion.getValue() <= NUMBER_OF_QUESTIONS) {
             binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
         }
         binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryId(), "drawable",
                 getContext().getPackageName()));
+        String url = "anthem_" + gameViewModel.countryIndex.getValue();
+        Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
+        try {
+            if (mp.isPlaying()) {
+                mp.stop();
+                mp.release();
+            }
+            mp = MediaPlayer.create(this.getContext(), resIdSound);
+            mp.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(firstAnswerIndex - 1).getCountryName());
         binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(secondAnswerIndex - 1).getCountryName());
         binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex - 1).getCountryName());
