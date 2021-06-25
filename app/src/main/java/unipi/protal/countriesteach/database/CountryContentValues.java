@@ -460,12 +460,12 @@ public class CountryContentValues {
         americanCountries.add(c55);
         return americanCountries;
     }
-
+//http://anthemworld.com
     public static List<Country> initializeAfricanCountries() {
         List<Country> africanCountries = new ArrayList<>();
         Country c1 = new Country(177, "Νιγηρία", AFRICA);
         Country c2 = new Country(178, "Αιθιοπία", AFRICA);
-        Country c3 = new Country(179, "Κονγκό", AFRICA);
+        Country c3 = new Country(179, "Κονγκό", AFRICA); //todo 214
         Country c4 = new Country(180, "Αίγυπτος", AFRICA);
         Country c5 = new Country(181, "Νότια Αφρική", AFRICA);
         Country c6 = new Country(182, "Τανζανία", AFRICA);
@@ -478,7 +478,7 @@ public class CountryContentValues {
         Country c13 = new Country(189, "Γκάνα", AFRICA);
         Country c14 = new Country(190, "Ανγκόλα", AFRICA);
         Country c15 = new Country(191, "Σομαλία", AFRICA);
-        Country c16 = new Country(192, "Ακτή Ελεφαντοστού", AFRICA);
+        Country c16 = new Country(192, "Ακτή Ελεφαντοστού", AFRICA); // todo δεν το βρηκα
         Country c17 = new Country(193, "Μαδαγασκάρη", AFRICA);
         Country c18 = new Country(194, "Καμερούν", AFRICA);
         Country c19 = new Country(195, "Μπουρκίνα Φάσο", AFRICA);
@@ -500,7 +500,7 @@ public class CountryContentValues {
         Country c35 = new Country(211, "Τόγκο", AFRICA);
         Country c36 = new Country(212, "Λιβύη", AFRICA);
         Country c37 = new Country(213, "Μαυριτανία", AFRICA);
-        Country c38 = new Country(214, "Κονγκό", AFRICA);
+        Country c38 = new Country(214, "Κονγκό", AFRICA); //todo h auto h to 179 einai south kongo
         Country c39 = new Country(215, "Λιβερία", AFRICA);
         Country c40 = new Country(216, "Κεντροαφρικανική Δημοκρατία", AFRICA);
         Country c41 = new Country(217, "Ναμίμπια", AFRICA);
@@ -510,7 +510,7 @@ public class CountryContentValues {
         Country c45 = new Country(221, "Γκαμπόν", AFRICA);
         Country c46 = new Country(222, "Γουινέα Μπισσάου", AFRICA);
         Country c47 = new Country(223, "Μαυρίκιος", AFRICA);
-        Country c48 = new Country(224, "Ισημερινή Γουινέα", AFRICA);
+        Country c48 = new Country(224, "Ισημερινή Γουινέα", AFRICA); //todo den to vrika
         Country c49 = new Country(225, "Εσουατίνι", AFRICA);
         Country c50 = new Country(226, "Τζιμπουτί", AFRICA);
         Country c51 = new Country(227, "Κομόρες", AFRICA);
