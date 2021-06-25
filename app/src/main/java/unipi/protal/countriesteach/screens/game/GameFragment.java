@@ -160,6 +160,14 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             if (numberOfQuestion > NUMBER_OF_QUESTIONS) {
                 gameViewModel.endQuiz(quizScore);
                 navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd().setQuizId(gameViewModel.getQuizId().getValue()));
+                try {
+                    if (mp.isPlaying()) {
+                        mp.stop();
+                        mp.release();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         gameViewModel._quizId.observe(getViewLifecycleOwner(), lng -> {

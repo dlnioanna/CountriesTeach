@@ -376,7 +376,7 @@ public class CountryContentValues {
         Country c26 = new Country(147, "Γροιλανδία", AMERICA);
         Country c27 = new Country(148, "Γρενάδα", AMERICA);
         Country c28 = new Country(149, "Γουαδελούπη", AMERICA); //france anthem
-        Country c29 = new Country(150, "Γουατεμάλα", AMERICA);// den to vrika?
+        Country c29 = new Country(150, "Γουατεμάλα", AMERICA);
         Country c30 = new Country(151, "Γουιάνα", AMERICA);
         Country c31 = new Country(152, "Αϊτή", AMERICA);
         Country c32 = new Country(153, "Ονδούρα", AMERICA);
@@ -389,18 +389,18 @@ public class CountryContentValues {
         Country c39 = new Country(160, "Παραγουάη", AMERICA);
         Country c40 = new Country(161, "Περού", AMERICA);
         Country c41 = new Country(162, "Πουέρτο Ρίκο", AMERICA);
-        Country c42 = new Country(163, "Άγιος Βαρθολομαίος", AMERICA); //france anthem
+        Country c42 = new Country(163, "Άγιος Βαρθολομαίος", AMERICA);
         Country c43 = new Country(164, "Άγιος Χριστόφορος και Νέβις", AMERICA);
         Country c44 = new Country(165, "Αγία Λουκία", AMERICA);
         Country c45 = new Country(166, "Άγιος Μαρτίνος", AMERICA);
-        Country c46 = new Country(167, "Σαιν-Πιερ και Μικελόν", AMERICA); ////france anthem
+        Country c46 = new Country(167, "Σαιν-Πιερ και Μικελόν", AMERICA);
         Country c47 = new Country(168, "Άγιος Βικέντιος και Γρεναδίνες", AMERICA);
-        Country c48 = new Country(169, "Άγιος Μαρτίνος", AMERICA); //todo na to vro
+        Country c48 = new Country(169, "Άγιος Μαρτίνος", AMERICA);
         Country c49 = new Country(170, "Σουρινάμ", AMERICA);
-        Country c50 = new Country(171, "Τρινιντάντ και Τομπάγκο", AMERICA);// todo na to vro
-        Country c51 = new Country(172, "Τερκς και Κέικος", AMERICA); //todo na to vro
+        Country c50 = new Country(171, "Τρινιντάντ και Τομπάγκο", AMERICA);
+        Country c51 = new Country(172, "Τερκς και Κέικος", AMERICA);
         Country c52 = new Country(173, "Ηνωμένες Πολιτείες Αμερικής", AMERICA);
-        Country c53 = new Country(174, "Αμερικανικές Παρθένοι Νήσοι", AMERICA); //todo na to vro
+        Country c53 = new Country(174, "Αμερικανικές Παρθένοι Νήσοι", AMERICA); //us anthem
         Country c54 = new Country(175, "Ουρουγουάη", AMERICA);
         Country c55 = new Country(176, "Βενεζουέλα", AMERICA);
         americanCountries.add(c1);
@@ -460,12 +460,12 @@ public class CountryContentValues {
         americanCountries.add(c55);
         return americanCountries;
     }
-//http://anthemworld.com
+
     public static List<Country> initializeAfricanCountries() {
         List<Country> africanCountries = new ArrayList<>();
         Country c1 = new Country(177, "Νιγηρία", AFRICA);
         Country c2 = new Country(178, "Αιθιοπία", AFRICA);
-        Country c3 = new Country(179, "Κονγκό", AFRICA); //todo 214
+        Country c3 = new Country(179, "Κονγκό", AFRICA);
         Country c4 = new Country(180, "Αίγυπτος", AFRICA);
         Country c5 = new Country(181, "Νότια Αφρική", AFRICA);
         Country c6 = new Country(182, "Τανζανία", AFRICA);
@@ -478,7 +478,7 @@ public class CountryContentValues {
         Country c13 = new Country(189, "Γκάνα", AFRICA);
         Country c14 = new Country(190, "Ανγκόλα", AFRICA);
         Country c15 = new Country(191, "Σομαλία", AFRICA);
-        Country c16 = new Country(192, "Ακτή Ελεφαντοστού", AFRICA); // todo δεν το βρηκα
+        Country c16 = new Country(192, "Ακτή Ελεφαντοστού", AFRICA);
         Country c17 = new Country(193, "Μαδαγασκάρη", AFRICA);
         Country c18 = new Country(194, "Καμερούν", AFRICA);
         Country c19 = new Country(195, "Μπουρκίνα Φάσο", AFRICA);
@@ -500,7 +500,7 @@ public class CountryContentValues {
         Country c35 = new Country(211, "Τόγκο", AFRICA);
         Country c36 = new Country(212, "Λιβύη", AFRICA);
         Country c37 = new Country(213, "Μαυριτανία", AFRICA);
-        Country c38 = new Country(214, "Κονγκό", AFRICA); //todo h auto h to 179 einai south kongo
+        Country c38 = new Country(214, "Δημοκρατία του Κονγκό", AFRICA);
         Country c39 = new Country(215, "Λιβερία", AFRICA);
         Country c40 = new Country(216, "Κεντροαφρικανική Δημοκρατία", AFRICA);
         Country c41 = new Country(217, "Ναμίμπια", AFRICA);
@@ -510,8 +510,8 @@ public class CountryContentValues {
         Country c45 = new Country(221, "Γκαμπόν", AFRICA);
         Country c46 = new Country(222, "Γουινέα Μπισσάου", AFRICA);
         Country c47 = new Country(223, "Μαυρίκιος", AFRICA);
-        Country c48 = new Country(224, "Ισημερινή Γουινέα", AFRICA); //todo den to vrika
-        Country c49 = new Country(225, "Εσουατίνι", AFRICA);// todo na to vro
+        Country c48 = new Country(224, "Ισημερινή Γουινέα", AFRICA);
+        Country c49 = new Country(225, "Εσουατίνι", AFRICA);
         Country c50 = new Country(226, "Τζιμπουτί", AFRICA);
         Country c51 = new Country(227, "Κομόρες", AFRICA);
         Country c52 = new Country(228, "Πράσινο Ακρωτήριο", AFRICA);

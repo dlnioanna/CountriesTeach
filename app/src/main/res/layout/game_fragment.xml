@@ -56,6 +56,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
+            <ImageView
+                android:id="@+id/emblemImage"
+                android:layout_width="164dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/emblem_margin_start_end"
+                android:layout_marginTop="@dimen/emblem_margin_start_end"
+                android:layout_marginEnd="@dimen/emblem_margin_start_end"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toTopOf="@+id/questionText"
+                app:layout_constraintDimensionRatio="3:4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
             <TextView
                 android:id="@+id/questionText"
                 android:layout_width="match_parent"
