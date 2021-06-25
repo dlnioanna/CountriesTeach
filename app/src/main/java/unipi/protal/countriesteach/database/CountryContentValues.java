@@ -376,7 +376,7 @@ public class CountryContentValues {
         Country c26 = new Country(147, "Γροιλανδία", AMERICA);
         Country c27 = new Country(148, "Γρενάδα", AMERICA);
         Country c28 = new Country(149, "Γουαδελούπη", AMERICA); //france anthem
-        Country c29 = new Country(150, "Γουατεμάλα", AMERICA);
+        Country c29 = new Country(150, "Γουατεμάλα", AMERICA);// den to vrika?
         Country c30 = new Country(151, "Γουιάνα", AMERICA);
         Country c31 = new Country(152, "Αϊτή", AMERICA);
         Country c32 = new Country(153, "Ονδούρα", AMERICA);
@@ -395,12 +395,12 @@ public class CountryContentValues {
         Country c45 = new Country(166, "Άγιος Μαρτίνος", AMERICA);
         Country c46 = new Country(167, "Σαιν-Πιερ και Μικελόν", AMERICA); ////france anthem
         Country c47 = new Country(168, "Άγιος Βικέντιος και Γρεναδίνες", AMERICA);
-        Country c48 = new Country(169, "Άγιος Μαρτίνος", AMERICA); //
+        Country c48 = new Country(169, "Άγιος Μαρτίνος", AMERICA); //todo na to vro
         Country c49 = new Country(170, "Σουρινάμ", AMERICA);
-        Country c50 = new Country(171, "Τρινιντάντ και Τομπάγκο", AMERICA);
-        Country c51 = new Country(172, "Τερκς και Κέικος", AMERICA); //
+        Country c50 = new Country(171, "Τρινιντάντ και Τομπάγκο", AMERICA);// todo na to vro
+        Country c51 = new Country(172, "Τερκς και Κέικος", AMERICA); //todo na to vro
         Country c52 = new Country(173, "Ηνωμένες Πολιτείες Αμερικής", AMERICA);
-        Country c53 = new Country(174, "Αμερικανικές Παρθένοι Νήσοι", AMERICA); //
+        Country c53 = new Country(174, "Αμερικανικές Παρθένοι Νήσοι", AMERICA); //todo na to vro
         Country c54 = new Country(175, "Ουρουγουάη", AMERICA);
         Country c55 = new Country(176, "Βενεζουέλα", AMERICA);
         americanCountries.add(c1);
@@ -511,7 +511,7 @@ public class CountryContentValues {
         Country c46 = new Country(222, "Γουινέα Μπισσάου", AFRICA);
         Country c47 = new Country(223, "Μαυρίκιος", AFRICA);
         Country c48 = new Country(224, "Ισημερινή Γουινέα", AFRICA); //todo den to vrika
-        Country c49 = new Country(225, "Εσουατίνι", AFRICA);
+        Country c49 = new Country(225, "Εσουατίνι", AFRICA);// todo na to vro
         Country c50 = new Country(226, "Τζιμπουτί", AFRICA);
         Country c51 = new Country(227, "Κομόρες", AFRICA);
         Country c52 = new Country(228, "Πράσινο Ακρωτήριο", AFRICA);
