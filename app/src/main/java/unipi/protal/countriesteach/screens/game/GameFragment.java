@@ -60,7 +60,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private GameViewModelFactory gameViewModelFactory;
     private GameFragmentBinding binding;
     private Country country;
-    private int countryIndex, firstAnswerIndex, secondAnswerIndex, thirdAnswerIndex, fourthAnswerIndex;
+    private int countryIndex, firstAnswerIndex, secondAnswerIndex, thirdAnswerIndex, fourthAnswerIndex, currentLevel, nextLevel;
     private int continentId, numberOfQuestion, quizScore;
     private NavController navController;
     private List<Country> allCountries;
@@ -124,23 +124,50 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel = new ViewModelProvider(this, gameViewModelFactory).get(GameViewModel.class);
         gameViewModel.getAllCountries().observe(getViewLifecycleOwner(), countries -> {
             allCountries = new ArrayList<>(gameViewModel.getAllCountries().getValue());
-            if (!(allCountries.size() < NUMBER_OF_ALL_COUNTRIES) && gameViewModel.countryIndex.getValue() != null) {
-                binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.countryIndex.getValue(), "drawable",
-                        this.getContext().getPackageName()));
-                String url = "anthem_" + gameViewModel.countryIndex.getValue();
-                Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
-                mp = MediaPlayer.create(this.getContext(), resIdSound);
-                try {
-                    if (mp.isPlaying()) {
-                        mp.stop();
-                        mp.release();
-                        mp = MediaPlayer.create(this.getContext(), resIdSound);
+            if (!(allCountries.size() < NUMBER_OF_ALL_COUNTRIES) && (gameViewModel.countryIndex.getValue() != null) && (gameViewModel.currentLevel.getValue() != null)) {
+                if (currentLevel == 1) {
+                    try {
+                        binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.countryIndex.getValue(), "drawable",
+                                this.getContext().getPackageName()));
+                        binding.flagImage.setVisibility(View.VISIBLE);
+                        binding.emblemImage.setVisibility(View.GONE);
+                        try {
+                            if (mp.isPlaying()) {
+                                mp.stop();
+                                mp.release();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    mp.start();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else if (currentLevel == 2) {
+                    try {
+                        binding.emblemImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.countryIndex.getValue() + "_1", "drawable",
+                                this.getContext().getPackageName()));
+                        binding.flagImage.setVisibility(View.GONE);
+                        binding.emblemImage.setVisibility(View.VISIBLE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (currentLevel == 3) {
+                    String url = "anthem_" + gameViewModel.countryIndex.getValue();
+                    Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
+                    mp = MediaPlayer.create(this.getContext(), resIdSound);
+                    try {
+                        if (mp.isPlaying()) {
+                            mp.stop();
+                            mp.release();
+                            mp = MediaPlayer.create(this.getContext(), resIdSound);
+                        }
+                        mp.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
+                Log.e("country is ", gameViewModel.countryIndex.getValue().toString());
+                Log.e("country is ", gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryName());
                 binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.firstAnswerIndex.getValue() - 1).getCountryName());
                 binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.secondAnswerIndex.getValue() - 1).getCountryName());
                 binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.thirdAnswerIndex.getValue() - 1).getCountryName());
@@ -158,16 +185,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.numberOfQuestion.observe(getViewLifecycleOwner(), integer -> {
             numberOfQuestion = gameViewModel.numberOfQuestion.getValue();
             if (numberOfQuestion > NUMBER_OF_QUESTIONS) {
-                gameViewModel.endQuiz(quizScore);
+                gameViewModel.endQuiz(quizScore, continentId, currentLevel);
                 navController.navigate(GameFragmentDirections.actionGameFragmentToGameEnd().setQuizId(gameViewModel.getQuizId().getValue()));
-                try {
-                    if (mp.isPlaying()) {
-                        mp.stop();
-                        mp.release();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
         gameViewModel._quizId.observe(getViewLifecycleOwner(), lng -> {
@@ -176,7 +195,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.countryIndex.observe(getViewLifecycleOwner(), integer -> {
             countryIndex = gameViewModel.countryIndex.getValue();
         });
-
+        gameViewModel.currentLevel.observe(getViewLifecycleOwner(), integer -> {
+            currentLevel = gameViewModel.currentLevel.getValue();
+        });
         gameViewModel.firstAnswerIndex.observe(getViewLifecycleOwner(), integer -> {
             firstAnswerIndex = gameViewModel.firstAnswerIndex.getValue();
         });
@@ -194,6 +215,12 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
+                try {
+                    mp.stop();
+                    mp.release();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 nextQuestion();
             }
         });
@@ -203,6 +230,14 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        try {
+            if (mp.isPlaying()) {
+                mp.stop();
+                mp.release();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (v == binding.firstAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
@@ -249,25 +284,55 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.nextCountryIndex();
         if (gameViewModel.numberOfQuestion.getValue() <= NUMBER_OF_QUESTIONS) {
             binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
-        }
-        binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryId(), "drawable",
-                getContext().getPackageName()));
-        String url = "anthem_" + gameViewModel.countryIndex.getValue();
-        Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
-        try {
-            if (mp.isPlaying()) {
-                mp.stop();
-                mp.release();
+
+            if (currentLevel == 1) {
+                try {
+                    binding.flagImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.countryIndex.getValue(), "drawable",
+                            this.getContext().getPackageName()));
+                    binding.flagImage.setVisibility(View.VISIBLE);
+                    binding.emblemImage.setVisibility(View.GONE);
+                    try {
+                        if (mp.isPlaying()) {
+                            mp.stop();
+                            mp.release();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (currentLevel == 2) {
+                try {
+                    binding.emblemImage.setImageResource(resources.getIdentifier("ic_" + gameViewModel.countryIndex.getValue() + "_1", "drawable",
+                            this.getContext().getPackageName()));
+                    binding.flagImage.setVisibility(View.GONE);
+                    binding.emblemImage.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (currentLevel == 3) {
+                String url = "anthem_" + gameViewModel.countryIndex.getValue();
+                Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
+                mp = MediaPlayer.create(this.getContext(), resIdSound);
+                try {
+                    if (mp.isPlaying()) {
+                        mp.stop();
+                        mp.release();
+                        mp = MediaPlayer.create(this.getContext(), resIdSound);
+                    }
+                    mp.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            mp = MediaPlayer.create(this.getContext(), resIdSound);
-            mp.start();
-        } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("country is ", gameViewModel.countryIndex.getValue().toString());
+            Log.e("country is ", gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryName());
+            binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(firstAnswerIndex - 1).getCountryName());
+            binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(secondAnswerIndex - 1).getCountryName());
+            binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex - 1).getCountryName());
+            binding.fourthAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex - 1).getCountryName());
         }
-        binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(firstAnswerIndex - 1).getCountryName());
-        binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(secondAnswerIndex - 1).getCountryName());
-        binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex - 1).getCountryName());
-        binding.fourthAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex - 1).getCountryName());
     }
 
     private int getnumberOfCountires(int id) {

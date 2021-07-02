@@ -32,14 +32,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline" />
+                app:layout_constraintTop_toBottomOf="@+id/answers_grid_layout" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_end="96dp" />
 
             <ImageView
                 android:id="@+id/flagImage"
@@ -54,7 +48,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintVertical_chainStyle="packed"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/emblemImage"
@@ -63,7 +58,7 @@
                 android:layout_marginStart="@dimen/emblem_margin_start_end"
                 android:layout_marginTop="@dimen/emblem_margin_start_end"
                 android:layout_marginEnd="@dimen/emblem_margin_start_end"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toTopOf="@+id/questionText"
                 app:layout_constraintDimensionRatio="3:4"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +96,7 @@
                 android:columnCount="2"
                 android:orientation="horizontal"
                 android:rowCount="2"
-                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintBottom_toTopOf="@+id/skip_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/questionText">

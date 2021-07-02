@@ -33,7 +33,7 @@ import unipi.protal.countriesteach.entities.*;
  * <p>
  * https://developer.android.com/codelabs/android-room-with-a-view#0
  */
-@androidx.room.Database(entities = {Country.class, Quiz.class, Question.class, QuestionQuizCrossRef.class}, version = 4, exportSchema = false)
+@androidx.room.Database(entities = {Country.class, Quiz.class, Question.class, QuestionQuizCrossRef.class}, version = 6, exportSchema = false)
 public abstract class Database extends RoomDatabase {
     private static volatile Database INSTANCE;
 

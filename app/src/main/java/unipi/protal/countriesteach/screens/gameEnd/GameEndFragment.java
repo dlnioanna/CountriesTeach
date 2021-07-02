@@ -1,5 +1,6 @@
 package unipi.protal.countriesteach.screens.gameEnd;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,7 @@ public class GameEndFragment extends Fragment {
     private GameEndViewModel gameEndViewModel;
     private Long quizId;
     private Integer quizScore;
+    private MediaPlayer mp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

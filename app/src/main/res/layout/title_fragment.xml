@@ -35,18 +35,18 @@
                     tools:text="Europe" />
 
                 <Button
-                    android:id="@+id/america_button"
-                    style="@style/continentButtonLayout"
-                    android:background="@drawable/button_america"
-                    android:text="@string/america_string"
-                    tools:text="America" />
-
-                <Button
                     android:id="@+id/asia_button"
                     style="@style/continentButtonLayout"
                     android:background="@drawable/button_asia"
                     android:text="@string/asia_string"
                     tools:text="Asia" />
+
+                <Button
+                    android:id="@+id/america_button"
+                    style="@style/continentButtonLayout"
+                    android:background="@drawable/button_america"
+                    android:text="@string/america_string"
+                    tools:text="America" />
 
                 <Button
                     android:id="@+id/africa_button"

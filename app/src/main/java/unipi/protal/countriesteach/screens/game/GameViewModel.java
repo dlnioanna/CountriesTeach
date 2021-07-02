@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -57,6 +58,9 @@ public class GameViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> secondAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> thirdAnswerIndex = new MutableLiveData<>();
     public MutableLiveData<Integer> fourthAnswerIndex = new MutableLiveData<>();
+    public LiveData<Integer> currentLevel;
+    public MutableLiveData<Integer> nextLevel;
+    public LiveData<Integer> quizLevel;
     public MutableLiveData<Long> _quizId = new MutableLiveData<>();
     public MutableLiveData<List<Country>> quizCountries = new MutableLiveData<>();
     private static final int NUMBER_OF_QUESTIONS = 10;
@@ -90,6 +94,7 @@ public class GameViewModel extends AndroidViewModel {
         oceanianCountries = countryDao.getOceanianCountries();
         antarticaCountries = countryDao.getAntarcticaCountries();
         allCountries = countryDao.getAllCountries();
+        currentLevel = quizDao.getQuizLevel(continentId);
         if (continentId == CountryContentValues.EUROPE) {
             numberOfCountries = CountryContentValues.NUMBER_OF_EUROPEAN_COUNTRIES;
         } else if (continentId == CountryContentValues.AMERICA) {
@@ -106,6 +111,8 @@ public class GameViewModel extends AndroidViewModel {
         List<Integer> countryIds = selectQuestions(continentId);
         quiz = new Quiz();
         quiz.setStartDateMillis(Calendar.getInstance().getTimeInMillis());
+        quiz.setContinentId(continentId);
+        quiz.setDifficultyLevel(1);
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -166,6 +173,10 @@ public class GameViewModel extends AndroidViewModel {
             _quizId.setValue(quizId);
         }
         return _quizId;
+    }
+
+    public LiveData<Integer> getCurrentLevel() {
+            return currentLevel;
     }
 
     public void nextCountryIndex() {
@@ -240,6 +251,27 @@ public class GameViewModel extends AndroidViewModel {
         return solution;
     }
 
+    public LiveData<Integer> getDifficultyLevel(int id) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        MutableLiveData<Integer> level = new MutableLiveData<>(1);
+        Future<LiveData<Integer>> solutionFuture = executorService.submit(new Callable<LiveData<Integer>>() {
+            @Override
+            public LiveData<Integer> call() throws Exception {
+                LiveData<Integer> liveDataLevel = quizDao.getQuizLevel(id);
+                return liveDataLevel;
+            }
+        });
+        try {
+            level = (MutableLiveData<Integer>) solutionFuture.get();
+            Log.e("level is ",level+"");
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        executorService.shutdown();
+        return level;
+    }
+
+
     public void saveAnswer(long countryId, boolean answer) {
         executor.execute(new Runnable() {
             @Override
@@ -250,14 +282,37 @@ public class GameViewModel extends AndroidViewModel {
         });
     }
 
-    public void endQuiz(int score) {
+    public void endQuiz(int score, int continentId, int currentLvl) {
         Long endDate = Calendar.getInstance().getTimeInMillis();
+        int nextLvl = 1;
+        if (score == NUMBER_OF_QUESTIONS) {
+            Log.e("next level is ", currentLvl + " syn 1");
+            nextLvl = getNextDifficultyLevel(currentLvl);
+            Log.e("next level is ", nextLvl + " ");
+        } else {
+            nextLvl = currentLvl;
+        }
+        int finalNextLvl = nextLvl;
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                quizDao.updateQuizEndDateAndScore(quizId, endDate, score);
+                quizDao.updateQuizEndDateAndScoreAndDifficultyLevel(quizId, endDate, score, finalNextLvl);
             }
         });
+    }
+
+    public int getNextDifficultyLevel(int level) {
+        int nextLevel = 1;
+        if (level == 1) {
+            nextLevel = 2;
+        }
+        if (level == 2) {
+            nextLevel = 3;
+        }
+        if (level == 3) {
+            nextLevel = 3;
+        }
+        return nextLevel;
     }
 }
 

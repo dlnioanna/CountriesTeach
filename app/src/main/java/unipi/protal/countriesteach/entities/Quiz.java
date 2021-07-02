@@ -17,8 +17,13 @@ public class Quiz {
     private Long endDateMillis;
     @ColumnInfo
     private Integer score;
+    @ColumnInfo
+    private Integer continentId;
+    @ColumnInfo
+    private Integer difficultyLevel;
 
-    public Quiz() { }
+    public Quiz() {
+    }
 
     public long getQuizId() {
         return quizId;
@@ -52,4 +57,19 @@ public class Quiz {
         this.score = score;
     }
 
+    public Integer getContinentId() {
+        return continentId;
+    }
+
+    public void setContinentId(Integer continentId) {
+        this.continentId = continentId;
+    }
+
+    public Integer getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(Integer difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
 }

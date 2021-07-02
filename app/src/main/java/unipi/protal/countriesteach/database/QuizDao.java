@@ -2,6 +2,7 @@ package unipi.protal.countriesteach.database;
 import unipi.protal.countriesteach.entities.*;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,6 +29,15 @@ public interface QuizDao {
     @Query("UPDATE quiz SET endDateMillis=:endDate, score=:score WHERE quizId = :id")
     void updateQuizEndDateAndScore(long id, Long endDate, int score);
 
+    @Query("UPDATE quiz SET endDateMillis=:endDate, score=:score, difficultyLevel=:difficultyLevel WHERE quizId = :id")
+    void updateQuizEndDateAndScoreAndDifficultyLevel(long id, Long endDate, int score, int difficultyLevel);
+
     @Query("SELECT score FROM quiz WHERE quizId=:quizId")
     LiveData<Integer> getQuizScore(long quizId);
+
+    @Query("SELECT COUNT(quizId) FROM quiz WHERE continentId=:continentId AND score=10")
+    LiveData<Integer> getNubmerOfCorrectQuizes(int continentId);
+
+    @Query("SELECT difficultyLevel FROM quiz WHERE continentId=:continentId ORDER BY difficultyLevel DESC LIMIT 1")
+    LiveData<Integer> getQuizLevel(int continentId);
 }
