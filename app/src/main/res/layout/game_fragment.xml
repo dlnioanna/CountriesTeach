@@ -48,8 +48,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                android:visibility="gone"/>
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <ImageView
                 android:id="@+id/emblemImage"
@@ -121,6 +120,17 @@
                     style="@style/answerButtonLayout"
                     tools:text="Cyprus" />
             </GridLayout>
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="72dp"
+                app:layout_constraintBottom_toBottomOf="@+id/emblemImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

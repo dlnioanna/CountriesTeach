@@ -1,11 +1,7 @@
 package unipi.protal.countriesteach.screens.game;
 
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,12 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -68,7 +60,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     public static final int NUMBER_OF_QUESTIONS = 10;
     private Long quizId;
     private MediaPlayer mp;
-
+    private int startTime = 0, finalTime = 0, sTime =0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -131,6 +123,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                                 this.getContext().getPackageName()));
                         binding.flagImage.setVisibility(View.VISIBLE);
                         binding.emblemImage.setVisibility(View.GONE);
+                        binding.seekBar.setVisibility(View.GONE);
                         try {
                             if (mp.isPlaying()) {
                                 mp.stop();
@@ -148,13 +141,23 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                                 this.getContext().getPackageName()));
                         binding.flagImage.setVisibility(View.GONE);
                         binding.emblemImage.setVisibility(View.VISIBLE);
+                        binding.seekBar.setVisibility(View.GONE);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else if (currentLevel == 3) {
+                    binding.flagImage.setVisibility(View.GONE);
+                    binding.emblemImage.setVisibility(View.GONE);
+                    binding.seekBar.setVisibility(View.VISIBLE);
+                    binding.seekBar.setClickable(false);
                     String url = "anthem_" + gameViewModel.countryIndex.getValue();
                     Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
                     mp = MediaPlayer.create(this.getContext(), resIdSound);
+                    finalTime = mp.getDuration();
+//                    startTime = mp.getCurrentPosition();
+                    sTime = mp.getCurrentPosition();
+                    binding.seekBar.setMax((int) finalTime);
+                    binding.seekBar.setProgress(sTime);
                     try {
                         if (mp.isPlaying()) {
                             mp.stop();
