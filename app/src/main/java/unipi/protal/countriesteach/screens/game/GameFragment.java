@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -153,11 +154,26 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                     String url = "anthem_" + gameViewModel.countryIndex.getValue();
                     Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
                     mp = MediaPlayer.create(this.getContext(), resIdSound);
-                    finalTime = mp.getDuration();
-//                    startTime = mp.getCurrentPosition();
-                    sTime = mp.getCurrentPosition();
-                    binding.seekBar.setMax((int) finalTime);
-                    binding.seekBar.setProgress(sTime);
+                    finalTime = mp.getDuration()/1000;
+                    sTime = mp.getCurrentPosition()/1000;
+                    binding.seekBar.setMax(finalTime);
+                     binding.seekBar.setProgress(sTime,true);
+                    binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
+                        }
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
+                        }
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                            if(mp!=null && fromUser){
+                                mp.seekTo(progress * 1000);
+                                Log.e("progress", String.valueOf(progress));
+                            }
+                        }
+                    });
                     try {
                         if (mp.isPlaying()) {
                             mp.stop();

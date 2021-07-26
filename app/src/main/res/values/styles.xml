@@ -46,4 +46,8 @@
         <item name="android:layout_marginTop">@dimen/welcome_text_margin</item>
         <item name="android:layout_marginBottom">@dimen/welcome_text_margin</item>
     </style>
+    <style name="SeekBarColor"
+        parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">@color/start_new</item>
+    </style>
 </resources>

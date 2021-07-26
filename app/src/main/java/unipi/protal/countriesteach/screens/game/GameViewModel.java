@@ -310,7 +310,10 @@ public class GameViewModel extends AndroidViewModel {
             nextLevel = 3;
         }
         if (level == 3) {
-            nextLevel = 3;
+            nextLevel = 4;
+        }
+        if(nextLevel ==4){
+            nextLevel=4;
         }
         return nextLevel;
     }

@@ -19,7 +19,7 @@ import static unipi.protal.countriesteach.database.CountryContentValues.EUROPE;
 import static unipi.protal.countriesteach.database.CountryContentValues.OCEANIA;
 
 public class TitleViewModel extends AndroidViewModel {
-    private LiveData<Integer> europeanDifficultyLevel, asianDifficultyLevel,americanDifficultyLevel,africanDifficultyLevel,oceanianDifficultyLevel;
+    public LiveData<Integer> europeanDifficultyLevel, asianDifficultyLevel,americanDifficultyLevel,africanDifficultyLevel,oceanianDifficultyLevel;
     private QuizDao quizDao;
     public TitleViewModel(@NonNull Application application) {
         super(application);
@@ -30,5 +30,9 @@ public class TitleViewModel extends AndroidViewModel {
         americanDifficultyLevel=quizDao.getQuizLevel(AMERICA);
         africanDifficultyLevel=quizDao.getQuizLevel(AFRICA);
         oceanianDifficultyLevel=quizDao.getQuizLevel(OCEANIA);
+    }
+
+    public LiveData<Integer> getEuropeanDifficultyLevel() {
+        return europeanDifficultyLevel;
     }
 }

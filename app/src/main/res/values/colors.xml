@@ -18,11 +18,11 @@
     <color name="exit">#DAD5183D</color>
     <color name="start_new">#1C7CD6</color>
 
-    <color name="color_america">#42a5f5</color>
-    <color name="color_america_dark">#0077c2</color>
+    <color name="color_america">#29b6f6</color>
+    <color name="color_america_dark">#0086c3</color>
 
-    <color name="color_asia">#29b6f6</color>
-    <color name="color_asia_dark">#0086c3</color>
+    <color name="color_asia">#42a5f5</color>
+    <color name="color_asia_dark">#0077c2</color>
 
     <color name="color_africa">#26c6da</color>
     <color name="color_africa_dark">#0095a8</color>
@@ -32,6 +32,6 @@
 
     <color name="color_world">#26a69a</color>
     <color name="color_wolrd_dark">#00766c</color>
-<!--    <color name="color_world">#009688</color>-->
-<!--    <color name="color_wolrd_dark">#00675b</color>-->
+    <!--    <color name="color_world">#009688</color>-->
+    <!--    <color name="color_wolrd_dark">#00675b</color>-->
 </resources>
