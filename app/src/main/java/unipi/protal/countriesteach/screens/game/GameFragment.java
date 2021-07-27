@@ -61,7 +61,9 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     public static final int NUMBER_OF_QUESTIONS = 10;
     private Long quizId;
     private MediaPlayer mp;
-    private int startTime = 0, finalTime = 0, sTime =0;
+    private int startTime = 0, finalTime = 0, sTime = 0;
+    private String correctAnswer = "";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -154,21 +156,23 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                     String url = "anthem_" + gameViewModel.countryIndex.getValue();
                     Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
                     mp = MediaPlayer.create(this.getContext(), resIdSound);
-                    finalTime = mp.getDuration()/1000;
-                    sTime = mp.getCurrentPosition()/1000;
+                    finalTime = mp.getDuration() / 1000;
+                    sTime = mp.getCurrentPosition() / 1000;
                     binding.seekBar.setMax(finalTime);
-                     binding.seekBar.setProgress(sTime,true);
+                    binding.seekBar.setProgress(sTime, true);
                     binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                         @Override
                         public void onStopTrackingTouch(SeekBar seekBar) {
                         }
+
                         @Override
                         public void onStartTrackingTouch(SeekBar seekBar) {
                         }
+
                         @Override
                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                            if(mp!=null && fromUser){
+                            if (mp != null && fromUser) {
                                 mp.seekTo(progress * 1000);
                                 Log.e("progress", String.valueOf(progress));
                             }
@@ -187,14 +191,15 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 }
                 Log.e("country is ", gameViewModel.countryIndex.getValue().toString());
                 Log.e("country is ", gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryName());
+                correctAnswer = gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryName();
                 binding.firstAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.firstAnswerIndex.getValue() - 1).getCountryName());
                 binding.secondAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.secondAnswerIndex.getValue() - 1).getCountryName());
                 binding.thirdAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.thirdAnswerIndex.getValue() - 1).getCountryName());
                 binding.fourthAnswerRadioButton.setText(gameViewModel.getAllCountries().getValue().get(gameViewModel.fourthAnswerIndex.getValue() - 1).getCountryName());
-                binding.firstAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.secondAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.thirdAnswerRadioButton.setOnClickListener(this::onClick);
-                binding.fourthAnswerRadioButton.setOnClickListener(this::onClick);
+                binding.firstAnswerRadioButton.setOnClickListener(this);
+                binding.secondAnswerRadioButton.setOnClickListener(this);
+                binding.thirdAnswerRadioButton.setOnClickListener(this);
+                binding.fourthAnswerRadioButton.setOnClickListener(this);
             }
         });
         gameViewModel.getQuizQuestions().observe(getViewLifecycleOwner(), questions -> {
@@ -259,38 +264,38 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         }
         if (v == binding.firstAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
-                Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
-                Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
             }
         } else if (v == binding.secondAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(secondAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
-                Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
-                Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
             }
         } else if (v == binding.thirdAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
-                Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
-                Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
             }
         } else if (v == binding.fourthAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
-                Toast.makeText(getContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
             } else {
-                Toast.makeText(getContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
             }
         }
@@ -301,6 +306,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameViewModel.numberOfQuestion.setValue(numberOfQuestion + 1);
         Resources resources = this.getContext().getResources();
         gameViewModel.nextCountryIndex();
+        correctAnswer = gameViewModel.getAllCountries().getValue().get(countryIndex - 1).getCountryName();
         if (gameViewModel.numberOfQuestion.getValue() <= NUMBER_OF_QUESTIONS) {
             binding.questionText.setText(gameViewModel.numberOfQuestion.getValue() + getString(R.string.number_of_question));
 

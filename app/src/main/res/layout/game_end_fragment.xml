@@ -20,7 +20,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.281"
+            app:layout_constraintVertical_bias="0.3"
+            tools:text="@string/user_score" />
+        <TextView
+            android:id="@+id/game_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_time"
+            android:textSize="@dimen/answer_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
             tools:text="@string/user_score" />
 
         <androidx.constraintlayout.widget.Guideline

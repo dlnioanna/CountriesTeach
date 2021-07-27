@@ -35,6 +35,12 @@ public interface QuizDao {
     @Query("SELECT score FROM quiz WHERE quizId=:quizId")
     LiveData<Integer> getQuizScore(long quizId);
 
+    @Query("SELECT startDateMillis FROM quiz WHERE quizId=:quizId")
+    LiveData<Long> getQuizStartTime(long quizId);
+
+    @Query("SELECT endDateMillis FROM quiz WHERE quizId=:quizId")
+    LiveData<Long> getQuizEndTime(long quizId);
+
     @Query("SELECT COUNT(quizId) FROM quiz WHERE continentId=:continentId AND score=10")
     LiveData<Integer> getNubmerOfCorrectQuizes(int continentId);
 

@@ -28,7 +28,7 @@ public class GameEndFragment extends Fragment {
     private GameEndFragmentBinding binding;
     private GameEndViewModelFactory gameEndViewModelFactory;
     private GameEndViewModel gameEndViewModel;
-    private Long quizId;
+    private Long quizId, startTime, endTime;
     private Integer quizScore;
     private MediaPlayer mp;
 
@@ -47,6 +47,18 @@ public class GameEndFragment extends Fragment {
             quizScore = gameEndViewModel.getQuizScore().getValue();
             binding.gameScore.setText(getString(R.string.user_score)+" "+quizScore);
         });
+        gameEndViewModel.getQuizStartTime().observe(getViewLifecycleOwner(), score -> {
+            startTime = gameEndViewModel.getQuizStartTime().getValue();
+            if(startTime!=null && endTime!=null){
+                binding.gameDuration.setText(getString(R.string.quiz_time)+" "+getDuration(startTime,endTime));
+            }
+        });
+        gameEndViewModel.getQuizEndTime().observe(getViewLifecycleOwner(), score -> {
+            endTime = gameEndViewModel.getQuizEndTime().getValue();
+            if(startTime!=null && endTime!=null){
+                binding.gameDuration.setText(getString(R.string.quiz_time)+" "+getDuration(startTime,endTime));
+            }
+        });
         binding.startNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +73,18 @@ public class GameEndFragment extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+
+    private String getDuration(Long start, Long end){
+        String result="";
+        Long diff = (end-start)/1000;
+        if(diff>=60){
+            result = String.valueOf(diff/60)+" min ";
+        }else {
+            result = String.valueOf(diff)+" sec ";
+        }
+        return result;
     }
 
 }
