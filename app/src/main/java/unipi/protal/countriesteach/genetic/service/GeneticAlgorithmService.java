@@ -114,6 +114,7 @@ public class GeneticAlgorithmService {
     }
 
     // Roulette wheel selection (two parents)
+    // επιλέγω τους 2 καλυτερους γονείς απο τον πληθυσμό
     private void select() {
         Map<Chromosome, Float> rouletteMap = new HashMap<>();
         int totalFitness = population.getFitness();
@@ -161,7 +162,7 @@ public class GeneticAlgorithmService {
         }
     }
 
-    // Single-point crossover
+    // Single-point crossover  παιρνει τυχαια κάποιες ερωτησεις απο τον εναν και απο τον αλλον γονεα
     private void crossover() {
         int crossoverPoint = NumberUtils.getRandom(0, Chromosome.GENES_SIZE - 1);
 
@@ -202,6 +203,8 @@ public class GeneticAlgorithmService {
         }
     }
 
+    // μεταλλαξη : επιλέγω μία τυχαία ερωτηση από κάθε παιδί και την αντικαθιστώ με μία άλλη τυχαία
+    // ωστε να κανουμε αναζήτηση σε όλο το χωρο και όχι μονο σε
     private void mutate() {
         Chromosome[] offsprings = {firstOffspring, secondOffspring};
 
@@ -222,6 +225,7 @@ public class GeneticAlgorithmService {
             }
         }
     }
+
 
     private void replace() {
         population.getChromosomes().set(population.getChromosomes().size() - 1, firstOffspring);

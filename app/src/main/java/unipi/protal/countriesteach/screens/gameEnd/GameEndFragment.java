@@ -45,7 +45,7 @@ public class GameEndFragment extends Fragment {
 
         gameEndViewModel.getQuizScore().observe(getViewLifecycleOwner(), score -> {
             quizScore = gameEndViewModel.getQuizScore().getValue();
-            binding.gameScore.setText(getString(R.string.user_score)+" "+quizScore);
+            binding.gameScore.setText(getString(R.string.user_score)+" "+quizScore+"/10");
         });
         gameEndViewModel.getQuizStartTime().observe(getViewLifecycleOwner(), score -> {
             startTime = gameEndViewModel.getQuizStartTime().getValue();

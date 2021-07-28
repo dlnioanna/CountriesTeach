@@ -31,8 +31,4 @@ public class TitleViewModel extends AndroidViewModel {
         africanDifficultyLevel=quizDao.getQuizLevel(AFRICA);
         oceanianDifficultyLevel=quizDao.getQuizLevel(OCEANIA);
     }
-
-    public LiveData<Integer> getEuropeanDifficultyLevel() {
-        return europeanDifficultyLevel;
-    }
 }

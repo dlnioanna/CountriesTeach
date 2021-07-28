@@ -12,11 +12,17 @@ public class Question {
     @ColumnInfo
     private long countryId;
     @ColumnInfo
-    private Integer position;
-    @ColumnInfo
     private Boolean answered;
     @ColumnInfo
-    private Boolean hint;
+    private long selectedAnswer;
+
+    public long getSelectedAnswer() {
+        return selectedAnswer;
+    }
+
+    public void setSelectedAnswer(long selectedAnswer) {
+        this.selectedAnswer = selectedAnswer;
+    }
 
     public Question(long countryId) {
         this.countryId = countryId;
@@ -38,14 +44,6 @@ public class Question {
         this.countryId = countryId;
     }
 
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
     public Boolean getAnswered() {
         return answered;
     }
@@ -54,11 +52,5 @@ public class Question {
         this.answered = answered;
     }
 
-    public Boolean getHint() {
-        return hint;
-    }
 
-    public void setHint(Boolean hint) {
-        this.hint = hint;
-    }
 }

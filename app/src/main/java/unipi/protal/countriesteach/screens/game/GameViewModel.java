@@ -241,7 +241,13 @@ public class GameViewModel extends AndroidViewModel {
         setIndex(id);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         List<Integer> solution = null;
-        Future<List<Integer>> solutionFuture = executorService.submit(new SolutionCallable(id, startIndex, endIndex, questionDao, countryDao));
+        int difficulty=1;
+        try{
+            difficulty=currentLevel.getValue();
+        }catch (NullPointerException nullPointerException){
+            nullPointerException.printStackTrace();
+        }
+        Future<List<Integer>> solutionFuture = executorService.submit(new SolutionCallable(id, startIndex, endIndex, questionDao,quizDao,questionQuizCrossRefDao, countryDao, difficulty));
         try {
             solution = solutionFuture.get();
         } catch (ExecutionException | InterruptedException e) {
@@ -272,12 +278,12 @@ public class GameViewModel extends AndroidViewModel {
     }
 
 
-    public void saveAnswer(long countryId, boolean answer) {
+    public void saveAnswer(long countryId, boolean answer,long selectedAnswer) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 List<Long> qq = questionQuizCrossRefDao.selectQQ(quizId);
-                questionDao.updateQuizAnswer(qq, countryId, answer);
+                questionDao.updateQuizAnswer(qq, countryId, answer,selectedAnswer);
             }
         });
     }

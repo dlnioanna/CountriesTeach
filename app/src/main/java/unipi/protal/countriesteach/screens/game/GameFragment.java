@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -238,7 +239,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false,0);
                 try {
                     mp.stop();
                     mp.release();
@@ -266,40 +267,41 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             if (gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true,gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId());
             } else {
                 Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false,gameViewModel.getAllCountries().getValue().get(firstAnswerIndex).getCountryId());
             }
         } else if (v == binding.secondAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(secondAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true,gameViewModel.getAllCountries().getValue().get(secondAnswerIndex).getCountryId() );
             } else {
                 Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false,gameViewModel.getAllCountries().getValue().get(secondAnswerIndex).getCountryId() );
             }
         } else if (v == binding.thirdAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true,gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex).getCountryId());
             } else {
                 Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false,gameViewModel.getAllCountries().getValue().get(thirdAnswerIndex).getCountryId());
             }
         } else if (v == binding.fourthAnswerRadioButton) {
             if (gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId() == gameViewModel.getAllCountries().getValue().get(countryIndex).getCountryId()) {
                 Toast.makeText(getContext(), "Σωστό!", Toast.LENGTH_SHORT).show();
                 quizScore++;
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), true,gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId() );
             } else {
                 Toast.makeText(getContext(), "Λάθος. Η σωστή απάντηση είναι " +correctAnswer, Toast.LENGTH_SHORT).show();
-                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false);
+                gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false,gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId() );
             }
         }
-        nextQuestion();
+        Handler handler = new Handler();
+        handler.postDelayed(this::nextQuestion, 1500);
     }
 
     private void nextQuestion() {

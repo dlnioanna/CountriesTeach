@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.List;
@@ -33,7 +34,7 @@ import unipi.protal.countriesteach.entities.*;
  * <p>
  * https://developer.android.com/codelabs/android-room-with-a-view#0
  */
-@androidx.room.Database(entities = {Country.class, Quiz.class, Question.class, QuestionQuizCrossRef.class}, version = 6, exportSchema = false)
+@androidx.room.Database(entities = {Country.class, Quiz.class, Question.class, QuestionQuizCrossRef.class}, version = 7, exportSchema = false)
 public abstract class Database extends RoomDatabase {
     private static volatile Database INSTANCE;
 
@@ -56,6 +57,7 @@ public abstract class Database extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             Database.class, "protal_database")
                             .addCallback(roomDatabaseCallback)
+                            .addMigrations(MIGRATION_6_7)
                             .build();
                 }
             }
@@ -63,7 +65,13 @@ public abstract class Database extends RoomDatabase {
         return INSTANCE;
     }
 
-
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE Question "
+                    + " ADD COLUMN selectedAnswer LONG");
+        }
+    };
     /**
      * Override the onCreate method to populate the database.
      * For this sample, we clear the database every time it is created.

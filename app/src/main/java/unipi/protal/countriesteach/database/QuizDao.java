@@ -46,4 +46,7 @@ public interface QuizDao {
 
     @Query("SELECT difficultyLevel FROM quiz WHERE continentId=:continentId ORDER BY difficultyLevel DESC LIMIT 1")
     LiveData<Integer> getQuizLevel(int continentId);
+
+    @Query("SELECT quizId FROM quiz WHERE continentId=:continentId AND difficultyLevel=:difficultyLevel")
+    List<Long> getQuizWithDifficulty(int continentId, int difficultyLevel);
 }

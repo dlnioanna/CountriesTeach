@@ -23,10 +23,10 @@ public interface QuestionDao {
     @Query("UPDATE question SET answered=:answer WHERE questionId = :id")
     void updateQuizEndDate(long id, boolean answer);
 
-    @Query("UPDATE question SET answered=:answer WHERE questionId IN (:listOfQuestions) AND countryId=:countryId")
-    void updateQuizAnswer(List<Long> listOfQuestions, long countryId, boolean answer);
+    @Query("UPDATE question SET answered=:answer, selectedAnswer=:selectedAnswer WHERE questionId IN (:listOfQuestions) AND countryId=:countryId")
+    void updateQuizAnswer(List<Long> listOfQuestions, long countryId, boolean answer, long selectedAnswer);
 
-    @Query("SELECT COUNT(*) FROM question WHERE countryId=:countryId")
+    @Query("SELECT COUNT(*) FROM question WHERE countryId=:countryId ")
     Integer countInstancesOfCountry(long countryId);
 
     @Query("SELECT COUNT(*) FROM question WHERE countryId=:countryId AND answered=0 OR answered=NULL")

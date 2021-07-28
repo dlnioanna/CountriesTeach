@@ -1,5 +1,6 @@
 package unipi.protal.countriesteach.callables;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -13,6 +14,8 @@ import java.util.concurrent.Future;
 import unipi.protal.countriesteach.database.CountryContentValues;
 import unipi.protal.countriesteach.database.CountryDao;
 import unipi.protal.countriesteach.database.QuestionDao;
+import unipi.protal.countriesteach.database.QuestionQuizCrossRefDao;
+import unipi.protal.countriesteach.database.QuizDao;
 import unipi.protal.countriesteach.entities.Country;
 import unipi.protal.countriesteach.genetic.exceptions.GeneticAlgorithmException;
 import unipi.protal.countriesteach.genetic.service.GeneticAlgorithmService;
@@ -44,15 +47,20 @@ public class SolutionCallable implements Callable<List<Integer>> {
     private int startIndex;
     private int endIndex;
     private QuestionDao questionDao;
+    private QuizDao quizDao;
+    private QuestionQuizCrossRefDao questionQuizCrossRefDao;
     private CountryDao countryDao;
+    private int difficultyLevel;
 
-    public SolutionCallable(int continentId, int startIndex, int endIndex, QuestionDao questionDao, CountryDao countryDao) {
-
+    public SolutionCallable(int continentId, int startIndex, int endIndex, QuestionDao questionDao, QuizDao quizDao, QuestionQuizCrossRefDao questionQuizCrossRefDao, CountryDao countryDao, int difficultyLevel) {
         this.continentId = continentId;
         this.startIndex = startIndex;
         this.endIndex = endIndex;
         this.questionDao = questionDao;
+        this.quizDao = quizDao;
+        this.questionQuizCrossRefDao = questionQuizCrossRefDao;
         this.countryDao = countryDao;
+        this.difficultyLevel = difficultyLevel;
     }
 
     @Override
@@ -60,6 +68,7 @@ public class SolutionCallable implements Callable<List<Integer>> {
         List<Integer[]> rows = new ArrayList<>();
         List<Country> countries = new ArrayList<>();
         List<Long> countriesId = new ArrayList<>();
+        List<Long> quizIdsWithDifficulty = new ArrayList<>();
         int totalNumberOfQuestions = 0;
         if (continentId == EUROPE) {
             totalNumberOfQuestions = questionDao.countTotalNumberOfQuestions(EUROPEAN_COUNTRY_IDS);
@@ -79,11 +88,19 @@ public class SolutionCallable implements Callable<List<Integer>> {
         if (num == 0) {
             num = new Double(1);
         }
-
+        //ψαχνω τα κουιζ στο επιπεδο δυσκολίας του χρήστη και μετά βρίσκω πόσες
+        // φορές έχει γίνει ερωτηση με τη συγκεκριμένη χωρα και πόσες φορε εχει απαντηθεί λάθος
+        quizIdsWithDifficulty = quizDao.getQuizWithDifficulty(continentId,difficultyLevel);
         for (int i = startIndex; i <= endIndex; i++) {
             Integer numberOfInstances = 0, numberOfErrors = 0;
-            numberOfInstances = questionDao.countInstancesOfCountry(i);
-            numberOfErrors = questionDao.countErrorsOfCountry(i);
+
+            //numberOfInstances = questionDao.countInstancesOfCountry(i);
+            numberOfInstances = questionQuizCrossRefDao.selectCountryInstances(i,difficultyLevel);
+
+            //numberOfErrors = questionDao.countErrorsOfCountry(i);
+            numberOfErrors = questionQuizCrossRefDao.selectWrongAnsweredQuestionsOfCountry(i,difficultyLevel);
+
+
             int numberOfInstancesPercentage = (int) ((numberOfInstances / num) * 100);
             int numberOfErrorsPercentage = (int) ((numberOfErrors / num) * 100);
             // id xoras, pososto emfanishs , pososto lathon , pososto hints

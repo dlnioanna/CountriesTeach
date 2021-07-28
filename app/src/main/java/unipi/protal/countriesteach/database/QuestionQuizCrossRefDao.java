@@ -26,7 +26,13 @@ public interface QuestionQuizCrossRefDao {
     @Query("SELECT * FROM quiz")
     List<Quiz> getQuizesWithQuestion();
 
-
     @Query("SELECT questionId FROM question_quiz_cross_ref WHERE quizId=:quizId")
     List<Long> selectQQ(long quizId);
+
+    @Query("SELECT COUNT(*) FROM question_quiz_cross_ref,question,quiz WHERE question.countryId=:countryId AND quiz.difficultyLevel=:difficultyLevel AND answered=0 OR answered=NULL")
+    Integer selectWrongAnsweredQuestionsOfCountry(long countryId, int difficultyLevel);
+
+    @Query("SELECT COUNT(*) FROM question_quiz_cross_ref,question,quiz WHERE question.countryId=:countryId AND quiz.difficultyLevel=:difficultyLevel")
+    Integer selectCountryInstances(long countryId, int difficultyLevel);
+
 }
