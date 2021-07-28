@@ -204,7 +204,7 @@ public class GeneticAlgorithmService {
     }
 
     // μεταλλαξη : επιλέγω μία τυχαία ερωτηση από κάθε παιδί και την αντικαθιστώ με μία άλλη τυχαία
-    // ωστε να κανουμε αναζήτηση σε όλο το χωρο και όχι μονο σε
+    // ωστε να κανουμε αναζήτηση σε όλο το χωρο
     private void mutate() {
         Chromosome[] offsprings = {firstOffspring, secondOffspring};
 
