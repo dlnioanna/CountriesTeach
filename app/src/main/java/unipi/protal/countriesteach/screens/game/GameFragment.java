@@ -59,6 +59,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     private MediaPlayer mp;
     private int startTime = 0, finalTime = 0, sTime = 0;
     private String correctAnswer = "";
+    private Handler progressHandler;
+    private  Runnable update;
 
     @Nullable
     @Override
@@ -71,6 +73,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         Resources resources = this.getContext().getResources();
         continentId = GameFragmentArgs.fromBundle(getArguments()).getContinentId();
+        progressHandler = new Handler();
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.button_next);
         quizScore = 0;
         if (continentId == EUROPE) {
@@ -156,6 +159,17 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                     sTime = mp.getCurrentPosition() / 1000;
                     binding.seekBar.setMax(finalTime);
                     binding.seekBar.setProgress(sTime, true);
+                    update = new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mp != null) {
+                                binding.seekBar.setMax(mp.getDuration());
+                                binding.seekBar.setProgress(mp.getCurrentPosition());
+                            }
+                            progressHandler.postDelayed(this, 500);
+                        }
+                    };
+                    progressHandler.postDelayed(update, 500);
                     binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                         @Override
                         public void onStopTrackingTouch(SeekBar seekBar) {
@@ -169,8 +183,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                             if (mp != null && fromUser) {
-                                mp.seekTo(progress * 1000);
-                                Log.e("progress", String.valueOf(progress));
+                                mp.seekTo(progress);
                             }
                         }
                     });
@@ -235,6 +248,10 @@ public class GameFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false, 0);
+                binding.seekBar.setMax(0);
+                binding.seekBar.setProgress(0);
+                progressHandler.removeCallbacks(update);
+                progressHandler.removeCallbacksAndMessages(null);
                 try {
                     mp.stop();
                     mp.release();
@@ -295,6 +312,8 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 gameViewModel.saveAnswer(gameViewModel.countryIndex.getValue(), false, gameViewModel.getAllCountries().getValue().get(fourthAnswerIndex).getCountryId());
             }
         }
+        progressHandler.removeCallbacks(update);
+        progressHandler.removeCallbacksAndMessages(null);
         Handler handler = new Handler();
         handler.postDelayed(this::nextQuestion, 1500);
     }
@@ -337,6 +356,38 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 String url = "anthem_" + gameViewModel.countryIndex.getValue();
                 Integer resIdSound = resources.getIdentifier(url, "raw", this.getContext().getPackageName());
                 mp = MediaPlayer.create(this.getContext(), resIdSound);
+                finalTime = mp.getDuration() / 1000;
+                sTime = mp.getCurrentPosition() / 1000;
+                binding.seekBar.setMax(finalTime);
+                binding.seekBar.setProgress(sTime, true);
+                Runnable update = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mp != null) {
+                            binding.seekBar.setMax(mp.getDuration());
+                            binding.seekBar.setProgress(mp.getCurrentPosition());
+                        }
+                        progressHandler.postDelayed(this, 500);
+                    }
+                };
+                progressHandler.postDelayed(update, 500);
+                binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        if (mp != null && fromUser) {
+                            mp.seekTo(progress);
+                        }
+                    }
+                });
                 try {
                     if (mp.isPlaying()) {
                         mp.stop();
